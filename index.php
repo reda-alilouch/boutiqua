@@ -91,25 +91,17 @@
 
           <!-- Main Menu -->
           <div class="flex-1 flex items-center justify-center">
-            <div id="mainMenu" class="fixed inset-0 bg-white transform translate-x-full transition-transform duration-300 ease-in-out lg:relative lg:inset-auto lg:transform-none lg:translate-x-0 lg:flex lg:items-center">
-              <nav class="h-full py-5 px-6 lg:p-0 lg:flex lg:items-center">
-                <ul class="flex flex-col space-y-4 lg:flex lg:flex-row lg:items-center lg:space-y-0 lg:gap-12">
-                  <li>
-                    <a href="index.php" class="block text-gray-700 hover:text-black">Home</a>
-                  </li>
-                  <li>
-                    <a href="#men" class="block text-gray-700 hover:text-black">Men's</a>
-                  </li>
-                  <li>
-                    <a href="#women" class="block text-gray-700 hover:text-black">Women's</a>
-                  </li>
-                  <li>
-                    <a href="#kids" class="block text-gray-700 hover:text-black">Kid's</a>
-                  </li>
-                  <li class="relative group">
+            <nav id="mainMenu" class="fixed inset-0 bg-white transform translate-x-full transition-transform duration-300 ease-in-out lg:relative lg:inset-auto lg:transform-none lg:translate-x-0 lg:flex lg:items-center">
+              <div class="h-full py-5 px-6 lg:p-0">
+                <div class="flex flex-col lg:flex-row lg:items-center">
+                  <a href="index.php" class="text-gray-700 hover:text-black px-5">Home</a>
+                  <a href="#men" class="text-gray-700 hover:text-black px-5">Men's</a>
+                  <a href="#women" class="text-gray-700 hover:text-black px-5">Women's</a>
+                  <a href="#kids" class="text-gray-700 hover:text-black px-5">Kid's</a>
+                  <div class="relative group px-5">
                     <button 
                       id="pagesDropdownButton"
-                      class="flex items-center w-full text-gray-700 hover:text-black"
+                      class="flex items-center text-gray-700 hover:text-black"
                     >
                       <span>Pages</span>
                       <svg class="w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,10 +114,10 @@
                       <a href="single-product.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Single Product</a>
                       <a href="contact.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Contact Us</a>
                     </div>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
           </div>
 
           <!-- Icons -->
