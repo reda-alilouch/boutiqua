@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Hexashop - Product Detail Page</title>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/tailwind.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/owl-carousel.css" />
+    <link rel="stylesheet" href="assets/css/lightbox.css" />
+    <!--
+
+TemplateMo 571 Hexashop
+
+https://templatemo.com/tm-571-hexashop
+
+-->
+  </head>
+
+  <body class="font-poppins">
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader" class="fixed inset-0 z-50 bg-white flex items-center justify-center">
+      <div class="jumper flex space-x-2">
+        <div class="w-3 h-3 bg-accent rounded-full animate-bounce"></div>
+        <div class="w-3 h-3 bg-accent rounded-full animate-bounce delay-75"></div>
+        <div class="w-3 h-3 bg-accent rounded-full animate-bounce delay-150"></div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+      <div class="container mx-auto px-4">
+        <nav class="flex items-center justify-between h-20">
+          <!-- Logo -->
+          <a href="index.html" class="flex-shrink-0">
+            <img src="assets/images/logo.png" class="h-12" alt="Hexashop Logo" />
+          </a>
+
+          <!-- Desktop Menu -->
+          <ul class="hidden lg:flex items-center space-x-8">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="index.html#men" class="nav-link">Men's</a></li>
+            <li><a href="index.html#women" class="nav-link">Women's</a></li>
+            <li><a href="index.html#kids" class="nav-link">Kid's</a></li>
+            <li class="relative group">
+              <a href="javascript:;" class="nav-link active">Pages</a>
+              <ul class="hidden group-hover:block absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 w-48">
+                <li><a href="about.html" class="block px-4 py-2 hover:bg-gray-100">About Us</a></li>
+                <li><a href="products.html" class="block px-4 py-2 hover:bg-gray-100">Products</a></li>
+                <li><a href="single-product.html" class="block px-4 py-2 hover:bg-gray-100">Single Product</a></li>
+                <li><a href="contact.html" class="block px-4 py-2 hover:bg-gray-100">Contact Us</a></li>
+              </ul>
+            </li>
+            <li><a href="index.html#explore" class="nav-link">Explore</a></li>
+          </ul>
+
+          <!-- Mobile Menu Button -->
+          <button class="lg:hidden menu-trigger p-2 rounded-lg hover:bg-gray-100">
+            <span class="sr-only">Menu</span>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden py-4 space-y-2">
+          <a href="index.html" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Home</a>
+          <a href="index.html#men" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Men's</a>
+          <a href="index.html#women" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Women's</a>
+          <a href="index.html#kids" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Kid's</a>
+          <div class="relative" x-data="{ open: false }">
+            <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 rounded-lg">
+              <span>Pages</span>
+              <svg class="w-4 h-4" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div x-show="open" class="pl-4 space-y-2 mt-2">
+              <a href="about.html" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">About Us</a>
+              <a href="products.html" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Products</a>
+              <a href="single-product.html" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Single Product</a>
+              <a href="contact.html" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Contact Us</a>
+            </div>
+          </div>
+          <a href="index.html#explore" class="block px-4 py-2 hover:bg-gray-100 rounded-lg">Explore</a>
+        </div>
+      </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="bg-gray-50 py-20" id="top">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Single Product Page</h2>
+          <p class="text-xl text-gray-600">View our product details</p>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- ***** Product Area Starts ***** -->
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Product Images -->
+          <div class="space-y-6">
+            <!-- Main Image -->
+            <div class="relative aspect-w-4 aspect-h-3 rounded-lg overflow-hidden">
+              <img id="main-image" src="assets/images/single-product-01.jpg" alt="Product" class="w-full h-full object-cover" />
+            </div>
+            <!-- Thumbnail Images -->
+            <div class="grid grid-cols-4 gap-4">
+              <div class="cursor-pointer rounded-lg overflow-hidden hover:opacity-75 transition-opacity">
+                <img src="assets/images/single-product-01.jpg" alt="Thumbnail" class="w-full h-full object-cover" onclick="changeMainImage('assets/images/single-product-01.jpg')" />
+              </div>
+              <div class="cursor-pointer rounded-lg overflow-hidden hover:opacity-75 transition-opacity">
+                <img src="assets/images/single-product-02.jpg" alt="Thumbnail" class="w-full h-full object-cover" onclick="changeMainImage('assets/images/single-product-02.jpg')" />
+              </div>
+              <div class="cursor-pointer rounded-lg overflow-hidden hover:opacity-75 transition-opacity">
+                <img src="assets/images/single-product-03.jpg" alt="Thumbnail" class="w-full h-full object-cover" onclick="changeMainImage('assets/images/single-product-03.jpg')" />
+              </div>
+              <div class="cursor-pointer rounded-lg overflow-hidden hover:opacity-75 transition-opacity">
+                <img src="assets/images/single-product-04.jpg" alt="Thumbnail" class="w-full h-full object-cover" onclick="changeMainImage('assets/images/single-product-04.jpg')" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="space-y-8">
+            <div>
+              <h1 class="text-3xl font-bold text-gray-900 mb-4">New Green Jacket</h1>
+              <div class="flex items-center space-x-4 mb-4">
+                <span class="text-2xl font-semibold text-accent">$75.00</span>
+                <span class="text-lg text-gray-500 line-through">$90.00</span>
+              </div>
+              <div class="flex items-center text-yellow-400 mb-4">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <span class="ml-2 text-gray-600">(24 Reviews)</span>
+              </div>
+              <p class="text-gray-600 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore.
+              </p>
+            </div>
+
+            <!-- Size Selection -->
+            <div>
+              <h3 class="text-lg font-semibold mb-3">Choose Size</h3>
+              <div class="flex space-x-4">
+                <button class="px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-accent focus:border-accent focus:outline-none transition-colors">XS</button>
+                <button class="px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-accent focus:border-accent focus:outline-none transition-colors">S</button>
+                <button class="px-4 py-2 border-2 border-accent rounded-lg hover:border-accent focus:border-accent focus:outline-none transition-colors">M</button>
+                <button class="px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-accent focus:border-accent focus:outline-none transition-colors">L</button>
+                <button class="px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-accent focus:border-accent focus:outline-none transition-colors">XL</button>
+              </div>
+            </div>
+
+            <!-- Quantity and Add to Cart -->
+            <div class="flex items-center space-x-6">
+              <div class="flex items-center border-2 border-gray-300 rounded-lg">
+                <button class="px-4 py-2 text-gray-600 hover:text-accent focus:outline-none" onclick="decrementQuantity()">-</button>
+                <input type="number" id="quantity" class="w-16 text-center border-0 focus:outline-none" value="1" min="1" />
+                <button class="px-4 py-2 text-gray-600 hover:text-accent focus:outline-none" onclick="incrementQuantity()">+</button>
+              </div>
+              <button class="flex-1 bg-accent text-white py-3 px-6 rounded-lg hover:bg-accent-dark transition-colors">
+                Add to Cart
+              </button>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="border-t border-gray-200 pt-8 space-y-6">
+              <div>
+                <h3 class="text-lg font-semibold mb-2">Product Details</h3>
+                <p class="text-gray-600">
+    <header class="header-area header-sticky">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <nav class="main-nav">
+              <!-- ***** Logo Start ***** -->
+              <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" />
+              </a>
+              <!-- ***** Logo End ***** -->
+              <!-- ***** Menu Start ***** -->
+              <ul class="nav">
+                <li class="scroll-to-section">
+                  <a href="index.html" class="active">Home</a>
+                </li>
+                <li class="scroll-to-section">
+                  <a href="index.html">Men's</a>
+                </li>
+                <li class="scroll-to-section">
+                  <a href="index.html">Women's</a>
+                </li>
+                <li class="scroll-to-section">
+                  <a href="index.html">Kid's</a>
+                </li>
+                <li class="submenu">
+                  <a href="javascript:;">Pages</a>
+                  <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="single-product.html">Single Product</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                  </ul>
+                </li>
+                <li class="submenu">
+                  <a href="javascript:;">Features</a>
+                  <ul>
+                    <li><a href="#">Features Page 1</a></li>
+                    <li><a href="#">Features Page 2</a></li>
+                    <li><a href="#">Features Page 3</a></li>
+                    <li>
+                      <a
+                        rel="nofollow"
+                        href="https://templatemo.com/page/4"
+                        target="_blank"
+                        >Template Page 4</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="scroll-to-section">
+                  <a href="index.html">Explore</a>
+                </li>
+              </ul>
+              <a class="menu-trigger">
+                <span>Menu</span>
+              </a>
+              <!-- ***** Menu End ***** -->
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="page-heading" id="top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="inner-content">
+              <h2>Single Product Page</h2>
+              <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <!-- ***** Product Area Starts ***** -->
+    <section class="section" id="product">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="left-images">
+              <img src="assets/images/single-product-01.jpg" alt="" />
+              <img src="assets/images/single-product-02.jpg" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="right-content">
+              <h4>New Green Jacket</h4>
+              <span class="price">$75.00</span>
+              <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+              </ul>
+              <span
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod kon tempor incididunt ut labore.</span
+              >
+              <div class="quote">
+                <i class="fa fa-quote-left"></i>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiuski smod.
+                </p>
+              </div>
+              <div class="quantity-content">
+                <div class="left-content">
+                  <h6>No. of Orders</h6>
+                </div>
+                <div class="right-content">
+                  <div class="quantity buttons_added">
+                    <input type="button" value="-" class="minus" /><input
+                      type="number"
+                      step="1"
+                      min="1"
+                      max=""
+                      name="quantity"
+                      value="1"
+                      title="Qty"
+                      class="input-text qty text"
+                      size="4"
+                      pattern=""
+                      inputmode=""
+                    /><input type="button" value="+" class="plus" />
+                  </div>
+                </div>
+              </div>
+              <div class="total">
+                <h4>Total: $210.00</h4>
+                <div class="main-border-button">
+                  <a href="#">Add To Cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Product Area Ends ***** -->
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="first-item">
+              <div class="logo">
+                <img
+                  src="assets/images/white-logo.png"
+                  alt="hexashop ecommerce templatemo"
+                />
+              </div>
+              <ul>
+                <li>
+                  <a href="#"
+                    >16501 Collins Ave, Sunny Isles Beach, FL 33160, United
+                    States</a
+                  >
+                </li>
+                <li><a href="#">hexashop@company.com</a></li>
+                <li><a href="#">010-020-0340</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <h4>Shopping &amp; Categories</h4>
+            <ul>
+              <li><a href="#">Men's Shopping</a></li>
+              <li><a href="#">Women's Shopping</a></li>
+              <li><a href="#">Kid's Shopping</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Homepage</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h4>Help &amp; Information</h4>
+            <ul>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">FAQ's</a></li>
+              <li><a href="#">Shipping</a></li>
+              <li><a href="#">Tracking ID</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-12">
+            <div class="under-footer">
+              <p>
+                Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.
+
+                <br />Design:
+                <a
+                  href="https://templatemo.com"
+                  target="_parent"
+                  title="free css templates"
+                  >TemplateMo</a
+                >
+
+                <br />Distributed By:
+                <a
+                  href="https://themewagon.com"
+                  target="_blank"
+                  title="free & premium responsive templates"
+                  >ThemeWagon</a
+                >
+              </p>
+              <ul>
+                <li>
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-behance"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="assets/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/accordions.js"></script>
+    <script src="assets/js/datepicker.js"></script>
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/imgfix.min.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+    <script src="assets/js/isotope.js"></script>
+    <script src="assets/js/quantity.js"></script>
+
+    <!-- Global Init -->
+    <script src="assets/js/custom.js"></script>
+
+    <script>
+      $(function () {
+        var selectedClass = "";
+        $("p").click(function () {
+          selectedClass = $(this).attr("data-rel");
+          $("#portfolio").fadeTo(50, 0.1);
+          $("#portfolio div")
+            .not("." + selectedClass)
+            .fadeOut();
+          setTimeout(function () {
+            $("." + selectedClass).fadeIn();
+            $("#portfolio").fadeTo(50, 1);
+          }, 500);
+        });
+      });
+    </script>
+  </body>
+</html>
