@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-poppins text-text overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+  }
+
+  .nav-link {
+    @apply text-secondary hover:text-primary transition-colors relative pb-0.5;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+
+  .product-card {
+    @apply bg-white rounded-lg shadow-card overflow-hidden transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .product-overlay {
+    @apply absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition-opacity duration-300;
+  }
+
+  .product-card:hover .product-overlay {
+    @apply opacity-100;
+  }
+
+  .form-control {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  .section {
+    @apply py-section;
+  }
+
+  .section-title {
+    @apply text-3xl font-semibold text-center mb-12;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-in-out forwards;
+  }
+}
