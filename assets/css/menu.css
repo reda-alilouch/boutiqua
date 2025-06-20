@@ -50,7 +50,9 @@
 /* Animation des icônes */
 .menu-open-icon,
 .menu-close-icon {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 /* Pour les écrans plus grands */
@@ -62,15 +64,20 @@
     max-height: none;
     overflow-y: visible;
   }
-  
+
   #mainMenu a {
     display: inline-block;
     padding: 0.5rem 1.25rem;
     margin: 0 0.25rem;
   }
-  
+
   #mainMenu a:hover {
     transform: translateY(-2px);
     background-color: transparent;
   }
+}
+.btn-connexion {
+  padding: 15px 22px;
+  text-align: center;
+  text-decoration: none;
 }
