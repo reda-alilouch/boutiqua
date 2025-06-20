@@ -1,0 +1,350 @@
+/* ==========================================================================
+   #RESPONSIVE STYLES
+   ========================================================================== */
+
+/**
+ * 1. Base
+ *    - Styles de base pour tous les appareils
+ */
+
+/* Ajustements généraux pour les petits écrans */
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%; /* 14px */
+  }
+  
+  /* Ajustement des conteneurs */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ajustement des espacements */
+  .py-16 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .py-20 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  /* Ajustement des titres */
+  h1, .text-4xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  h2, .text-3xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  /* Ajustement des boutons */
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/**
+ * 2. Navigation
+ *    - Menu de navigation responsive
+ */
+
+/* Menu mobile */
+@media (max-width: 1279px) {
+  #mainMenu {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  #mainMenu.active {
+    max-height: 100vh;
+    opacity: 1;
+    visibility: visible;
+    padding: 1rem 0;
+  }
+  
+  #mainMenu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+  }
+}
+
+/**
+ * 3. Hero Section
+ *    - Ajustements pour la section héro
+ */
+@media (max-width: 768px) {
+  .hero-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+/**
+ * 4. Grilles de produits
+ *    - Ajustement des grilles pour les petits écrans
+ */
+@media (max-width: 640px) {
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .gap-8 {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/**
+ * 5. Cartes de produits
+ *    - Ajustement des cartes pour les petits écrans
+ */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 640px) {
+  .product-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/**
+ * 6. Formulaire de contact
+ *    - Ajustement du formulaire pour les petits écrans
+ */
+@media (max-width: 768px) {
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/**
+ * 7. Pied de page
+ *    - Ajustement du footer pour les petits écrans
+ */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-links {
+    margin-top: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+/**
+ * 8. Page de produit unique
+ *    - Ajustement de la mise en page pour les petits écrans
+ */
+@media (max-width: 768px) {
+  .product-gallery {
+    margin-bottom: 2rem;
+  }
+  
+  .product-info {
+    padding: 1.5rem;
+  }
+  
+  .product-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .product-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .quantity-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .add-to-cart-btn {
+    width: 100%;
+  }
+}
+
+/**
+ * 9. Panier
+ *    - Ajustement du panier pour les petits écrans
+ */
+@media (max-width: 768px) {
+  .cart-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .cart-table table {
+    min-width: 640px;
+  }
+  
+  .cart-summary {
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+/**
+ * 10. Utilitaires responsives
+ *     - Classes utilitaires pour le responsive
+ */
+.text-sm-mobile {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .text-sm-mobile {
+    font-size: 1rem;
+  }
+}
+
+/* Masquer les éléments sur mobile */
+.hidden-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hidden-mobile {
+    display: block;
+  }
+  
+  .hidden-desktop {
+    display: none;
+  }
+}
+
+/* Espacements responsives */
+.py-8-mobile {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .py-8-mobile {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Images responsives */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Conteneur fluide */
+.container-fluid {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 640px) {
+  .container-fluid {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-fluid {
+    max-width: 100%;
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    max-width: 100%;
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+}
+
+/* Animation de chargement améliorée */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Amélioration de la lisibilité sur mobile */
+body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Correction du viewport pour iOS */
+@supports (-webkit-touch-callout: none) {
+  /* Styles spécifiques pour iOS */
+  input, textarea {
+    font-size: 16px !important; /* Empêche le zoom automatique sur iOS */
+  }
+}

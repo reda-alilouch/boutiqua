@@ -56,9 +56,7 @@ header.scroll-up {
 }
 
 /* Navigation */
-#mainMenu {
-  justify-content: end;
-}
+
 .nav-link {
   color: var(--secondary);
   text-decoration: none;
@@ -687,46 +685,6 @@ footer {
     opacity: 1;
   }
 }
-
-/* Menu Styles */
-#mainMenu {
-  z-index: 40;
-}
-
-@media (max-width: 1023px) {
-  #mainMenu {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: white;
-    padding: 1rem;
-    z-index: 40;
-  }
-
-  #mainMenu ul {
-    margin-bottom: 2rem;
-  }
-
-  #pagesDropdownMenu {
-    margin-left: 1rem;
-    margin-top: 0.5rem;
-    display: none;
-  }
-
-  #pagesDropdownMenu.show {
-    display: block;
-  }
-}
-
-@media (min-width: 1024px) {
-  #mainMenu {
-    display: flex !important;
-  }
-}
-
-/* Ensure menu button is always visible on mobile */
 #menuButton {
   z-index: 50;
   position: relative;

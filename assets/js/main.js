@@ -1,64 +1,64 @@
 // Mobile menu functionality
-document.addEventListener("DOMContentLoaded", function () {
-  const menuTrigger = document.querySelector(".menu-trigger");
-  const mobileMenu = document.querySelector("#mobile-menu");
-  const header = document.querySelector("header");
+document.addEventListener('DOMContentLoaded', function () {
+  const menuTrigger = document.querySelector('.menu-trigger');
+  const mobileMenu = document.querySelector('#mobile-menu');
+  const header = document.querySelector('header');
 
   // Mobile menu toggle
   if (menuTrigger && mobileMenu) {
-    menuTrigger.addEventListener("click", (e) => {
+    menuTrigger.addEventListener('click', (e) => {
       e.stopPropagation();
-      mobileMenu.classList.toggle("hidden");
-      menuTrigger.classList.toggle("bg-gray-100");
+      mobileMenu.classList.toggle('hidden');
+      menuTrigger.classList.toggle('bg-gray-100');
     });
   }
 
   // Close mobile menu when clicking outside
-  document.addEventListener("click", (e) => {
+  document.addEventListener('click', (e) => {
     if (mobileMenu && !header.contains(e.target)) {
-      mobileMenu.classList.add("hidden");
+      mobileMenu.classList.add('hidden');
       if (menuTrigger) {
-        menuTrigger.classList.remove("bg-gray-100");
+        menuTrigger.classList.remove('bg-gray-100');
       }
     }
   });
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
+    anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
+      const target = document.querySelector(this.getAttribute('href'));
       if (target) {
         // Close mobile menu
         if (mobileMenu) {
-          mobileMenu.classList.add("hidden");
-          menuTrigger.classList.remove("bg-gray-100");
+          mobileMenu.classList.add('hidden');
+          menuTrigger.classList.remove('bg-gray-100');
         }
 
         // Smooth scroll
         window.scrollTo({
           top: target.offsetTop - 80,
-          behavior: "smooth",
+          behavior: 'smooth',
         });
       }
     });
   });
 
   // Preloader
-  window.addEventListener("load", function () {
-    const preloader = document.getElementById("preloader");
-    preloader.style.opacity = "0";
+  window.addEventListener('load', function () {
+    const preloader = document.getElementById('preloader');
+    preloader.style.opacity = '0';
     setTimeout(() => {
-      preloader.style.display = "none";
+      preloader.style.display = 'none';
     }, 300);
   });
 
   // Active link handling
   function setActiveLink() {
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-    let current = "";
+    let current = '';
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop - header.offsetHeight - 100;
@@ -67,50 +67,50 @@ document.addEventListener("DOMContentLoaded", function () {
         window.scrollY >= sectionTop &&
         window.scrollY < sectionTop + sectionHeight
       ) {
-        current = "#" + section.getAttribute("id");
+        current = '#' + section.getAttribute('id');
       }
     });
 
     navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === current) {
-        link.classList.add("active");
+      link.classList.remove('active');
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
       }
     });
   }
 
-  window.addEventListener("scroll", setActiveLink);
+  window.addEventListener('scroll', setActiveLink);
   setActiveLink();
 
   // Product Filtering
-  const filterButtons = document.querySelectorAll("[data-filter]");
-  const products = document.querySelectorAll("#products > div");
+  const filterButtons = document.querySelectorAll('[data-filter]');
+  const products = document.querySelectorAll('#products > div');
 
   if (filterButtons.length && products.length) {
     filterButtons.forEach((button) => {
-      button.addEventListener("click", (e) => {
+      button.addEventListener('click', (e) => {
         e.preventDefault();
 
         // Remove active class from all buttons
         filterButtons.forEach((btn) => {
-          btn.classList.remove("bg-primary", "text-white");
-          btn.classList.add("border", "border-primary", "text-primary");
+          btn.classList.remove('bg-black', 'text-white');
+          btn.classList.add('border', 'border-black', 'text-black');
         });
 
         // Add active class to clicked button
-        button.classList.remove("border", "border-primary", "text-primary");
-        button.classList.add("bg-primary", "text-white");
+        button.classList.remove('border', 'border-black', 'text-black');
+        button.classList.add('bg-black', 'text-white');
 
-        const filter = button.getAttribute("data-filter");
+        const filter = button.getAttribute('data-filter');
 
         products.forEach((product) => {
-          if (filter === "*") {
-            product.style.display = "block";
+          if (filter === '*') {
+            product.style.display = 'block';
           } else {
-            if (product.classList.contains(filter.replace(".", ""))) {
-              product.style.display = "block";
+            if (product.classList.contains(filter.replace('.', ''))) {
+              product.style.display = 'block';
             } else {
-              product.style.display = "none";
+              product.style.display = 'none';
             }
           }
         });
@@ -119,28 +119,28 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Scroll to Top Button
-  const scrollToTop = document.createElement("button");
+  const scrollToTop = document.createElement('button');
   scrollToTop.innerHTML = '<i class="fa fa-arrow-up"></i>';
-  scrollToTop.className = "scroll-to-top";
+  scrollToTop.className = 'scroll-to-top';
   document.body.appendChild(scrollToTop);
 
-  window.addEventListener("scroll", () => {
+  window.addEventListener('scroll', () => {
     if (window.pageYOffset > 200) {
-      scrollToTop.classList.add("show");
+      scrollToTop.classList.add('show');
     } else {
-      scrollToTop.classList.remove("show");
+      scrollToTop.classList.remove('show');
     }
   });
 
-  scrollToTop.addEventListener("click", () => {
+  scrollToTop.addEventListener('click', () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   });
 
   // Add styles for scroll to top button
-  const style = document.createElement("style");
+  const style = document.createElement('style');
   style.textContent = `
     .scroll-to-top {
       position: fixed;
@@ -176,40 +176,40 @@ document.addEventListener("DOMContentLoaded", function () {
   document.head.appendChild(style);
 
   // Image hover effect
-  document.querySelectorAll(".product-card img").forEach((img) => {
-    img.addEventListener("mouseenter", function () {
-      this.style.transform = "scale(1.1)";
-      this.style.transition = "transform 0.3s ease";
+  document.querySelectorAll('.product-card img').forEach((img) => {
+    img.addEventListener('mouseenter', function () {
+      this.style.transform = 'scale(1.1)';
+      this.style.transition = 'transform 0.3s ease';
     });
 
-    img.addEventListener("mouseleave", function () {
-      this.style.transform = "scale(1)";
+    img.addEventListener('mouseleave', function () {
+      this.style.transform = 'scale(1)';
     });
   });
 
   // Header scroll effect
   let lastScroll = 0;
 
-  window.addEventListener("scroll", () => {
+  window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
     if (currentScroll <= 0) {
-      header.classList.remove("scroll-up");
+      header.classList.remove('scroll-up');
       return;
     }
 
     if (
       currentScroll > lastScroll &&
-      !header.classList.contains("scroll-down")
+      !header.classList.contains('scroll-down')
     ) {
-      header.classList.remove("scroll-up");
-      header.classList.add("scroll-down");
+      header.classList.remove('scroll-up');
+      header.classList.add('scroll-down');
     } else if (
       currentScroll < lastScroll &&
-      header.classList.contains("scroll-down")
+      header.classList.contains('scroll-down')
     ) {
-      header.classList.remove("scroll-down");
-      header.classList.add("scroll-up");
+      header.classList.remove('scroll-down');
+      header.classList.add('scroll-up');
     }
 
     lastScroll = currentScroll;
@@ -217,12 +217,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Modal Animations
-document.addEventListener("alpine:init", () => {
-  Alpine.store("modal", {
+document.addEventListener('alpine:init', () => {
+  Alpine.store('modal', {
     search: false,
     auth: false,
-    authTab: "login",
-    searchQuery: "",
+    authTab: 'login',
+    searchQuery: '',
     searchResults: [],
     isLoading: false,
 
@@ -231,7 +231,7 @@ document.addEventListener("alpine:init", () => {
       if (this.search) {
         this.auth = false;
         setTimeout(() => {
-          document.querySelector(".search-input").focus();
+          document.querySelector('.search-input').focus();
         }, 100);
       }
     },
@@ -261,16 +261,16 @@ document.addEventListener("alpine:init", () => {
       // Mock search results
       this.searchResults = [
         {
-          title: "Classic Black T-Shirt",
+          title: 'Classic Black T-Shirt',
           category: "Men's Fashion",
-          price: "29.99",
-          image: "assets/images/men-01.jpg",
+          price: '29.99',
+          image: 'assets/images/men-01.jpg',
         },
         {
-          title: "White Summer Dress",
+          title: 'White Summer Dress',
           category: "Women's Fashion",
-          price: "49.99",
-          image: "assets/images/women-01.jpg",
+          price: '49.99',
+          image: 'assets/images/women-01.jpg',
         },
         // Add more mock results as needed
       ];
@@ -279,46 +279,46 @@ document.addEventListener("alpine:init", () => {
     },
 
     clear() {
-      this.searchQuery = "";
+      this.searchQuery = '';
       this.searchResults = [];
     },
   });
 });
 
 // Enhanced Modal Transitions
-const modalBackdrops = document.querySelectorAll(".modal-backdrop");
+const modalBackdrops = document.querySelectorAll('.modal-backdrop');
 modalBackdrops.forEach((backdrop) => {
-  backdrop.addEventListener("transitionend", (e) => {
-    if (!backdrop.classList.contains("show")) {
-      backdrop.style.display = "none";
+  backdrop.addEventListener('transitionend', (e) => {
+    if (!backdrop.classList.contains('show')) {
+      backdrop.style.display = 'none';
     }
   });
 });
 
 // Form Validation
-const forms = document.querySelectorAll("form");
+const forms = document.querySelectorAll('form');
 forms.forEach((form) => {
-  form.addEventListener("submit", (e) => {
+  form.addEventListener('submit', (e) => {
     if (!form.checkValidity()) {
       e.preventDefault();
       e.stopPropagation();
 
       // Add shake animation to invalid fields
-      const invalidFields = form.querySelectorAll(":invalid");
+      const invalidFields = form.querySelectorAll(':invalid');
       invalidFields.forEach((field) => {
-        field.classList.add("shake");
-        field.addEventListener("animationend", () => {
-          field.classList.remove("shake");
+        field.classList.add('shake');
+        field.addEventListener('animationend', () => {
+          field.classList.remove('shake');
         });
       });
     }
 
-    form.classList.add("was-validated");
+    form.classList.add('was-validated');
   });
 });
 
 // Add animation styles
-const animationStyles = document.createElement("style");
+const animationStyles = document.createElement('style');
 animationStyles.textContent = `
   @keyframes shake {
     0%, 100% { transform: translateX(0); }
