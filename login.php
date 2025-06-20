@@ -3,59 +3,58 @@ session_start();
 
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
-    header('Location: index.php');
-    exit();
+  header('Location: /hexashop-1.0.0/index.php');
+  exit();
 }
 
 $error = '';
 
 // Traitement du formulaire de connexion
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $password = $_POST['password'] ?? '';
-    
-    try {
-        $pdo = new PDO(
-            'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
-            'root',
-            '',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-        );
+  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+  $password = $_POST['password'] ?? '';
 
-        $stmt = $pdo->prepare('SELECT * FROM user2 WHERE email = :email');
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+  try {
+    $pdo = new PDO(
+      'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
+      'root',
+      '',
+      [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+    );
 
-        if ($user && $user['password'] === $password) {
-            $_SESSION['user'] = [
-                'id' => $user['id'],
-                'nom' => $user['nom'],
-                'prenom' => $user['prenom'],
-                'email' => $user['email'],
-                'avatar' => $user['avatar']
-            ];
-            
-            // Redirection après connexion réussie
-            header('Location: index.php');
-            exit();
-        } else {
-            $error = 'Email ou mot de passe incorrect';
-        }
-    } catch (PDOException $e) {
-        error_log('Erreur de connexion : ' . $e->getMessage());
-        $error = 'Une erreur est survenue lors de la connexion';
+    $stmt = $pdo->prepare('SELECT * FROM user2 WHERE email = :email');
+    $stmt->execute(['email' => $email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && $user['password'] === $password) {
+      $_SESSION['user'] = [
+        'id' => $user['id'],
+        'nom' => $user['nom'],
+        'prenom' => $user['prenom'],
+        'email' => $user['email'],
+        'avatar' => $user['avatar'],
+      ];
+
+      // Redirection après connexion réussie
+      // Rediriger vers la page précédente ou la page d'accueil
+      $redirect =
+        $_SESSION['redirect_after_login'] ?? '/hexashop-1.0.0/index.php';
+      unset($_SESSION['redirect_after_login']);
+      header('Location: ' . $redirect);
+      exit();
+    } else {
+      $error = 'Email ou mot de passe incorrect';
     }
+  } catch (PDOException $e) {
+    error_log('Erreur de connexion : ' . $e->getMessage());
+    $error = 'Une erreur est survenue lors de la connexion';
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - HexaShop</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+<?php include 'includes/head.php'; ?>
 <body class="bg-gray-100">
     <?php include 'includes/header.php'; ?>
     
@@ -69,7 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <?php if ($error): ?>
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline"><?php echo htmlspecialchars($error); ?></span>
+                    <span class="block sm:inline"><?php echo htmlspecialchars(
+                      $error,
+                    ); ?></span>
                 </div>
             <?php endif; ?>
             
@@ -79,7 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="email" class="sr-only">Adresse email</label>
                         <input id="email" name="email" type="email" required 
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                               placeholder="Adresse email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+                               placeholder="Adresse email" value="<?php echo isset(
+                                 $_POST['email'],
+                               )
+                                 ? htmlspecialchars($_POST['email'])
+                                 : ''; ?>">
                     </div>
                     <div>
                         <label for="password" class="sr-only">Mot de passe</label>
@@ -113,12 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
             
             <div class="text-sm text-center">
-                <p class="text-gray-600">
-                    Pas encore de compte ? 
-                    <a href="register.php" class="font-medium text-blue-600 hover:text-blue-500">
-                        Créer un compte
-                    </a>
-                </p>
+                <div class="mt-2 text-center text-sm text-gray-600">
+                    Pas encore de compte ? <a href="/hexashop-1.0.0/register.php" class="font-medium text-blue-600 hover:text-blue-500">S'inscrire</a>
+                </div>
             </div>
         </div>
     </div>

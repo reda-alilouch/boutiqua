@@ -1,495 +1,481 @@
 <?php
 /**
  * En-tête principal du site avec navigation et modaux d'authentification
- * 
+ *
  * @package HexaShop
  * @version 1.0.0
  */
-?>
-<?php // Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
-// Démarrer la session si elle n'est pas déjà démarrée
 
+// Configuration de la base de données
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'ecole');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_CHARSET', 'utf8mb4');
+
+// Configuration des uploads
+define('UPLOAD_DIR', __DIR__ . '/../assets/uploads/');
+define('AVATAR_DIR', UPLOAD_DIR . 'avatars/');
+define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024); // 5MB
+
+// Démarrer la session si elle n'est pas déjà démarrée
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+
+// Fonction de connexion à la base de données
+function getDBConnection()
+{
+  try {
+    $dsn = sprintf(
+      'mysql:host=%s;dbname=%s;charset=%s',
+      DB_HOST,
+      DB_NAME,
+      DB_CHARSET,
+    );
+    $pdo = new PDO($dsn, DB_USER, DB_PASS, [
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+    return $pdo;
+  } catch (PDOException $e) {
+    error_log('Erreur de connexion à la base de données : ' . $e->getMessage());
+    throw new Exception(
+      'Une erreur est survenue lors de la connexion à la base de données',
+    );
+  }
+}
+
 // Gestion de la déconnexion
 if (isset($_GET['logout'])) {
   session_destroy();
-  header('Location: index.php');
+  header('Location: /hexashop-1.0.0/index.php');
   exit();
 }
+
 // Gestion de la connexion
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion'])) {
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
   $password = $_POST['password'] ?? '';
+
   try {
-    $pdo = new PDO(
-      'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
-      'root',
-      '',
-    );
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = 'SELECT * FROM user2 WHERE email = :email';
-    $stmt = $pdo->prepare($sql);
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare('SELECT * FROM user2 WHERE email = :email');
     $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($user && $user['password'] === $password) {
-      // À remplacer par password_verify() plus tard
+    $user = $stmt->fetch();
+
+    if ($user && password_verify($password, $user['password'])) {
+      // Protection contre la fixation de session
+      session_regenerate_id(true);
+
       $_SESSION['user'] = [
         'id' => $user['id'],
-        'nom' => $user['nom'],
-        'prenom' => $user['prenom'],
+        'nom' => htmlspecialchars($user['nom']),
+        'prenom' => htmlspecialchars($user['prenom']),
         'email' => $user['email'],
         'avatar' => $user['avatar'],
-      ]; // Rafraîchir pour éviter de renvoyer le formulaire
-      header('Location: ' . $_SERVER['PHP_SELF']);
+        'last_login' => time(),
+      ];
+
+      header('Location: /hexashop-1.0.0/index.php');
       exit();
     } else {
       $_SESSION['error'] = 'Email ou mot de passe incorrect';
     }
-  } catch (PDOException $e) {
+  } catch (Exception $e) {
     error_log('Erreur de connexion : ' . $e->getMessage());
     $_SESSION['error'] = 'Une erreur est survenue lors de la connexion';
   }
 }
+
 // Gestion de l'inscription
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
-  $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
-  $prenom = filter_input(INPUT_POST, 'Prenom', FILTER_SANITIZE_STRING);
+  $nom = trim($_POST['nom'] ?? '');
+  $prenom = trim($_POST['prenom'] ?? '');
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-  $password = $_POST['password'] ?? ''; // Validation des données
+  $password = $_POST['password'] ?? '';
+
   $errors = [];
-  if (empty($nom)) {
-    $errors[] = 'Le nom est requis';
+
+  // Validation des données
+  if (empty($nom) || strlen($nom) > 50) {
+    $errors[] = 'Le nom est requis et ne doit pas dépasser 50 caractères';
   }
-  if (empty($prenom)) {
-    $errors[] = 'Le prénom est requis';
+  if (empty($prenom) || strlen($prenom) > 50) {
+    $errors[] = 'Le prénom est requis et ne doit pas dépasser 50 caractères';
   }
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = 'Email invalide';
   }
-  if (strlen($password) < 8) {
-    $errors[] = 'Le mot de passe doit contenir au moins 8 caractères';
+  if (strlen($password) < 8 || strlen($password) > 72) {
+    $errors[] = 'Le mot de passe doit contenir entre 8 et 72 caractères';
   }
+
   // Vérification du fichier uploadé
   $avatarPath = null;
   if (
     isset($_FILES['avatar']) &&
     $_FILES['avatar']['error'] === UPLOAD_ERR_OK
   ) {
-    $allowedTypes = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
-    $fileType = $_FILES['avatar']['type'];
-    if (array_key_exists($fileType, $allowedTypes)) {
-      $extension = $allowedTypes[$fileType];
-      $avatarName = uniqid('avatar_', true) . '.' . $extension;
-      $uploadDir = __DIR__ . '/../avatars/'; // Créer le dossier s'il n'existe pas
-      if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-      }
-      $targetPath = $uploadDir . $avatarName;
-      if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetPath)) {
-        $avatarPath = 'avatars/' . $avatarName;
-      } else {
-        $errors[] = 'Erreur lors du téléchargement de l\'image';
-      }
+    if ($_FILES['avatar']['size'] > MAX_UPLOAD_SIZE) {
+      $errors[] = 'Le fichier est trop volumineux (max 5MB)';
     } else {
-      $errors[] = 'Type de fichier non autorisé. Formats acceptés : JPG, PNG';
+      $allowedTypes = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
+      $fileType = $_FILES['avatar']['type'];
+
+      if (array_key_exists($fileType, $allowedTypes)) {
+        $extension = $allowedTypes[$fileType];
+        $avatarName = uniqid('avatar_', true) . '.' . $extension;
+
+        if (!is_dir(AVATAR_DIR)) {
+          mkdir(AVATAR_DIR, 0755, true);
+        }
+
+        $targetPath = AVATAR_DIR . $avatarName;
+        if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetPath)) {
+          $avatarPath = 'avatars/' . $avatarName;
+        } else {
+          $errors[] = 'Erreur lors du téléchargement de l\'image';
+        }
+      } else {
+        $errors[] = 'Type de fichier non autorisé. Formats acceptés : JPG, PNG';
+      }
     }
-  } else {
-    $errors[] = 'Veuillez sélectionner une image de profil';
   }
+
   if (empty($errors)) {
     try {
-      $pdo = new PDO(
-        'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
-        'root',
-        '',
-      );
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Vérifier si l'email existe déjà
+      $pdo = getDBConnection();
+
+      // Vérifier si l'email existe déjà
       $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = ?');
       $stmt->execute([$email]);
+
       if ($stmt->fetch()) {
         $errors[] = 'Cet email est déjà utilisé';
       } else {
+        // Hacher le mot de passe
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         // Insérer le nouvel utilisateur
         $sql =
           'INSERT INTO user2 (nom, prenom, email, password, avatar) VALUES (?, ?, ?, ?, ?)';
-        $stmt = $pdo->prepare($sql); // Note: Le mot de passe devrait être haché en production
-        $stmt->execute([$nom, $prenom, $email, $password, $avatarPath]);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nom, $prenom, $email, $hashedPassword, $avatarPath]);
+
+        // Protection contre la fixation de session
+        session_regenerate_id(true);
+
         $_SESSION['user'] = [
           'id' => $pdo->lastInsertId(),
-          'nom' => $nom,
-          'prenom' => $prenom,
+          'nom' => htmlspecialchars($nom),
+          'prenom' => htmlspecialchars($prenom),
           'email' => $email,
           'avatar' => $avatarPath,
-        ]; // Rediriger pour éviter le renvoi du formulaire
-        header('Location: ' . $_SERVER['PHP_SELF']);
+          'last_login' => time(),
+        ];
+
+        header('Location: /hexashop-1.0.0/index.php');
         exit();
       }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
       error_log('Erreur d\'inscription : ' . $e->getMessage());
       $errors[] = 'Une erreur est survenue lors de l\'inscription';
     }
   }
+
   if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
   }
 }
+
+$isLoggedIn = isset($_SESSION['user']);
+$user = $isLoggedIn ? $_SESSION['user'] : null;
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <style>
-    /* Styles pour les modales */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 9999;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 4rem;
-      padding-bottom: 2.5rem;
-      overflow-y: auto;
-    }
+<body>
 
-    /* Styles pour les onglets */
-    .tab-button {
-      background: none;
-      border: none;
-      padding: 1rem;
-      cursor: pointer;
-      font-weight: 500;
-      color: #6b7280;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s ease;
-    }
+    <header class="fixed top-0 left-0 z-50 w-full shadow-sm bg-white/95 backdrop-blur-sm" 
+            class="transition-all duration-300" id="mainHeader">
+        
+        <div class="container px-4 mx-auto">
+            <nav class="flex items-center justify-between h-16 md:h-20">
+                
+                <!-- Mobile Menu Button -->
+                <div onclick="toggleMenu()" class="menu-button">
+                    <i class="fa-solid fa-bars text-xl lg:hidden" id="menuicon"></i>
+                </div>
 
-    .tab-button:hover {
-      color: #1f2937;
-    }
+                <!-- Logo -->
+                <a href="/hexashop-1.0.0/index.php" class="flex-shrink-0">
+                    <img src="/hexashop-1.0.0/assets/images/logoo.png" 
+                         class="w-auto h-8 md:h-10" alt="Hexashop Logo" />
+                </a>
 
-    .tab-button.active {
-      color: #3b82f6;
-      border-bottom-color: #3b82f6;
-    }
+                <!-- Desktop Menu -->
+                <nav class="hidden space-x-8 lg:flex">
+                    <a href="/hexashop-1.0.0/index.php" 
+                       class="font-medium text-gray-700 transition-colors hover:text-blue-600">
+                        Accueil
+                    </a>
+                    <a href="/hexashop-1.0.0/products.php" 
+                       class="font-medium text-gray-700 transition-colors hover:text-blue-600">
+                        Produits
+                    </a>
+                    <a href="/hexashop-1.0.0/single-product.php" 
+                       class="font-medium text-gray-700 transition-colors hover:text-blue-600">
+                        Produit Unique
+                    </a>
+                    <a href="/hexashop-1.0.0/contact.php" 
+                       class="font-medium text-gray-700 transition-colors hover:text-blue-600">
+                        Contact
+                    </a>
+                    <a href="/hexashop-1.0.0/about.php" 
+                       class="font-medium text-gray-700 transition-colors hover:text-blue-600">
+                        À Propos
+                    </a>
+                </nav>
 
-    /* Animation pour l'apparition des onglets */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+                <!-- Actions -->
+                <div class="flex items-center space-x-2">
+                    
+                    <!-- Search Button -->
+                    <button @click="searchOpen = true"
+                            class="p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
 
-    .tab-content {
-      animation: fadeIn 0.3s ease-out;
-    }
-  </style>
-</head>
-<!-- Gestion simplifiée des modales -->
-<script>
-// Fonctions pour gérer les modales
-function toggleModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    if (modal.style.display === 'none' || !modal.style.display) {
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    } else {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-  }
-}
+                    <!-- Cart Button -->
+                    <button @click="cartOpen = !cartOpen"
+                            class="relative p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span class="cart-badge">3</span>
+                    </button>
 
-// Fermer la modale en cliquant en dehors
-document.addEventListener('click', function(event) {
-  if (event.target.classList.contains('modal-overlay')) {
-    event.target.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
-});
+                    <!-- User Profile / Auth -->
+                    <?php if ($isLoggedIn): ?>
+                        <div class="relative">
+                            <button @click="profileOpen = !profileOpen"
+                                    class="flex items-center p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
+                                <?php if ($user['avatar']): ?>
+                                    <img src="/hexashop-1.0.0/assets/uploads/<?php echo htmlspecialchars(
+                                      $user['avatar'],
+                                    ); ?>" 
+                                         alt="Avatar" class="object-cover w-8 h-8 rounded-full">
+                                <?php else: ?>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                    </svg>
+                                <?php endif; ?>
+                            </button>
+                            
+                            <!-- Profile Dropdown -->
+                            <div x-show="profileOpen" 
+                                 @click.away="profileOpen = false"
+                                 x-transition:enter="transition ease-out duration-100"
+                                 x-transition:enter-start="transform opacity-0 scale-95"
+                                 x-transition:enter-end="transform opacity-100 scale-100"
+                                 x-transition:leave="transition ease-in duration-75"
+                                 x-transition:leave-start="transform opacity-100 scale-100"
+                                 x-transition:leave-end="transform opacity-0 scale-95"
+                                 class="absolute right-0 z-50 w-64 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg">
+                                
+                                <div class="p-4 border-b border-gray-100">
+                                    <p class="font-medium text-gray-900">
+                                        <?php echo htmlspecialchars(
+                                          $user['prenom'] . ' ' . $user['nom'],
+                                        ); ?>
+                                    </p>
+                                    <p class="text-sm text-gray-500"><?php echo htmlspecialchars(
+                                      $user['email'],
+                                    ); ?></p>
+                                </div>
+                                
+                                <div class="py-2">
+                                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                        Mon Profil
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        Mes Commandes
+                                    </a>
+                                    <a href="?logout=1" class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        </svg>
+                                        Déconnexion
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <button data-modal-toggle="authModal"
+                                class="p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                            </svg>
+                        </button>
+                    <?php endif; ?>
+                </div>
 
-// Fermer avec la touche Échap
-document.onkeydown = function(event) {
-  if (event.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay').forEach(modal => {
-      if (modal.style.display === 'flex') {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-    });
-  }
-};
-
-// Changer d'onglet
-function switchTab(tabName, tabContainerId) {
-  const container = document.getElementById(tabContainerId);
-  const tabs = container.getElementsByClassName('tab-content');
-  for (let tab of tabs) {
-    tab.style.display = 'none';
-  }
-  document.getElementById(tabName).style.display = 'block';
-  
-  // Mettre à jour les boutons d'onglet actif
-  const buttons = container.getElementsByClassName('tab-button');
-  for (let btn of buttons) {
-    btn.classList.remove('active');
-  }
-  event.currentTarget.classList.add('active');
-}
-</script>
-<header class="fixed top-0 left-0 z-50 w-full h-16 md:h-20 bg-white/95 backdrop-blur-sm shadow-sm" 
-        x-data="{ 
-          mobileMenuOpen: false,
-          scrolled: false,
-          init() {
-            // Détecter le défilement pour l'effet de réduction du header
-            window.addEventListener('scroll', () => {
-              this.scrolled = window.scrollY > 10;
-            });
-          }
-        }"
-        :class="{ 'h-14 md:h-16 transition-all duration-300': scrolled }">
-      <div class="container px-4 mx-auto w-full">
-        <nav class="flex justify-between items-center w-full h-16 md:h-20">
-          <!-- Mobile Menu Button -->
-          <button
-            @click="mobileMenuOpen = !mobileMenuOpen"
-            :aria-expanded="mobileMenuOpen"
-            class="p-2 mr-2 text-gray-600 rounded-md lg:hidden hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-            aria-label="Toggle menu"
-            aria-controls="mainMenu"
-          >
-            <svg class="w-6 h-6 menu-open-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <svg class="hidden w-6 h-6 menu-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-
-          <!-- Logo -->
-          <a href="index.php" class="flex-shrink-0 mx-auto md:mx-0">
-            <img src="assets/images/logoo.png" class="w-auto h-10 md:h-12" alt="Hexashop Logo" />
-          </a>
-
-          <!-- Main Menu -->
-          <div 
-            class="absolute left-0 right-0 z-40 w-full px-4 py-6 mt-4 bg-white shadow-lg lg:relative lg:mt-0 lg:shadow-none lg:flex lg:items-center lg:p-0 lg:bg-transparent" 
-            :class="{'block': mobileMenuOpen, 'hidden': !mobileMenuOpen}" 
-            id="mainMenu"
-            @click.away="mobileMenuOpen = false"
-          >
-            <nav class="flex flex-col lg:flex-row lg:space-x-1 xl:space-x-2" aria-label="Main navigation">
-              <a href="index.php" 
-                 class="relative px-4 py-2.5 text-sm font-medium transition-colors duration-200 rounded-lg md:text-base group"
-                 :class="window.location.pathname === '/index.php' || window.location.pathname === '/' ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'"
-                 @mouseenter="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.remove('opacity-0', 'translate-y-1')"
-                 @mouseleave="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.add('opacity-0', 'translate-y-1')">
-                <span>Home</span>
-                <span class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 transform menu-indicator scale-x-0 group-hover:scale-x-100"></span>
-                <span x-show="window.location.pathname === '/index.php' || window.location.pathname === '/'" 
-                      class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary"></span>
-              </a>
-              
-              <a href="single-product.php" 
-                 class="relative px-4 py-2.5 text-sm font-medium transition-colors duration-200 rounded-lg md:text-base group"
-                 :class="window.location.pathname.includes('single-product.php') ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'"
-                 @mouseenter="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.remove('opacity-0', 'translate-y-1')"
-                 @mouseleave="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.add('opacity-0', 'translate-y-1')">
-                <span>Single Product</span>
-                <span class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 transform menu-indicator scale-x-0 group-hover:scale-x-100"></span>
-                <span x-show="window.location.pathname.includes('single-product.php')" 
-                      class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary"></span>
-              </a>
-              
-              <a href="products.php" 
-                 class="relative px-4 py-2.5 text-sm font-medium transition-colors duration-200 rounded-lg md:text-base group"
-                 :class="window.location.pathname.includes('products.php') ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'"
-                 @mouseenter="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.remove('opacity-0', 'translate-y-1')"
-                 @mouseleave="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.add('opacity-0', 'translate-y-1')">
-                <span>Products</span>
-                <span class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 transform menu-indicator scale-x-0 group-hover:scale-x-100"></span>
-                <span x-show="window.location.pathname.includes('products.php')" 
-                      class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary"></span>
-              </a>
-              
-              <a href="contact.php" 
-                 class="relative px-4 py-2.5 text-sm font-medium transition-colors duration-200 rounded-lg md:text-base group"
-                 :class="window.location.pathname.includes('contact.php') ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'"
-                 @mouseenter="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.remove('opacity-0', 'translate-y-1')"
-                 @mouseleave="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.add('opacity-0', 'translate-y-1')">
-                <span>Contact Us</span>
-                <span class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 transform menu-indicator scale-x-0 group-hover:scale-x-100"></span>
-                <span x-show="window.location.pathname.includes('contact.php')" 
-                      class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary"></span>
-              </a>
-              
-              <a href="about.php" 
-                 class="relative px-4 py-2.5 text-sm font-medium transition-colors duration-200 rounded-lg md:text-base group"
-                 :class="window.location.pathname.includes('about.php') ? 'text-primary font-semibold' : 'text-gray-700 hover:text-primary'"
-                 @mouseenter="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.remove('opacity-0', 'translate-y-1')"
-                 @mouseleave="if (window.innerWidth >= 1024) $el.querySelector('.menu-indicator').classList.add('opacity-0', 'translate-y-1')">
-                <span>About Us</span>
-                <span class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary transition-all duration-300 transform menu-indicator scale-x-0 group-hover:scale-x-100"></span>
-                <span x-show="window.location.pathname.includes('about.php')" 
-                      class="absolute bottom-0 left-1/2 w-1/2 h-0.5 -translate-x-1/2 bg-primary"></span>
-              </a>
+                <!-- Mobile Menu -->
+                <div id="mobileMenu" class="absolute left-0 right-0 bg-white border-t shadow-lg top-full hidden">
+                    <nav class="flex flex-col py-4">
+                        <a href="/hexashop-1.0.0/index.php" 
+                           class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
+                            Accueil
+                        </a>
+                        <a href="/hexashop-1.0.0/products.php" 
+                           class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
+                            Produits
+                        </a>
+                        <a href="/hexashop-1.0.0/single-product.php" 
+                           class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
+                            Produit Unique
+                        </a>
+                        <a href="/hexashop-1.0.0/contact.php" 
+                           class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
+                            Contact
+                        </a>
+                        <a href="/hexashop-1.0.0/about.php" 
+                           class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
+                            À Propos
+                        </a>
+                    </nav>
+                </div>
             </nav>
-          </div>
-
-          <!-- Icons de navigation -->
-          <div class="flex items-center space-x-2 sm:space-x-3 md:space-x-4" role="navigation" aria-label="Navigation secondaire">
-            <!-- Search Icon -->
-            <button 
-              class="p-2 text-gray-600 transition-all duration-200 rounded-full hover:bg-gray-100 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 focus:scale-105"
-              aria-label="Rechercher sur le site"
-              aria-expanded="false"
-            >
-              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-            </button>
-            
-            <!-- Icône Utilisateur -->
-            <div class="relative ml-4">
-              <button
-                onclick="toggleModal('authModal')"
-                class="flex items-center p-2 text-gray-700 hover:text-black transition-colors rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
-                aria-label="Ouvrir la connexion"
-              >
-                <div class="relative">
-                  <span class="flex items-center justify-center w-8 h-8 rounded-full">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.75">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                    </svg>
-                  </span>
-                </div>
-              </button>
-            </div>
-            
-            <!-- Shopping Cart Icon -->
-            <button 
-              class="relative p-2 text-gray-600 transition-all duration-200 rounded-full hover:bg-gray-100 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 focus:scale-105"
-              aria-label="Mon compte"
-              aria-expanded="false"
-            >
-              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-              </svg>
-              <span class="absolute flex items-center justify-center w-5 h-5 text-xs font-medium text-white bg-red-500 rounded-full -top-1 -right-1">3</span>
-            </button>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Auth Modal -->
-    <div id="authModal" 
-         class="modal-overlay"
-         style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: flex-start; padding-top: 4rem; padding-bottom: 2.5rem; overflow-y: auto;"
-         role="dialog"
-         aria-modal="true">
-         
-      <div class="relative px-6 mx-auto mt-8 w-full max-w-md" style="margin: 2rem auto;" onclick="event.stopPropagation()">
-        <!-- Modal Content -->
-        <div class="relative overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-2xl"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 -translate-y-4"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 translate-y-0"
-             x-transition:leave-end="opacity-0 -translate-y-4">
-             
-          <!-- Close Button -->
-          <button onclick="toggleModal('authModal')" 
-                  class="absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 z-10"
-                  aria-label="Fermer la fenêtre">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          
-          <!-- Tabs Navigation -->
-          <div class="flex border-b border-gray-200" role="tablist" aria-label="Navigation d'authentification">
-            <button class="tab-button active" onclick="switchTab('login-tab', 'authModal')")"
-                    class="flex-1 py-4 font-medium text-center border-b-2 transition-colors duration-200 focus:outline-none"
-                    role="tab">
-              <span class="inline-flex items-center justify-center">
-                <i class="mr-2 fa fa-sign-in"></i>
-                Connexion
-              </span>
-            </button>
-            <button class="tab-button" onclick="switchTab('register-tab', 'authModal')")"
-                    class="flex-1 py-4 font-medium text-center border-b-2 transition-colors duration-200 focus:outline-none"
-                    role="tab">
-              <span class="inline-flex items-center justify-center">
-                <i class="mr-2 fa fa-user-plus"></i>
-                Inscription
-              </span>
-            </button>
-          </div>
-          
-          <!-- Contenu des onglets -->
-          <div class="p-6">
-            <!-- Contenu de connexion -->
-            <div id="login-tab" class="tab-content space-y-4">
-              <h2 class="text-2xl font-bold text-center text-gray-900">Connexion</h2>
-              <form class="space-y-4">
-                <div>
-                  <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                  <input type="email" id="email" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black">
-                </div>
-                <div>
-                  <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                  <input type="password" id="password" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black">
-                </div>
-                <button type="submit" class="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                  Se connecter
-                </button>
-              </form>
-            </div>
-            
-            <!-- Contenu d'inscription -->
-            <div id="register-tab" class="tab-content space-y-4" style="display: none;">
-              <h2 class="text-2xl font-bold text-center text-gray-900">Inscription</h2>
-              <form class="space-y-4">
-                <div>
-                  <label for="name" class="block text-sm font-medium text-gray-700">Nom complet</label>
-                  <input type="text" id="name" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black">
-                </div>
-                <div>
-                  <label for="email-register" class="block text-sm font-medium text-gray-700">Email</label>
-                  <input type="email" id="email-register" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black">
-                </div>
-                <div>
-                  <label for="password-register" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                  <input type="password" id="password-register" class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black">
-                </div>
-                <button type="submit" class="w-full px-4 py-2 text-white bg-black rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                  S'inscrire
-                </button>
-              </form>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <!-- Cart Dropdown -->
+        <div x-show="cartOpen" 
+             x-transition
+             @click.away="cartOpen = false"
+             class="absolute z-50 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl top-full right-4 w-80">
+            
+            <div class="p-4 border-b border-gray-100">
+                <h3 class="font-semibold text-gray-900">Mon Panier (3)</h3>
+            </div>
+            
+            <div class="overflow-y-auto max-h-64">
+                <!-- Cart Items -->
+                <div class="p-4 border-b border-gray-100">
+                    <div class="flex items-center space-x-3">
+                        <img src="/hexashop-1.0.0/assets/images/product-1.jpg" 
+                             alt="Produit" class="object-cover w-12 h-12 rounded">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-medium">T-shirt Premium</h4>
+                            <p class="text-xs text-gray-500">Taille: M, Couleur: Noir</p>
+                            <p class="text-sm font-semibold">29,99€</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Repeat for more items -->
+                <div class="p-4 border-b border-gray-100">
+                    <div class="flex items-center space-x-3">
+                        <img src="/hexashop-1.0.0/assets/images/product-2.jpg" 
+                             alt="Produit" class="object-cover w-12 h-12 rounded">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-medium">Jean Slim</h4>
+                            <p class="text-xs text-gray-500">Taille: 32, Couleur: Bleu</p>
+                            <p class="text-sm font-semibold">49,99€</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-semibold">Total:</span>
+                    <span class="text-lg font-bold">89,97€</span>
+                </div>
+                <button class="w-full py-2 text-white transition-colors bg-black rounded-lg hover:bg-gray-800">
+                    Voir le Panier
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Modal -->
+        <div x-show="searchOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click.self="searchOpen = false"
+             @keydown.escape.window="searchOpen = false"
+             class="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black bg-opacity-50">
+            
+            <div class="w-full max-w-2xl mx-4 bg-white rounded-lg shadow-xl">
+                <div class="p-6">
+                    <div class="relative">
+                        <input type="text" 
+                               placeholder="Rechercher des produits..." 
+                               class="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               x-ref="searchInput">
+                        <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" 
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <button @click="searchOpen = false" 
+                                class="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Search Results -->
+                    <div class="mt-4">
+                        <h3 class="mb-2 text-sm font-semibold text-gray-500 uppercase">Recherches populaires</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">T-shirts</span>
+                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">Jeans</span>
+                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">Sneakers</span>
+                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">Vestes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inclusion de la modale d'authentification -->
+        <?php include __DIR__ . '/auth-modal.php'; ?>
+                </button>
+            </div>
+        </div>
     </div>
+
+   
+    </header>
+    
+    <!-- Script pour la gestion de la modale d'authentification -->
+   

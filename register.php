@@ -3,8 +3,8 @@ session_start();
 
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
-    header('Location: index.php');
-    exit();
+  header('Location: /hexashop-1.0.0/index.php');
+  exit();
 }
 
 $errors = [];
@@ -12,107 +12,107 @@ $success = false;
 
 // Traitement du formulaire d'inscription
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
-    $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $password = $_POST['password'] ?? '';
-    $confirm_password = $_POST['confirm_password'] ?? '';
-    
-    // Validation des données
-    if (empty($nom)) {
-        $errors[] = 'Le nom est requis';
+  $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
+  $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_STRING);
+  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+  $password = $_POST['password'] ?? '';
+  $confirm_password = $_POST['confirm_password'] ?? '';
+
+  // Validation des données
+  if (empty($nom)) {
+    $errors[] = 'Le nom est requis';
+  }
+  if (empty($prenom)) {
+    $errors[] = 'Le prénom est requis';
+  }
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = 'Email invalide';
+  }
+  if (strlen($password) < 8) {
+    $errors[] = 'Le mot de passe doit contenir au moins 8 caractères';
+  }
+  if ($password !== $confirm_password) {
+    $errors[] = 'Les mots de passe ne correspondent pas';
+  }
+
+  // Traitement de l'avatar
+  $avatarPath = null;
+  if (
+    isset($_FILES['avatar']) &&
+    $_FILES['avatar']['error'] === UPLOAD_ERR_OK
+  ) {
+    $allowedTypes = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
+    $fileType = $_FILES['avatar']['type'];
+
+    if (array_key_exists($fileType, $allowedTypes)) {
+      $extension = $allowedTypes[$fileType];
+      $avatarName = uniqid('avatar_', true) . '.' . $extension;
+      $uploadDir = __DIR__ . '/assets/uploads/avatars/';
+
+      if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+      }
+
+      $targetPath = $uploadDir . $avatarName;
+      if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetPath)) {
+        $avatarPath = 'avatars/' . $avatarName;
+      } else {
+        $errors[] = 'Erreur lors du téléchargement de l\'image';
+      }
+    } else {
+      $errors[] = 'Type de fichier non autorisé. Formats acceptés : JPG, PNG';
     }
-    if (empty($prenom)) {
-        $errors[] = 'Le prénom est requis';
+  }
+
+  // Si pas d'erreurs, enregistrer l'utilisateur
+  if (empty($errors)) {
+    try {
+      $pdo = new PDO(
+        'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
+        'root',
+        '',
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
+      );
+
+      // Vérifier si l'email existe déjà
+      $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = ?');
+      $stmt->execute([$email]);
+
+      if ($stmt->fetch()) {
+        $errors[] = 'Cet email est déjà utilisé';
+      } else {
+        // Insérer le nouvel utilisateur
+        $stmt = $pdo->prepare(
+          'INSERT INTO user2 (nom, prenom, email, password, avatar) VALUES (?, ?, ?, ?, ?)',
+        );
+        $stmt->execute([$nom, $prenom, $email, $password, $avatarPath]);
+
+        // Connecter automatiquement l'utilisateur
+        $userId = $pdo->lastInsertId();
+        $_SESSION['user'] = [
+          'id' => $userId,
+          'nom' => $nom,
+          'prenom' => $prenom,
+          'email' => $email,
+          'avatar' => $avatarPath,
+        ];
+
+        $success = true;
+
+        // Rediriger après inscription réussie
+        header('Refresh: 3; URL=index.php');
+      }
+    } catch (PDOException $e) {
+      error_log('Erreur d\'inscription : ' . $e->getMessage());
+      $errors[] = 'Une erreur est survenue lors de l\'inscription';
     }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Email invalide';
-    }
-    if (strlen($password) < 8) {
-        $errors[] = 'Le mot de passe doit contenir au moins 8 caractères';
-    }
-    if ($password !== $confirm_password) {
-        $errors[] = 'Les mots de passe ne correspondent pas';
-    }
-    
-    // Traitement de l'avatar
-    $avatarPath = null;
-    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
-        $allowedTypes = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
-        $fileType = $_FILES['avatar']['type'];
-        
-        if (array_key_exists($fileType, $allowedTypes)) {
-            $extension = $allowedTypes[$fileType];
-            $avatarName = uniqid('avatar_', true) . '.' . $extension;
-            $uploadDir = __DIR__ . '/avatars/';
-            
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
-            
-            $targetPath = $uploadDir . $avatarName;
-            if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetPath)) {
-                $avatarPath = 'avatars/' . $avatarName;
-            } else {
-                $errors[] = 'Erreur lors du téléchargement de l\'image';
-            }
-        } else {
-            $errors[] = 'Type de fichier non autorisé. Formats acceptés : JPG, PNG';
-        }
-    }
-    
-    // Si pas d'erreurs, enregistrer l'utilisateur
-    if (empty($errors)) {
-        try {
-            $pdo = new PDO(
-                'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
-                'root',
-                '',
-                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-            );
-            
-            // Vérifier si l'email existe déjà
-            $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = ?');
-            $stmt->execute([$email]);
-            
-            if ($stmt->fetch()) {
-                $errors[] = 'Cet email est déjà utilisé';
-            } else {
-                // Insérer le nouvel utilisateur
-                $stmt = $pdo->prepare('INSERT INTO user2 (nom, prenom, email, password, avatar) VALUES (?, ?, ?, ?, ?)');
-                $stmt->execute([$nom, $prenom, $email, $password, $avatarPath]);
-                
-                // Connecter automatiquement l'utilisateur
-                $userId = $pdo->lastInsertId();
-                $_SESSION['user'] = [
-                    'id' => $userId,
-                    'nom' => $nom,
-                    'prenom' => $prenom,
-                    'email' => $email,
-                    'avatar' => $avatarPath
-                ];
-                
-                $success = true;
-                
-                // Rediriger après inscription réussie
-                header('Refresh: 3; URL=index.php');
-            }
-        } catch (PDOException $e) {
-            error_log('Erreur d\'inscription : ' . $e->getMessage());
-            $errors[] = 'Une erreur est survenue lors de l\'inscription';
-        }
-    }
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - HexaShop</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+<?php include 'includes/head.php'; ?>
 <body class="bg-gray-100">
     <?php include 'includes/header.php'; ?>
     
@@ -139,27 +139,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Inscription réussie ! Vous allez être redirigé vers la page d'accueil...
                 </div>
             <?php else: ?>
-                <form class="mt-8 space-y-6" action="register.php" method="POST" enctype="multipart/form-data">
+                <form class="mt-8 space-y-6" action="/hexashop-1.0.0/register.php" method="POST" enctype="multipart/form-data">
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="prenom" class="sr-only">Prénom</label>
                                 <input id="prenom" name="prenom" type="text" required 
                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                                       placeholder="Prénom" value="<?php echo isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : ''; ?>">
+                                       placeholder="Prénom" value="<?php echo isset(
+                                         $_POST['prenom'],
+                                       )
+                                         ? htmlspecialchars($_POST['prenom'])
+                                         : ''; ?>">
                             </div>
                             <div>
                                 <label for="nom" class="sr-only">Nom</label>
                                 <input id="nom" name="nom" type="text" required 
                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                                       placeholder="Nom" value="<?php echo isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : ''; ?>">
+                                       placeholder="Nom" value="<?php echo isset(
+                                         $_POST['nom'],
+                                       )
+                                         ? htmlspecialchars($_POST['nom'])
+                                         : ''; ?>">
                             </div>
                         </div>
                         <div>
                             <label for="email" class="sr-only">Adresse email</label>
                             <input id="email" name="email" type="email" required 
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                                   placeholder="Adresse email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+                                   placeholder="Adresse email" value="<?php echo isset(
+                                     $_POST['email'],
+                                   )
+                                     ? htmlspecialchars($_POST['email'])
+                                     : ''; ?>">
                         </div>
                         <div>
                             <label for="password" class="sr-only">Mot de passe</label>
@@ -196,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="text-sm text-center">
                     <p class="text-gray-600">
                         Déjà inscrit ? 
-                        <a href="login.php" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="/hexashop-1.0.0/login.php" class="font-medium text-blue-600 hover:text-blue-500">
                             Se connecter
                         </a>
                     </p>
