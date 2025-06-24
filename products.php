@@ -6,15 +6,15 @@
     <!-- ***** Preloader Start ***** -->
     <div
       id="preloader"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-white"
+      class="flex fixed inset-0 z-50 justify-center items-center bg-white"
     >
       <div class="flex space-x-2 jumper">
-        <div class="w-3 h-3 rounded-full bg-accent animate-bounce"></div>
+        <div class="w-3 h-3 rounded-full animate-bounce bg-accent"></div>
         <div
-          class="w-3 h-3 delay-75 rounded-full bg-accent animate-bounce"
+          class="w-3 h-3 rounded-full delay-75 animate-bounce bg-accent"
         ></div>
         <div
-          class="w-3 h-3 delay-150 rounded-full bg-accent animate-bounce"
+          class="w-3 h-3 rounded-full delay-150 animate-bounce bg-accent"
         ></div>
       </div>
     </div>
@@ -29,12 +29,12 @@
       <div class="container px-4 mx-auto">
         <!-- Product Categories -->
         <div class="mb-12">
-          <ul class="flex flex-wrap justify-center gap-4">
+          <ul class="flex flex-wrap gap-4 justify-center">
             <li>
               <a
                 href="#"
                 data-filter="*"
-                class="px-3 py-3 text-white bg-black transition-colors rounded-full "
+                class="px-3 py-3 text-white bg-black rounded-full transition-colors"
                 >All Products</a
               >
             </li>
@@ -42,7 +42,7 @@
               <a
                 href="#"
                 data-filter=".new"
-                class="px-3 py-3 transition-colors border rounded-full border-black text-black "
+                class="px-3 py-3 text-black rounded-full border border-black transition-colors"
                 >New Arrivals</a
               >
             </li>
@@ -50,7 +50,7 @@
               <a
                 href="#"
                 data-filter=".special"
-                class="px-3 py-3 transition-colors border rounded-full border-black text-black "
+                class="px-3 py-3 text-black rounded-full border border-black transition-colors"
                 >Special Offers</a
               >
             </li>
@@ -58,7 +58,7 @@
               <a
                 href="#"
                 data-filter=".featured"
-                class="px-3 py-3 transition-colors border rounded-full border-black text-black"
+                class="px-3 py-3 text-black rounded-full border border-black transition-colors"
                 >Featured</a
               >
             </li>
@@ -71,7 +71,7 @@
           id="products"
         >
           <!-- Product Item 1 -->
-          <div class="relative overflow-hidden rounded-lg shadow-lg group new">
+          <div class="overflow-hidden relative rounded-lg shadow-lg group new">
             <div class="relative aspect-w-1 aspect-h-1">
               <img
                 src="assets/images/men-01.jpg"
@@ -79,24 +79,24 @@
                 class="object-cover w-full h-full"
               />
               <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
+                class="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               >
                 <div class="flex space-x-4">
                   <a
                     href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-eye"></i>
                   </a>
                   <a
                     href="#"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-star"></i>
                   </a>
                   <a
                     href="#"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-shopping-cart"></i>
                   </a>
@@ -118,7 +118,7 @@
 
           <!-- Product Item 2 -->
           <div
-            class="relative overflow-hidden rounded-lg shadow-lg group special"
+            class="overflow-hidden relative rounded-lg shadow-lg group special"
           >
             <div class="relative aspect-w-1 aspect-h-1">
               <img
@@ -127,24 +127,24 @@
                 class="object-cover w-full h-full"
               />
               <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
+                class="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               >
                 <div class="flex space-x-4">
                   <a
                     href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-eye"></i>
                   </a>
                   <a
                     href="#"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-star"></i>
                   </a>
                   <a
                     href="#"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-shopping-cart"></i>
                   </a>
@@ -166,7 +166,7 @@
 
           <!-- Product Item 3 -->
           <div
-            class="relative overflow-hidden rounded-lg shadow-lg group featured"
+            class="overflow-hidden relative rounded-lg shadow-lg group featured"
           >
             <div class="relative aspect-w-1 aspect-h-1">
               <img
@@ -175,24 +175,24 @@
                 class="object-cover w-full h-full"
               />
               <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
+                class="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               >
                 <div class="flex space-x-4">
                   <a
                     href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-eye"></i>
                   </a>
                   <a
                     href="#"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-star"></i>
                   </a>
                   <a
                     href="#"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
+                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-shopping-cart"></i>
                   </a>
@@ -220,22 +220,22 @@
         <div class="flex justify-center mt-12 space-x-2">
           <a
             href="#"
-            class="px-4 py-2 text-white transition-colors rounded-lg bg-primary hover:bg-primary-dark"
+            class="px-4 py-2 text-white rounded-lg transition-colors bg-primary hover:bg-primary-dark"
             >1</a
           >
           <a
             href="#"
-            class="px-4 py-2 transition-colors border rounded-lg border-primary text-primary hover:bg-primary hover:text-white"
+            class="px-4 py-2 rounded-lg border transition-colors border-primary text-primary hover:bg-primary hover:text-white"
             >2</a
           >
           <a
             href="#"
-            class="px-4 py-2 transition-colors border rounded-lg border-primary text-primary hover:bg-primary hover:text-white"
+            class="px-4 py-2 rounded-lg border transition-colors border-primary text-primary hover:bg-primary hover:text-white"
             >3</a
           >
           <a
             href="#"
-            class="px-4 py-2 transition-colors border rounded-lg border-primary text-primary hover:bg-primary hover:text-white"
+            class="px-4 py-2 rounded-lg border transition-colors border-primary text-primary hover:bg-primary hover:text-white"
             >4</a
           >
         </div>
@@ -250,14 +250,10 @@
     <script src="assets/js/jquery-2.1.0.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+   
 
     <!-- Alpine.js -->
-    <script
-      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
+    
 
     <!-- Plugins -->
     <script src="assets/js/owl-carousel.js"></script>

@@ -1,27 +1,7 @@
 // Mobile menu functionality
 document.addEventListener('DOMContentLoaded', function () {
-  const menuTrigger = document.querySelector('.menu-trigger');
-  const mobileMenu = document.querySelector('#mobile-menu');
-  const header = document.querySelector('header');
+  
 
-  // Mobile menu toggle
-  if (menuTrigger && mobileMenu) {
-    menuTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      mobileMenu.classList.toggle('hidden');
-      menuTrigger.classList.toggle('bg-gray-100');
-    });
-  }
-
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (mobileMenu && !header.contains(e.target)) {
-      mobileMenu.classList.add('hidden');
-      if (menuTrigger) {
-        menuTrigger.classList.remove('bg-gray-100');
-      }
-    }
-  });
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -187,34 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Header scroll effect
-  let lastScroll = 0;
-
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll <= 0) {
-      header.classList.remove('scroll-up');
-      return;
-    }
-
-    if (
-      currentScroll > lastScroll &&
-      !header.classList.contains('scroll-down')
-    ) {
-      header.classList.remove('scroll-up');
-      header.classList.add('scroll-down');
-    } else if (
-      currentScroll < lastScroll &&
-      header.classList.contains('scroll-down')
-    ) {
-      header.classList.remove('scroll-down');
-      header.classList.add('scroll-up');
-    }
-
-    lastScroll = currentScroll;
-  });
-});
+ 
 
 // Modal Animations
 document.addEventListener('alpine:init', () => {
@@ -353,4 +306,4 @@ animationStyles.textContent = `
     opacity: 0;
   }
 `;
-document.head.appendChild(animationStyles);
+document.head.appendChild(animationStyles);})

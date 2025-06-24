@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Inclure le contrôleur d'authentification
+require_once __DIR__ . '/src/Controllers/AuthController.php';
+use HexaShop\Controllers\AuthController;
+
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
   header('Location: /hexashop-1.0.0/index.php');
@@ -11,43 +15,20 @@ $error = '';
 
 // Traitement du formulaire de connexion
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-  $password = $_POST['password'] ?? '';
+  $authController = new AuthController();
+  $result = $authController->login($_POST);
+  
+  if ($result['success']) {
+    // Redirection après connexion réussie
+    // Rediriger vers la page précédente ou la page d'accueil
+    $redirect = $_SESSION['redirect_after_login'] ?? '/hexashop-1.0.0/index.php';
+    unset($_SESSION['redirect_after_login']);
+    header('Location: ' . $redirect);
+    exit();
+  } else {
+    $error = $result['message'];
+  }
 
-  try {
-    $pdo = new PDO(
-      'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
-      'root',
-      '',
-      [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
-    );
-
-    $stmt = $pdo->prepare('SELECT * FROM user2 WHERE email = :email');
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && $user['password'] === $password) {
-      $_SESSION['user'] = [
-        'id' => $user['id'],
-        'nom' => $user['nom'],
-        'prenom' => $user['prenom'],
-        'email' => $user['email'],
-        'avatar' => $user['avatar'],
-      ];
-
-      // Redirection après connexion réussie
-      // Rediriger vers la page précédente ou la page d'accueil
-      $redirect =
-        $_SESSION['redirect_after_login'] ?? '/hexashop-1.0.0/index.php';
-      unset($_SESSION['redirect_after_login']);
-      header('Location: ' . $redirect);
-      exit();
-    } else {
-      $error = 'Email ou mot de passe incorrect';
-    }
-  } catch (PDOException $e) {
-    error_log('Erreur de connexion : ' . $e->getMessage());
-    $error = 'Une erreur est survenue lors de la connexion';
   }
 }
 ?>

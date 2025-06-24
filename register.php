@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Inclure le contrôleur d'authentification
+require_once __DIR__ . '/src/Controllers/AuthController.php';
+use HexaShop\Controllers\AuthController;
+
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
   header('Location: /hexashop-1.0.0/index.php');
@@ -12,42 +16,20 @@ $success = false;
 
 // Traitement du formulaire d'inscription
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
-  $prenom = filter_input(INPUT_POST, 'prenom', FILTER_SANITIZE_STRING);
-  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-  $password = $_POST['password'] ?? '';
-  $confirm_password = $_POST['confirm_password'] ?? '';
-
-  // Validation des données
-  if (empty($nom)) {
-    $errors[] = 'Le nom est requis';
-  }
-  if (empty($prenom)) {
-    $errors[] = 'Le prénom est requis';
-  }
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Email invalide';
-  }
-  if (strlen($password) < 8) {
-    $errors[] = 'Le mot de passe doit contenir au moins 8 caractères';
-  }
-  if ($password !== $confirm_password) {
-    $errors[] = 'Les mots de passe ne correspondent pas';
+  $authController = new AuthController();
+  $result = $authController->register($_POST, $_FILES);
+  
+  if ($result['success']) {
+    // Redirection après inscription réussie
+    header('Location: /hexashop-1.0.0/index.php');
+    exit();
+  } else {
+    $errors = $result['errors'];
+    if (!empty($result['message'])) {
+      $errors[] = $result['message'];
+    }
   }
 
-  // Traitement de l'avatar
-  $avatarPath = null;
-  if (
-    isset($_FILES['avatar']) &&
-    $_FILES['avatar']['error'] === UPLOAD_ERR_OK
-  ) {
-    $allowedTypes = ['image/jpeg' => 'jpg', 'image/png' => 'png'];
-    $fileType = $_FILES['avatar']['type'];
-
-    if (array_key_exists($fileType, $allowedTypes)) {
-      $extension = $allowedTypes[$fileType];
-      $avatarName = uniqid('avatar_', true) . '.' . $extension;
-      $uploadDir = __DIR__ . '/assets/uploads/avatars/';
 
       if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
