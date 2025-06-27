@@ -37,11 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function setActiveLink() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 0;
 
     let current = '';
 
     sections.forEach((section) => {
-      const sectionTop = section.offsetTop - header.offsetHeight - 100;
+      const sectionTop = section.offsetTop - headerHeight - 100;
       const sectionHeight = section.offsetHeight;
       if (
         window.scrollY >= sectionTop &&
@@ -306,4 +308,108 @@ animationStyles.textContent = `
     opacity: 0;
   }
 `;
-document.head.appendChild(animationStyles);})
+document.head.appendChild(animationStyles);
+
+// Initialize Hero Carousel with Swiper.js
+const heroSwiper = new Swiper('.hero-swiper', {
+  // Basic settings
+  loop: true,
+  effect: 'fade',
+  speed: 1000,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  },
+  
+  // Navigation
+  navigation: {
+    nextEl: '.hero-swiper-button-next',
+    prevEl: '.hero-swiper-button-prev',
+  },
+  
+  // Pagination
+  pagination: {
+    el: '.hero-swiper-pagination',
+    clickable: true,
+    dynamicBullets: true,
+  },
+  
+  // Responsive breakpoints
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 0,
+    },
+    768: {
+      slidesPerView: 1,
+      spaceBetween: 0,
+    },
+    1024: {
+      slidesPerView: 1,
+      spaceBetween: 0,
+    },
+  },
+  
+  // Fade effect
+  fadeEffect: {
+    crossFade: true
+  },
+  
+  // Keyboard navigation
+  keyboard: {
+    enabled: true,
+    onlyInViewport: true,
+  },
+  
+  // Mouse wheel
+  mousewheel: {
+    invert: false,
+  },
+  
+  // Touch events
+  touchRatio: 1,
+  touchAngle: 45,
+  grabCursor: true,
+  
+  // Preload images
+  preloadImages: false,
+  lazy: {
+    loadPrevNext: true,
+    loadPrevNextAmount: 1,
+  },
+  
+  // Callbacks
+  on: {
+    init: function () {
+      console.log('Hero carousel initialized');
+      // Add loading animation
+      document.querySelector('.hero-swiper').classList.add('swiper-initialized');
+    },
+    slideChange: function () {
+      // Reset animations for new slide
+      const activeSlide = this.slides[this.activeIndex];
+      const elements = activeSlide.querySelectorAll('h1, p, .flex');
+      elements.forEach((el, index) => {
+        el.style.animation = 'none';
+        setTimeout(() => {
+          el.style.animation = `slideInUp 0.8s ease-out ${index * 0.2}s`;
+        }, 100);
+      });
+    },
+  },
+});
+
+// Pause autoplay on mobile to save battery
+if (window.innerWidth <= 768) {
+  heroSwiper.autoplay.stop();
+}
+
+// Resume autoplay on desktop
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 768) {
+    heroSwiper.autoplay.start();
+  } else {
+    heroSwiper.autoplay.stop();
+  }
+});

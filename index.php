@@ -12,6 +12,172 @@
 
   <?php include 'includes/header.php'; ?>
   
+  <!-- ***** Hero Carousel Start ***** -->
+  <section class="relative w-full bg-black">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <div class="swiper-slide relative">
+          <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+            <img src="src/images/baner-right-image-01.jpg" 
+                 alt="Nouvelle Collection Femme" 
+                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center">
+              <div class="container mx-auto px-4">
+                <div class="max-w-2xl text-white">
+                  <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+                    Nouvelle Collection
+                    <span class="block text-gray-300">Femme 2024</span>
+                  </h1>
+                  <p class="text-lg md:text-xl mb-8 text-gray-200 leading-relaxed">
+                    Découvrez notre collection exclusive en noir et blanc, 
+                    où l'élégance rencontre le style contemporain.
+                  </p>
+                  <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="products.php?category=women" 
+                       class="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                      Découvrir
+                      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      </svg>
+                    </a>
+                    <a href="products.php" 
+                       class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300">
+                      Voir tout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide relative">
+          <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+            <img src="src/images/baner-right-image-02.jpg" 
+                 alt="Collection Homme" 
+                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center">
+              <div class="container mx-auto px-4">
+                <div class="max-w-2xl text-white">
+                  <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+                    Style Masculin
+                    <span class="block text-gray-300">Élégance Moderne</span>
+                  </h1>
+                  <p class="text-lg md:text-xl mb-8 text-gray-200 leading-relaxed">
+                    Une collection masculine qui allie sophistication et confort, 
+                    pour l'homme moderne qui aime se démarquer.
+                  </p>
+                  <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="products.php?category=men" 
+                       class="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                      Explorer
+                      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      </svg>
+                    </a>
+                    <a href="products.php" 
+                       class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300">
+                      Collection
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide relative">
+          <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+            <img src="src/images/baner-right-image-03.jpg" 
+                 alt="Accessoires & Kids" 
+                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center">
+              <div class="container mx-auto px-4">
+                <div class="max-w-2xl text-white">
+                  <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+                    Accessoires & Kids
+                    <span class="block text-gray-300">Pour Toute la Famille</span>
+                  </h1>
+                  <p class="text-lg md:text-xl mb-8 text-gray-200 leading-relaxed">
+                    Des accessoires tendance et des vêtements pour enfants, 
+                    pour compléter le style de toute la famille.
+                  </p>
+                  <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="products.php?category=accessories" 
+                       class="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                      Accessoires
+                      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      </svg>
+                    </a>
+                    <a href="products.php?category=kids" 
+                       class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300">
+                      Kids
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide relative">
+          <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+            <img src="src/images/left-banner-image.jpg" 
+                 alt="Nouveautés" 
+                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center">
+              <div class="container mx-auto px-4">
+                <div class="max-w-2xl text-white">
+                  <div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                    <span class="text-sm font-semibold text-white">NOUVEAUTÉS</span>
+                    <div class="ml-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  </div>
+                  <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+                    Nouveautés
+                    <span class="block text-gray-300">Édition Limitée</span>
+                  </h1>
+                  <p class="text-lg md:text-xl mb-8 text-gray-200 leading-relaxed">
+                    Découvrez en avant-première nos pièces exclusives 
+                    et nos collaborations d'artistes.
+                  </p>
+                  <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="products.php?new=1" 
+                       class="inline-flex items-center px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                      Voir les nouveautés
+                      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      </svg>
+                    </a>
+                    <a href="products.php" 
+                       class="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300">
+                      Toute la collection
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <div class="swiper-button-next hero-swiper-button-next"></div>
+      <div class="swiper-button-prev hero-swiper-button-prev"></div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination hero-swiper-pagination"></div>
+    </div>
+  </section>
+  <!-- ***** Hero Carousel End ***** -->
 
     
 <main id="main" class="py-20">
@@ -1058,9 +1224,11 @@
     <script src="assets/js/lightbox.js"></script>
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/custom.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="src/js/main.js"></script>
     
     <!-- Scripts personnalisés -->
     <?php include 'includes/scripts.php'; ?>
+
+    <?php include 'includes/test-modal.php'; ?>
   </body>
 </html>

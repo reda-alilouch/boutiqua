@@ -268,7 +268,7 @@
 
     <!-- Custom JavaScript -->
     <script src="assets/js/custom.js"></script>
-    <script src="assets/js/main.js?v=<?php echo time(); ?>"></script>
+    <script src="src/js/main.js?v=<?php echo time(); ?>"></script>
 
     <script>
       $(function () {

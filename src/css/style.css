@@ -686,6 +686,171 @@ footer {
   }
 }
 #menuButton {
-  z-index: 50;
+  display: none;
+}
+
+/* ===== HERO CAROUSEL STYLES ===== */
+.hero-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-swiper .swiper-slide {
+  text-align: left;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Navigation Buttons */
+.hero-swiper-button-next,
+.hero-swiper-button-prev {
+  width: 50px !important;
+  height: 50px !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 50% !important;
+  color: #000 !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-swiper-button-next:hover,
+.hero-swiper-button-prev:hover {
+  background-color: #000 !important;
+  color: #fff !important;
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-swiper-button-next::after,
+.hero-swiper-button-prev::after {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
+/* Pagination */
+.hero-swiper-pagination {
+  bottom: 30px !important;
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease !important;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #fff !important;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-swiper-button-next,
+  .hero-swiper-button-prev {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .hero-swiper-button-next::after,
+  .hero-swiper-button-prev::after {
+    font-size: 14px !important;
+  }
+  
+  .hero-swiper-pagination {
+    bottom: 20px !important;
+  }
+  
+  .hero-swiper-pagination .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+/* Animation for slide content */
+.hero-swiper .swiper-slide-active h1,
+.hero-swiper .swiper-slide-active p,
+.hero-swiper .swiper-slide-active .flex {
+  animation: slideInUp 0.8s ease-out;
+}
+
+.hero-swiper .swiper-slide-active h1 {
+  animation-delay: 0.2s;
+}
+
+.hero-swiper .swiper-slide-active p {
+  animation-delay: 0.4s;
+}
+
+.hero-swiper .swiper-slide-active .flex {
+  animation-delay: 0.6s;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects for images */
+.hero-swiper .swiper-slide img {
+  transition: all 0.7s ease;
+}
+
+.hero-swiper .swiper-slide:hover img {
+  transform: scale(1.05);
+}
+
+/* Gradient overlay enhancement */
+.hero-swiper .swiper-slide .bg-gradient-to-r {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.7) 0%, 
+    rgba(0, 0, 0, 0.4) 50%, 
+    rgba(0, 0, 0, 0.1) 100%);
+}
+
+/* Button hover effects */
+.hero-swiper .swiper-slide a {
   position: relative;
+  overflow: hidden;
+}
+
+.hero-swiper .swiper-slide a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.hero-swiper .swiper-slide a:hover::before {
+  left: 100%;
+}
+
+/* Loading animation for carousel */
+.hero-swiper.swiper-initialized {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

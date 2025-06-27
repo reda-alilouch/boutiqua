@@ -203,94 +203,19 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                 </nav>
 
                 <!-- Actions -->
-                <div class="flex items-center space-x-2">
-                    
-                    <!-- Search Button -->
-                    <button data-modal-toggle="searchModal" class="p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
-
-                    <!-- Cart Button -->
-                    <button 
-                            class="relative p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                        </svg>
-                        <span class="cart-badge">3</span>
-                    </button>
-
-                    <!-- User Profile / Auth -->
-                    <?php if ($isLoggedIn): ?>
-                        <div class="relative">
-                            <button @click="profileOpen = !profileOpen"
-                                    class="flex items-center p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
-                                <?php if ($user['avatar']): ?>
-                                    <img src="/hexashop-1.0.0/assets/uploads/<?php echo htmlspecialchars(
-                                      $user['avatar'],
-                                    ); ?>" 
-                                         alt="Avatar" class="object-cover w-8 h-8 rounded-full">
-                                <?php else: ?>
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                    </svg>
-                                <?php endif; ?>
-                            </button>
-                            
-                            <!-- Profile Dropdown -->
-                            <div class="absolute right-0 z-50 w-64 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg">
-                                
-                                <div class="p-4 border-b border-gray-100">
-                                    <p class="font-medium text-gray-900">
-                                        <?php echo htmlspecialchars(
-                                          $user['prenom'] . ' ' . $user['nom'],
-                                        ); ?>
-                                    </p>
-                                    <p class="text-sm text-gray-500"><?php echo htmlspecialchars(
-                                      $user['email'],
-                                    ); ?></p>
-                                </div>
-                                
-                                <div class="py-2">
-                                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                        </svg>
-                                        Mon Profil
-                                    </a>
-                                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                        Mes Commandes
-                                    </a>
-                                    <a href="?logout=1" class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                        </svg>
-                                        Déconnexion
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <?php else: ?>
-                        <button data-modal-toggle="authModal"
-                                class="p-2 text-gray-600 transition-all rounded-full hover:text-black hover:bg-gray-100">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                            </svg>
-                        </button>
-                    <?php endif; ?>
-                </div>
-
+                
+<div class="flex items-center gap-4">
+  <button id="openSearchModalBtn">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+  <button id="openCartModalBtn">
+    <i class="fa-solid fa-cart-shopping"></i>
+  </button>
+  
+    <button id="openAuthModalBtn">
+        <i class="fa-solid fa-user"></i>
+    </button>
+</div>
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden bg-white border-t border-gray-200 lg:hidden">
                     <nav class="flex flex-col py-4">
@@ -322,111 +247,10 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                     </nav>
             </nav>
         </div>
-
-        <!-- Cart Dropdown -->
-        <div 
-             class="absolute z-50 hidden mt-2 bg-white border border-gray-200 rounded-lg shadow-xl top-full right-4 w-80">
-            
-            <div class="p-4 border-b border-gray-100">
-                <h3 class="font-semibold text-gray-900">Mon Panier (3)</h3>
-            </div>
-            
-            <div class="overflow-y-auto max-h-64">
-                <!-- Cart Items -->
-                <div class="p-4 border-b border-gray-100">
-                    <div class="flex items-center space-x-3">
-                        <img src="/hexashop-1.0.0/assets/images/product-1.jpg" 
-                             alt="Produit" class="object-cover w-12 h-12 rounded">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-medium">T-shirt Premium</h4>
-                            <p class="text-xs text-gray-500">Taille: M, Couleur: Noir</p>
-                            <p class="text-sm font-semibold">29,99€</p>
-                        </div>
-                        <button class="text-red-500 hover:text-red-700">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Repeat for more items -->
-                <div class="p-4 border-b border-gray-100">
-                    <div class="flex items-center space-x-3">
-                        <img src="/hexashop-1.0.0/assets/images/product-2.jpg" 
-                             alt="Produit" class="object-cover w-12 h-12 rounded">
-                        <div class="flex-1">
-                            <h4 class="text-sm font-medium">Jean Slim</h4>
-                            <p class="text-xs text-gray-500">Taille: 32, Couleur: Bleu</p>
-                            <p class="text-sm font-semibold">49,99€</p>
-                        </div>
-                        <button class="text-red-500 hover:text-red-700">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="font-semibold">Total:</span>
-                    <span class="text-lg font-bold">89,97€</span>
-                </div>
-                <button class="w-full py-2 text-white transition-colors bg-black rounded-lg hover:bg-gray-800">
-                    Voir le Panier
-                </button>
-            </div>
-        </div>
-
-        <!-- Search Modal -->
-        <div id="searchModal" data-modal
-             class="fixed inset-0 z-50 hidden items-start justify-center pt-20 bg-black bg-opacity-50">
-            
-            <div class="w-full max-w-2xl mx-4 bg-white rounded-lg shadow-xl modal-content">
-                <div class="p-6">
-                    <div class="relative">
-                        <input type="text" 
-                               placeholder="Rechercher des produits..." 
-                               class="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                               x-ref="searchInput">
-                        <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-400" 
-                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                        <button data-modal-hide="searchModal" 
-                                class="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <!-- Search Results -->
-                    <div class="mt-4">
-                        <h3 class="mb-2 text-sm font-semibold text-gray-500 uppercase">Recherches populaires</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">T-shirts</span>
-                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">Jeans</span>
-                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">Sneakers</span>
-                            <span class="px-3 py-1 text-sm text-gray-700 bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200">Vestes</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Inclusion de la modale d'authentification -->
-        <?php include __DIR__ . '/auth-modal.php'; ?>
-                </button>
-            </div>
-        </div>
-    </div>
-
-   
     </header>
     
-    <!-- Script pour la gestion de la modale d'authentification -->
+    <?php include 'includes/auth-modal.php'; ?>
+    <?php include 'includes/cart-modal.php'; ?>
+    <?php include 'includes/search-modal.php'; ?>
+   
    

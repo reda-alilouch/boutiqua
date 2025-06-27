@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="src/css/menu.css">
     <link rel="stylesheet" href="src/css/responsive.css">
     <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/owl-carousel.css">
-    <link rel="stylesheet" href="src/css/lightbox.css">
     <link rel="stylesheet" href="src/css/modals.css">
     
     <!-- AOS Animation CSS -->
@@ -31,6 +29,12 @@
     
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Swiper.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <style>
         [x-cloak] { display: none !important; }
