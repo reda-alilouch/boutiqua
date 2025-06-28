@@ -2,7 +2,7 @@
 /**
  * En-tête principal du site avec navigation et modaux d'authentification
  *
- * @package HexaShop
+ * @package Astrodia
  * @version 1.0.0
  */
 
@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // Gestion de la déconnexion
 if (isset($_GET['logout'])) {
   session_destroy();
-  header('Location: /hexashop-1.0.0/index.php');
+  header('Location: /astrodia/index.php');
   exit();
 }
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion'])) {
         'last_login' => time(),
       ];
 
-      header('Location: /hexashop-1.0.0/index.php');
+      header('Location: /astrodia/index.php');
       exit();
     } else {
       $_SESSION['error'] = 'Email ou mot de passe incorrect';
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
           'last_login' => time(),
         ];
 
-        header('Location: /hexashop-1.0.0/index.php');
+        header('Location: /astrodia/index.php');
         exit();
       }
     } catch (Exception $e) {
@@ -173,30 +173,30 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                     </div>
 
                 <!-- Logo -->
-                <a href="/hexashop-1.0.0/index.php" class="flex-shrink-0">
-                    <img src="..//hexashop-1.0.0/src/images/logoo.png" 
-                         class="w-auto h-8 md:h-10" alt="Hexashop Logo" />
+                <a href="/astrodia/index.php" class="flex-shrink-0">
+                    <img src="../astrodia/src/images/logoo.png" 
+                         class="w-auto h-8 md:h-10" alt="Astrodia Logo" />
                 </a>
 
                 <!-- Desktop Menu -->
                 <nav class="hidden space-x-8 lg:flex">
-                    <a href="/hexashop-1.0.0" 
+                    <a href="/astrodia" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Accueil
                     </a>
-                    <a href="/hexashop-1.0.0/products.php" 
+                    <a href="/astrodia/products.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Produits
                     </a>
-                    <a href="/hexashop-1.0.0/single-product.php" 
+                    <a href="/astrodia/single-product.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Produit Unique
                     </a>
-                    <a href="/hexashop-1.0.0/contact.php" 
+                    <a href="/astrodia/contact.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Contact
                     </a>
-                    <a href="/hexashop-1.0.0/about.php" 
+                    <a href="/astrodia/about.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         À Propos
                     </a>
@@ -219,27 +219,27 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden bg-white border-t border-gray-200 lg:hidden">
                     <nav class="flex flex-col py-4">
-                        <a href="/hexashop-1.0.0/index.php" 
+                        <a href="/astrodia/index.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-home"></i>
                             Accueil
                         </a>
-                        <a href="/hexashop-1.0.0/products.php" 
+                        <a href="/astrodia/products.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-shopping-bag"></i>
                             Produits
                         </a>
-                        <a href="/hexashop-1.0.0/single-product.php" 
+                        <a href="/astrodia/single-product.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-box"></i>
                             Produit Unique
                         </a>
-                        <a href="/hexashop-1.0.0/contact.php" 
+                        <a href="/astrodia/contact.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-envelope"></i>
                             Contact
                         </a>
-                        <a href="/hexashop-1.0.0/about.php" 
+                        <a href="/astrodia/about.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-info-circle"></i>
                             À Propos

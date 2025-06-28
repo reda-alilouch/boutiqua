@@ -96,7 +96,7 @@
             Our Amazing Team
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Hexashop different from the other
+            Details to details is what makes Astrodia different from the other
             themes.
           </p>
         </div>
@@ -237,7 +237,7 @@
             Our Services
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Hexashop different from the other
+            Details to details is what makes Astrodia different from the other
             themes.
           </p>
         </div>

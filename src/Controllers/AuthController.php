@@ -2,15 +2,15 @@
 /**
  * Contrôleur d'authentification
  *
- * @package HexaShop
+ * @package Astrodia
  * @version 1.0.0
  */
 
-namespace HexaShop\Controllers;
+namespace Astrodia\Controllers;
 
 require_once __DIR__ . '/../Models/User.php';
 
-use HexaShop\Models\User;
+use Astrodia\Models\User;
 
 class AuthController {
     /**

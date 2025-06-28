@@ -3,11 +3,11 @@ session_start();
 
 // Inclure le contrôleur d'authentification
 require_once __DIR__ . '/src/Controllers/AuthController.php';
-use HexaShop\Controllers\AuthController;
+use Astrodia\Controllers\AuthController;
 
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
-  header('Location: /hexashop-1.0.0/index.php');
+  header('Location: /astrodia/index.php');
   exit();
 }
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   if ($result['success']) {
     // Redirection après inscription réussie
-    header('Location: /hexashop-1.0.0/index.php');
+    header('Location: /astrodia/index.php');
     exit();
   } else {
     $errors = $result['errors'];
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Inscription réussie ! Vous allez être redirigé vers la page d'accueil...
                 </div>
             <?php else: ?>
-                <form class="mt-8 space-y-6" action="/hexashop-1.0.0/register.php" method="POST" enctype="multipart/form-data">
+                <form class="mt-8 space-y-6" action="/astrodia/register.php" method="POST" enctype="multipart/form-data">
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="text-sm text-center">
                     <p class="text-gray-600">
                         Déjà inscrit ? 
-                        <a href="/hexashop-1.0.0/login.php" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="/astrodia/login.php" class="font-medium text-blue-600 hover:text-blue-500">
                             Se connecter
                         </a>
                     </p>

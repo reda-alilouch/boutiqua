@@ -22,223 +22,110 @@
 
    <?php include 'includes/header.php'; ?>
 <main id="main"  class="py-20">
-    
+    <?php
+    require_once __DIR__ . '/config/database.php';
+    $pdo = getDBConnection();
 
+    $perPage = 8;
+    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+    $start = ($page - 1) * $perPage;
+
+    // Nombre total de produits
+    $totalStmt = $pdo->query('SELECT COUNT(*) FROM products');
+    $totalProducts = $totalStmt->fetchColumn();
+    $totalPages = ceil($totalProducts / $perPage);
+
+    // Produits de la page courante
+    $stmt = $pdo->prepare('SELECT * FROM products LIMIT :start, :perPage');
+    $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+    $stmt->bindValue(':perPage', $perPage, PDO::PARAM_INT);
+    $stmt->execute();
+    $products = $stmt->fetchAll();
+    ?>
     <!-- ***** Products Area Starts ***** -->
     <section class="py-16">
-      <div class="container px-4 mx-auto">
-        <!-- Product Categories -->
-        <div class="mb-12">
-          <ul class="flex flex-wrap gap-4 justify-center">
-            <li>
-              <a
-                href="#"
-                data-filter="*"
-                class="px-3 py-3 text-white bg-black rounded-full transition-colors"
-                >All Products</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                data-filter=".new"
-                class="px-3 py-3 text-black rounded-full border border-black transition-colors"
-                >New Arrivals</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                data-filter=".special"
-                class="px-3 py-3 text-black rounded-full border border-black transition-colors"
-                >Special Offers</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                data-filter=".featured"
-                class="px-3 py-3 text-black rounded-full border border-black transition-colors"
-                >Featured</a
-              >
-            </li>
-          </ul>
-        </div>
+      <!-- Product Categories -->
+      <div class="mb-12">
+        <ul class="flex flex-wrap gap-4 justify-center">
+          <li>
+            <a
+              href="#"
+              data-filter="*"
+              class="px-3 py-3 text-white bg-black rounded-full transition-colors"
+              >All Products</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              data-filter=".new"
+              class="px-3 py-3 text-black rounded-full border border-black transition-colors"
+              >New Arrivals</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              data-filter=".special"
+              class="px-3 py-3 text-black rounded-full border border-black transition-colors"
+              >Special Offers</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              data-filter=".featured"
+              class="px-3 py-3 text-black rounded-full border border-black transition-colors"
+              >Featured</a
+            >
+          </li>
+        </ul>
+      </div>
 
-        <!-- Products Grid -->
-        <div
-          class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
-          id="products"
-        >
-          <!-- Product Item 1 -->
-          <div class="overflow-hidden relative rounded-lg shadow-lg group new">
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/men-01.jpg"
-                alt="Product"
-                class="object-cover w-full h-full"
-              />
-              <div
-                class="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Classic Spring</h4>
-              <span class="text-lg font-medium text-accent">$120.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
+      <!-- Products Grid -->
+      <div
+        class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
+        id="products"
+      >
+        <?php foreach ($products as $product): ?>
+        <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
+          <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
+            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
+                 alt="<?php echo htmlspecialchars($product['name']); ?>"
+                 class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
           </div>
-
-          <!-- Product Item 2 -->
-          <div
-            class="overflow-hidden relative rounded-lg shadow-lg group special"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/men-02.jpg"
-                alt="Product"
-                class="object-cover w-full h-full"
-              />
-              <div
-                class="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
+          <div class="flex-1 flex flex-col justify-between p-5">
+            <div>
+              <h4 class="text-xl font-bold text-gray-900"><?php echo htmlspecialchars($product['name']); ?></h4>
+              <span class="block text-lg font-semibold text-primary mb-4"><?php echo number_format($product['price'], 2); ?> €</span>
             </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Air Force 1 X</h4>
-              <span class="text-lg font-medium text-accent">$90.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
+           
+              <a href="single-product.php?id=<?php echo $product['id']; ?>"
+                 class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
+                Voir plus
+              </a>
+              <form method="post" action="add_to_cart.php">
+                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit"
+                class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">
+                Acheter
+                </button>
+              </form>
+          
           </div>
-
-          <!-- Product Item 3 -->
-          <div
-            class="overflow-hidden relative rounded-lg shadow-lg group featured"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/men-03.jpg"
-                alt="Product"
-                class="object-cover w-full h-full"
-              />
-              <div
-                class="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="p-2 bg-white rounded-full transition-colors hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Love Nana '20</h4>
-              <span class="text-lg font-medium text-accent">$150.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- More Product Items... -->
-          <!-- Add more product items following the same structure -->
         </div>
+        <?php endforeach; ?>
+      </div>
 
-        <!-- Pagination -->
-        <div class="flex justify-center mt-12 space-x-2">
-          <a
-            href="#"
-            class="px-4 py-2 text-white rounded-lg transition-colors bg-primary hover:bg-primary-dark"
-            >1</a
-          >
-          <a
-            href="#"
-            class="px-4 py-2 rounded-lg border transition-colors border-primary text-primary hover:bg-primary hover:text-white"
-            >2</a
-          >
-          <a
-            href="#"
-            class="px-4 py-2 rounded-lg border transition-colors border-primary text-primary hover:bg-primary hover:text-white"
-            >3</a
-          >
-          <a
-            href="#"
-            class="px-4 py-2 rounded-lg border transition-colors border-primary text-primary hover:bg-primary hover:text-white"
-            >4</a
-          >
-        </div>
+      <!-- Pagination -->
+      <div class="flex justify-center mt-12 space-x-2">
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+          <a href="?page=<?php echo $i; ?>"
+             class="px-4 py-2 rounded-lg border transition-colors <?php echo $i == $page ? 'bg-primary text-white bg-black' : 'border-primary text-primary hover:bg-primary hover:text-white hover:bg-gray-800'; ?>">
+            <?php echo $i; ?>
+          </a>
+        <?php endfor; ?>
       </div>
     </section>
     <!-- ***** Products Area Ends ***** -->

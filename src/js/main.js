@@ -412,4 +412,5 @@ window.addEventListener('resize', function() {
   } else {
     heroSwiper.autoplay.stop();
   }
-});
+}); 
+})

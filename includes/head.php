@@ -1,10 +1,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hexashop - Votre boutique en ligne préférée">
-    <meta name="author" content="Hexashop">
+    <meta name="description" content="Astrodia - Votre boutique en ligne préférée">
+    <meta name="author" content="Astrodia">
     
-    <title>Hexashop - Votre boutique en ligne préférée</title>
+    <title>Astrodia - Votre boutique en ligne préférée</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">

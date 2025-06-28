@@ -4,8 +4,8 @@ session_start();
 
 // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
 if (!isset($_SESSION['user'])) {
-  $_SESSION['redirect_after_login'] = '/hexashop-1.0.0/profile.php';
-  header('Location: /hexashop-1.0.0/login.php');
+  $_SESSION['redirect_after_login'] = '/astrodia/profile.php';
+  header('Location: /astrodia/login.php');
   exit();
 }
 
@@ -167,7 +167,7 @@ render_page:
                         <div class="p-6 text-center">
                             <div class="relative inline-block">
                                 <img src="<?php echo !empty($user['avatar'])
-                                  ? '/hexashop-1.0.0/' .
+                                  ? '/astrodia/' .
                                     htmlspecialchars($user['avatar'])
                                   : 'https://ui-avatars.com/api/?name=' .
                                     urlencode(
@@ -202,7 +202,7 @@ render_page:
                                     Mon profil
                                 </div>
                             </a>
-                            <a href="/hexashop-1.0.0/orders.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                            <a href="/astrodia/orders.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -210,7 +210,7 @@ render_page:
                                     Mes commandes
                                 </div>
                             </a>
-                            <a href="/hexashop-1.0.0/wishlist.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                            <a href="/astrodia/wishlist.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -218,7 +218,7 @@ render_page:
                                     Ma liste de souhaits
                                 </div>
                             </a>
-                            <a href="/hexashop-1.0.0/addresses.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                            <a href="/astrodia/addresses.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -227,7 +227,7 @@ render_page:
                                     Mes adresses
                                 </div>
                             </a>
-                            <a href="/hexashop-1.0.0/logout.php" class="block px-6 py-4 text-red-600 hover:bg-gray-50 font-medium">
+                            <a href="/astrodia/logout.php" class="block px-6 py-4 text-red-600 hover:bg-gray-50 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -265,7 +265,7 @@ render_page:
                         <div class="px-6 py-5 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900">Informations personnelles</h3>
                         </div>
-                        <form method="POST" action="/hexashop-1.0.0/profile.php" enctype="multipart/form-data" class="p-6">
+                        <form method="POST" action="/astrodia/profile.php" enctype="multipart/form-data" class="p-6">
                             <input type="file" id="avatar" name="avatar" class="hidden" accept="image/png, image/jpeg">
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

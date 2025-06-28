@@ -211,7 +211,7 @@
                 </a>
               </div>
             </div>
-            <img src="assets/images/baner-right-image-01.jpg" 
+            <img src="src/images/baner-right-image-01.jpg" 
                  class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
                  alt="Women's Collection" 
                  loading="lazy" />
@@ -241,7 +241,7 @@
                 </a>
               </div>
             </div>
-            <img src="assets/images/baner-right-image-02.jpg" 
+            <img src="src/images/baner-right-image-02.jpg" 
                  class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
                  alt="Men's Collection" 
                  loading="lazy" />
@@ -271,7 +271,7 @@
                 </a>
               </div>
             </div>
-            <img src="assets/images/baner-right-image-03.jpg" 
+            <img src="src/images/baner-right-image-03.jpg" 
                  class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
                  alt="Kids Collection" 
                  loading="lazy" />
@@ -300,7 +300,7 @@
                 </a>
               </div>
             </div>
-            <img src="assets/images/baner-right-image-04.jpg" 
+            <img src="src/images/baner-right-image-04.jpg" 
                  class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
                  alt="Accessories Collection" 
                  loading="lazy" />
@@ -334,7 +334,7 @@
                 </svg>
               </a>
             </div>
-            <img src="assets/images/left-banner-image.jpg" 
+            <img src="src/images/left-banner-image.jpg" 
                  class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
                  alt="Nouveautés Collection" 
                  loading="lazy" />
@@ -353,184 +353,42 @@
         <div class="max-w-2xl mx-auto mb-8 text-center sm:mb-12">
           <h2 class="mb-3 text-2xl font-semibold text-primary sm:text-3xl md:mb-4">Men's Latest</h2>
           <p class="text-gray-600 text-sm sm:text-base">
-            Details to details is what makes Hexashop different from other themes.
+            Details to details is what makes Astrodia different from other themes.
           </p>
         </div>
 
         <!-- Products Grid -->
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 md:gap-6">
-          <!-- Product 1 -->
-          <div class="relative overflow-hidden transition-all duration-300 bg-white border border-gray-100 rounded-lg shadow-sm group hover:shadow-md">
-            <div class="relative pt-[100%] sm:pt-[120%] md:pt-[100%]">
-              <img
-                src="assets/images/men-01.jpg"
-                alt="New Green Jacket"
-                class="absolute inset-0 object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100">
-                <button 
-                  class="p-2 text-white transition-all duration-300 transform bg-primary rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:p-3"
-                  aria-label="Add to cart"
-                >
-                  <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                </button>
-              </div>
-              <span class="absolute px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded top-2 right-2">-30%</span>
-            </div>
-            <div class="p-4">
-              <div class="h-12 mb-2">
-                <h3 class="font-medium text-gray-900 line-clamp-2">New Green Jacket with Premium Quality</h3>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 2 -->
-          <div class="relative overflow-hidden rounded-lg shadow-lg group">
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/men-02.jpg"
-                alt="Air Force 1 X"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
+          <?php
+          require_once __DIR__ . '/config/database.php';
+          $pdo = new PDO('mysql:host=localhost;dbname=astrodia;charset=utf8mb4', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+          $stmt = $pdo->prepare('SELECT * FROM products WHERE category = ? LIMIT 8');
+          $stmt->execute(['men']);
+          $products = $stmt->fetchAll();
+          foreach ($products as $product): ?>
+            <div class="relative overflow-hidden transition-all duration-300 bg-white border border-gray-100 rounded-lg shadow-sm group hover:shadow-md">
+              <div class="relative pt-[100%] sm:pt-[120%] md:pt-[100%]">
+                <img
+                  src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
+                  alt="<?php echo htmlspecialchars($product['title']); ?>"
+                  class="absolute inset-0 object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100">
+                  <a href="single-product.php?id=<?php echo $product['id']; ?>" class="p-2 text-white transition-all duration-300 transform bg-primary rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:p-3" aria-label="Voir le produit">
                     <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
                   </a>
                 </div>
               </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Air Force 1 X</h4>
-              <span class="text-lg font-medium text-accent">$90.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 3 -->
-          <div class="relative overflow-hidden rounded-lg shadow-lg group">
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/men-03.jpg"
-                alt="Love Nana '20"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
+              <div class="p-4">
+                <div class="h-12 mb-2">
+                  <h3 class="font-medium text-gray-900 line-clamp-2"><?php echo htmlspecialchars($product['title']); ?></h3>
                 </div>
+                <p class="text-sm text-gray-500 mb-2 line-clamp-2"><?php echo htmlspecialchars($product['description']); ?></p>
+                <span class="text-lg font-medium text-accent"><?php echo number_format($product['price'], 2, ',', ' '); ?> €</span>
               </div>
             </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Love Nana '20</h4>
-              <span class="text-lg font-medium text-accent">$150.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 4 -->
-          <div class="relative overflow-hidden rounded-lg shadow-lg group">
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/men-01.jpg"
-                alt="Classic Spring"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Classic Spring</h4>
-              <span class="text-lg font-medium text-accent">$120.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>
@@ -545,208 +403,45 @@
             Women's Latest
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Hexashop different from the other
+            Details to details is what makes Astrodia different from the other
             themes.
           </p>
         </div>
 
         <!-- Products Grid -->
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <!-- Product 1 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/women-01.jpg"
-                alt="New Green Jacket"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
+          <?php
+          $stmt = $pdo->prepare('SELECT * FROM products WHERE category = ? LIMIT 8');
+          $stmt->execute(['women']);
+          $products = $stmt->fetchAll();
+          foreach ($products as $product): ?>
+            <div class="relative overflow-hidden bg-white rounded-lg shadow-lg group">
+              <div class="relative aspect-w-1 aspect-h-1">
+                <img
+                  src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
+                  alt="<?php echo htmlspecialchars($product['title']); ?>"
+                  class="object-cover w-full h-full"
+                  loading="lazy"
+                />
+                <!-- Hover Content -->
+                <div
+                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
+                >
                   <a
-                    href="single-product.html"
+                    href="single-product.php?id=<?php echo $product['id']; ?>"
                     class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
                   >
                     <i class="fa fa-eye"></i>
                   </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
                 </div>
               </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">New Green Jacket</h4>
-              <span class="text-lg font-medium text-accent">$75.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
+              <div class="p-4">
+                <h4 class="mb-2 text-lg font-semibold"><?php echo htmlspecialchars($product['title']); ?></h4>
+                <span class="text-lg font-medium text-accent"><?php echo number_format($product['price'], 2, ',', ' '); ?> €</span>
+                <p class="text-sm text-gray-500 mt-2 line-clamp-2"><?php echo htmlspecialchars($product['description']); ?></p>
               </div>
             </div>
-          </div>
-
-          <!-- Product 2 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/women-02.jpg"
-                alt="Classic Dress"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Classic Dress</h4>
-              <span class="text-lg font-medium text-accent">$45.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 3 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/women-03.jpg"
-                alt="Spring Collection"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Spring Collection</h4>
-              <span class="text-lg font-medium text-accent">$130.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 4 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/women-01.jpg"
-                alt="Classic Spring"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Classic Spring</h4>
-              <span class="text-lg font-medium text-accent">$120.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>
@@ -759,7 +454,7 @@
         <div class="max-w-2xl mx-auto mb-12 text-center">
           <h2 class="mb-4 text-3xl font-semibold text-primary">Kid's Latest</h2>
           <p class="text-gray-600">
-            Details to details is what makes Hexashop different from the other
+            Details to details is what makes Astrodia different from the other
             themes.
           </p>
         </div>
@@ -973,7 +668,7 @@
         <div class="max-w-2xl mx-auto mb-12 text-center">
           <h2 class="mb-4 text-3xl font-semibold text-primary">Social Media</h2>
           <p class="text-gray-600">
-            Details to details is what makes Hexashop different from the other
+            Details to details is what makes Astrodia different from the other
             themes.
           </p>
         </div>
@@ -1097,7 +792,7 @@
                 By Subscribing To Our Newsletter You Can Get 30% Off
               </h2>
               <p class="mb-8 text-gray-600">
-                Details to details is what makes Hexashop different from the
+                Details to details is what makes Astrodia different from the
                 other themes.
               </p>
 
@@ -1206,28 +901,45 @@
     </section>
     <!-- ***** Subscribe Area Ends ***** -->
 </main>
-    <?php include 'includes/footer.php'; ?>
-    
+  <!-- jQuery -->
+  <script src="assets/js/jquery-2.1.0.min.js"></script>
 
-    <!-- Scripts JS -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/datepicker.js"></script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <script src="src/js/main.js"></script>
-    
-    <!-- Scripts personnalisés -->
-    <?php include 'includes/scripts.php'; ?>
+<!-- Bootstrap -->
+<script src="assets/js/popper.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<!-- Plugins -->
+<script src="assets/js/owl-carousel.js"></script>
+<script src="assets/js/accordions.js"></script>
+<script src="assets/js/datepicker.js"></script>
+<script src="assets/js/scrollreveal.min.js"></script>
+<script src="assets/js/waypoints.min.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+<script src="assets/js/imgfix.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/isotope.js"></script>
+<script src="assets/js/quantity.js"></script>
+
+<!-- Global Init -->
+<script src="assets/js/custom.js"></script>
+
+<script>
+  $(function () {
+    var selectedClass = "";
+    $("p").click(function () {
+      selectedClass = $(this).attr("data-rel");
+      $("#portfolio").fadeTo(50, 0.1);
+      $("#portfolio div")
+        .not("." + selectedClass)
+        .fadeOut();
+      setTimeout(function () {
+        $("." + selectedClass).fadeIn();
+        $("#portfolio").fadeTo(50, 1);
+      }, 500);
+    });
+  });
+</script>
 
     <?php include 'includes/test-modal.php'; ?>
   </body>

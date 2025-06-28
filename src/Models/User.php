@@ -2,11 +2,11 @@
 /**
  * Modèle User pour gérer les opérations liées aux utilisateurs
  *
- * @package HexaShop
+ * @package Astrodia
  * @version 1.0.0
  */
 
-namespace HexaShop\Models;
+namespace Astrodia\Models;
 
 require_once __DIR__ . '/../../config/database.php';
 

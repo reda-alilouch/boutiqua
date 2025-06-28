@@ -1,5 +1,5 @@
 @echo off
-echo Installing HexaShop dependencies...
+echo Installing Astrodia dependencies...
 
 REM Check if Node.js is installed
 where node >nul 2>nul

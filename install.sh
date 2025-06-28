@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Installing HexaShop dependencies..."
+echo "Installing Astrodia dependencies..."
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then

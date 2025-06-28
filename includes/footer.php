@@ -4,10 +4,10 @@
             <!-- Logo et description -->
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center mb-4">
-                    <img src="src/images/white-logo.png" alt="Hexashop" class="h-8 w-auto">
+                    <img src="src/images/white-logo.png" alt="Astrodia" class="h-8 w-auto">
                 </div>
                 <p class="text-gray-400 mb-6 max-w-md">
-                    Hexashop est votre destination de confiance pour tous vos besoins de mode. 
+                    Astrodia est votre destination de confiance pour tous vos besoins de mode. 
                     Nous proposons une large gamme de produits de qualité à des prix compétitifs.
                 </p>
                 <div class="flex space-x-4">
@@ -30,10 +30,10 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
                 <ul class="space-y-2">
-                    <li><a href="/hexashop-1.0.0/index.php" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
-                    <li><a href="/hexashop-1.0.0/products.php" class="text-gray-400 hover:text-white transition-colors">Produits</a></li>
-                    <li><a href="/hexashop-1.0.0/about.php" class="text-gray-400 hover:text-white transition-colors">À propos</a></li>
-                    <li><a href="/hexashop-1.0.0/contact.php" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    <li><a href="/astrodia/index.php" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+                    <li><a href="/astrodia/products.php" class="text-gray-400 hover:text-white transition-colors">Produits</a></li>
+                    <li><a href="/astrodia/about.php" class="text-gray-400 hover:text-white transition-colors">À propos</a></li>
+                    <li><a href="/astrodia/contact.php" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
                 </ul>
             </div>
 
@@ -67,7 +67,7 @@
 
         <!-- Copyright -->
         <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-            <p>&copy; 2024 Hexashop. Tous droits réservés.</p>
+            <p>&copy; 2024 Astrodia. Tous droits réservés.</p>
         </div>
     </div>
 </footer>

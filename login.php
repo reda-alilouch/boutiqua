@@ -3,11 +3,11 @@ session_start();
 
 // Inclure le contrôleur d'authentification
 require_once __DIR__ . '/src/Controllers/AuthController.php';
-use HexaShop\Controllers\AuthController;
+use Astrodia\Controllers\AuthController;
 
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
-  header('Location: /hexashop-1.0.0/index.php');
+  header('Location: /astrodia/index.php');
   exit();
 }
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($result['success']) {
     // Redirection après connexion réussie
     // Rediriger vers la page précédente ou la page d'accueil
-    $redirect = $_SESSION['redirect_after_login'] ?? '/hexashop-1.0.0/index.php';
+    $redirect = $_SESSION['redirect_after_login'] ?? '/astrodia/index.php';
     unset($_SESSION['redirect_after_login']);
     header('Location: ' . $redirect);
     exit();
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="text-sm text-center">
                 <div class="mt-2 text-center text-sm text-gray-600">
-                    Pas encore de compte ? <a href="/hexashop-1.0.0/register.php" class="font-medium text-blue-600 hover:text-blue-500">S'inscrire</a>
+                    Pas encore de compte ? <a href="/astrodia/register.php" class="font-medium text-blue-600 hover:text-blue-500">S'inscrire</a>
                 </div>
             </div>
         </div>

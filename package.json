@@ -1,7 +1,7 @@
 {
-  "name": "hexashop",
+  "name": "astrodia",
   "version": "1.0.0",
-  "description": "HexaShop E-commerce Template",
+  "description": "Astrodia E-commerce Template",
   "main": "index.js",
   "scripts": {
     "dev": "npx tailwindcss -i ./src/css/tailwind.css -o ./assets/css/tailwind.css --watch",
