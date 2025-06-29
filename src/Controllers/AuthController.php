@@ -67,7 +67,7 @@ class AuthController {
         $prenom = trim($data['prenom'] ?? '');
         $email = filter_var($data['email'] ?? '', FILTER_SANITIZE_EMAIL);
         $password = $data['password'] ?? '';
-        $confirmPassword = $data['password_confirm'] ?? '';
+        $confirmPassword = $data['confirm_password'] ?? '';
 
         // Vérifications
         if (empty($nom) || strlen($nom) > 50) {

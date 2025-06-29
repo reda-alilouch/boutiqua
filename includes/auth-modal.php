@@ -14,7 +14,7 @@
       </button>
     </div>
     <!-- Formulaire Connexion -->
-    <form id="loginForm" class="space-y-4">
+    <form id="loginForm" class="space-y-4" action="/astrodia/login.php" method="POST">
       <div>
         <label for="loginEmail" class="block mb-1 text-sm font-medium text-gray-700">
           <i class="fa-solid fa-envelope"></i> Email
@@ -27,18 +27,26 @@
         </label>
         <input id="loginPassword" name="password" type="password" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
       </div>
-      <button type="submit" class="px-2 py-1 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 w-full justify-center">
+      <button type="submit" name="connexion" class="px-2 py-1 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 w-full justify-center">
         <i class="fa-solid fa-right-to-bracket"></i>
         Se connecter
       </button>
     </form>
     <!-- Formulaire Inscription -->
-    <form id="registerForm" class="space-y-4 hidden">
-      <div>
-        <label for="registerName" class="block mb-1 text-sm font-medium text-gray-700">
-          <i class="fa-solid fa-user"></i> Nom complet
-        </label>
-        <input id="registerName" name="name" type="text" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+    <form id="registerForm" class="space-y-4 hidden" action="/astrodia/register.php" method="POST">
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label for="registerPrenom" class="block mb-1 text-sm font-medium text-gray-700">
+            <i class="fa-solid fa-user"></i> Prénom
+          </label>
+          <input id="registerPrenom" name="prenom" type="text" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        <div>
+          <label for="registerNom" class="block mb-1 text-sm font-medium text-gray-700">
+            <i class="fa-solid fa-user"></i> Nom
+          </label>
+          <input id="registerNom" name="nom" type="text" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
       </div>
       <div>
         <label for="registerEmail" class="block mb-1 text-sm font-medium text-gray-700">
@@ -53,10 +61,10 @@
         <input id="registerPassword" name="password" type="password" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
       </div>
       <div>
-        <label for="registerPassword2" class="block mb-1 text-sm font-medium text-gray-700">
+        <label for="registerConfirmPassword" class="block mb-1 text-sm font-medium text-gray-700">
           <i class="fa-solid fa-lock"></i> Confirmer le mot de passe
         </label>
-        <input id="registerPassword2" name="password2" type="password" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <input id="registerConfirmPassword" name="confirm_password" type="password" required class="px-1 py-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
       </div>
       <button type="submit" class="px-2 py-1 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 w-full justify-center">
         <i class="fa-solid fa-user-plus"></i>

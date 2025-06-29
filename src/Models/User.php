@@ -29,7 +29,7 @@ class User {
     public static function findById($id) {
         try {
             $pdo = getDBConnection();
-            $stmt = $pdo->prepare('SELECT * FROM user2 WHERE id = :id');
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :id');
             $stmt->execute(['id' => $id]);
             $userData = $stmt->fetch();
 
@@ -55,7 +55,7 @@ class User {
     public static function findByEmail($email) {
         try {
             $pdo = getDBConnection();
-            $stmt = $pdo->prepare('SELECT * FROM user2 WHERE email = :email');
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
             $stmt->execute(['email' => $email]);
             $userData = $stmt->fetch();
 
@@ -100,7 +100,7 @@ class User {
             $pdo = getDBConnection();
 
             // Vérifier si l'email existe déjà
-            $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = :email');
+            $stmt = $pdo->prepare('SELECT id FROM users WHERE email = :email');
             $stmt->execute(['email' => $data['email']]);
 
             if ($stmt->fetch()) {
@@ -111,7 +111,7 @@ class User {
             $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
             // Insérer le nouvel utilisateur
-            $sql = 'INSERT INTO user2 (nom, prenom, email, password, avatar) VALUES (:nom, :prenom, :email, :password, :avatar)';
+            $sql = 'INSERT INTO users (nom, prenom, email, password, avatar) VALUES (:nom, :prenom, :email, :password, :avatar)';
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 'nom' => $data['nom'],
@@ -154,7 +154,7 @@ class User {
             }
 
             $params['id'] = $this->id;
-            $sql = 'UPDATE user2 SET ' . implode(', ', $fields) . ' WHERE id = :id';
+            $sql = 'UPDATE users SET ' . implode(', ', $fields) . ' WHERE id = :id';
             $stmt = $pdo->prepare($sql);
             $result = $stmt->execute($params);
 

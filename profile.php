@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       );
 
       // Vérifier si l'email est déjà utilisé par un autre utilisateur
-      $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = ? AND id != ?');
+      $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? AND id != ?');
       $stmt->execute([$email, $user['id']]);
 
       if ($stmt->fetch()) {
@@ -101,14 +101,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         // Vérifier le mot de passe actuel si changement de mot de passe
         if ($update_password) {
-          $stmt = $pdo->prepare('SELECT password FROM user2 WHERE id = ?');
+          $stmt = $pdo->prepare('SELECT password FROM users WHERE id = ?');
           $stmt->execute([$user['id']]);
           $dbUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
           if ($dbUser && $dbUser['password'] === $current_password) {
             // Mettre à jour avec le nouveau mot de passe
             $stmt = $pdo->prepare(
-              'UPDATE user2 SET nom = ?, prenom = ?, email = ?, password = ?, avatar = ? WHERE id = ?',
+              'UPDATE users SET nom = ?, prenom = ?, email = ?, password = ?, avatar = ? WHERE id = ?',
             );
             $stmt->execute([
               $nom,
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
           // Mettre à jour sans changer le mot de passe
           $stmt = $pdo->prepare(
-            'UPDATE user2 SET nom = ?, prenom = ?, email = ?, avatar = ? WHERE id = ?',
+            'UPDATE users SET nom = ?, prenom = ?, email = ?, avatar = ? WHERE id = ?',
           );
           $stmt->execute([$nom, $prenom, $email, $avatarPath, $user['id']]);
         }

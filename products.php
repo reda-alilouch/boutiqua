@@ -104,13 +104,10 @@
                  class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
                 Voir plus
               </a>
-              <form method="post" action="add_to_cart.php">
+              <form method="post" action="add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <input type="hidden" name="quantity" value="1">
-                <button type="submit"
-                class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">
-                Acheter
-                </button>
+                <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
               </form>
           
           </div>
@@ -172,6 +169,27 @@
           }, 500);
         });
       });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.add-to-cart-form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+          if (form.dataset.auth === '0') {
+            e.preventDefault();
+            // Ouvre le modal de connexion
+            var authModal = document.getElementById('AuthModal');
+            var authModalBox = document.getElementById('authModalBox');
+            if (authModal && authModalBox) {
+              authModal.style.display = 'flex';
+              setTimeout(function() {
+                authModalBox.classList.remove('opacity-0', 'scale-95');
+                authModalBox.classList.add('opacity-100', 'scale-100');
+              }, 10);
+            }
+          }
+        });
+      });
+    });
     </script>
   </body>
 </html>

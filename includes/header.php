@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion'])) {
 
   try {
     $pdo = getDBConnection();
-    $stmt = $pdo->prepare('SELECT * FROM user2 WHERE email = :email');
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
 
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
       $pdo = getDBConnection();
 
       // Vérifier si l'email existe déjà
-      $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = ?');
+      $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ?');
       $stmt->execute([$email]);
 
       if ($stmt->fetch()) {
@@ -126,8 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insérer le nouvel utilisateur
-        $sql =
-          'INSERT INTO user2 (nom, prenom, email, password, avatar) VALUES (?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO users (nom, prenom, email, password, avatar) VALUES (?, ?, ?, ?, ?)';
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$nom, $prenom, $email, $hashedPassword, $avatarPath]);
 
@@ -212,9 +211,27 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
     <i class="fa-solid fa-cart-shopping"></i>
   </button>
   
-    <button id="openAuthModalBtn">
+    <?php if ($isLoggedIn && $user): ?>
+      <a href="profile.php" class="flex items-center gap-2 group">
+        <?php if (!empty($user['avatar'])): ?>
+          <img src="src/images/<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-primary object-cover" />
+        <?php else: ?>
+          <span class="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white font-bold text-lg">
+            <?php
+              $initials = strtoupper(substr($user['prenom'], 0, 1) . substr($user['nom'], 0, 1));
+              echo $initials;
+            ?>
+          </span>
+        <?php endif; ?>
+        <span class="hidden sm:inline text-primary font-medium group-hover:underline">
+          <?php echo htmlspecialchars($user['prenom']); ?>
+        </span>
+      </a>
+    <?php else: ?>
+      <button id="openAuthModalBtn" class="text-primary hover:text-accent transition-colors">
         <i class="fa-solid fa-user"></i>
-    </button>
+      </button>
+    <?php endif; ?>
 </div>
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden bg-white border-t border-gray-200 lg:hidden">

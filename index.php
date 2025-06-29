@@ -346,7 +346,7 @@
           
     <!-- ***** Main Banner Area End ***** -->
 
-    <!-- ***** Men Area Starts ***** -->
+    <!-- ***** hoddies Area Starts ***** -->
     <section class="py-12 bg-white sm:py-16" id="men">
       <div class="container px-4 mx-auto">
         <!-- Section Header -->
@@ -358,43 +358,42 @@
         </div>
 
         <!-- Products Grid -->
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-4 md:gap-6">
-          <?php
-          require_once __DIR__ . '/config/database.php';
-          $pdo = new PDO('mysql:host=localhost;dbname=astrodia;charset=utf8mb4', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-          $stmt = $pdo->prepare('SELECT * FROM products WHERE category = ? LIMIT 8');
-          $stmt->execute(['men']);
-          $products = $stmt->fetchAll();
-          foreach ($products as $product): ?>
-            <div class="relative overflow-hidden transition-all duration-300 bg-white border border-gray-100 rounded-lg shadow-sm group hover:shadow-md">
-              <div class="relative pt-[100%] sm:pt-[120%] md:pt-[100%]">
-                <img
-                  src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
-                  alt="<?php echo htmlspecialchars($product['title']); ?>"
-                  class="absolute inset-0 object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90"
-                  loading="lazy"
-                />
-                <div class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100">
-                  <a href="single-product.php?id=<?php echo $product['id']; ?>" class="p-2 text-white transition-all duration-300 transform bg-primary rounded-full hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:p-3" aria-label="Voir le produit">
-                    <i class="fa fa-eye"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="p-4">
-                <div class="h-12 mb-2">
-                  <h3 class="font-medium text-gray-900 line-clamp-2"><?php echo htmlspecialchars($product['title']); ?></h3>
-                </div>
-                <p class="text-sm text-gray-500 mb-2 line-clamp-2"><?php echo htmlspecialchars($product['description']); ?></p>
-                <span class="text-lg font-medium text-accent"><?php echo number_format($product['price'], 2, ',', ' '); ?> €</span>
-              </div>
+        <div
+        class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
+        id="products"
+      >
+        <?php foreach ($products as $product): ?>
+        <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
+          <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
+            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
+                 alt="<?php echo htmlspecialchars($product['name']); ?>"
+                 class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
+          </div>
+          <div class="flex-1 flex flex-col justify-between p-5">
+            <div>
+              <h4 class="text-xl font-bold text-gray-900"><?php echo htmlspecialchars($product['name']); ?></h4>
+              <span class="block text-lg font-semibold text-primary mb-4"><?php echo number_format($product['price'], 2); ?> €</span>
             </div>
-          <?php endforeach; ?>
+           
+              <a href="single-product.php?id=<?php echo $product['id']; ?>"
+                 class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
+                Voir plus
+              </a>
+              <form method="post" action="add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
+              </form>
+          
+          </div>
         </div>
+        <?php endforeach; ?>
+      </div>
       </div>
     </section>
     <!-- ***** Men Area Ends ***** -->
 
-    <!-- ***** Women Area Starts ***** -->
+    <!-- ***** t-shirt Area Starts ***** -->
     <section class="py-16 bg-gray-50" id="women">
       <div class="container px-4 mx-auto">
         <!-- Section Header -->
@@ -409,257 +408,42 @@
         </div>
 
         <!-- Products Grid -->
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <?php
-          $stmt = $pdo->prepare('SELECT * FROM products WHERE category = ? LIMIT 8');
-          $stmt->execute(['women']);
-          $products = $stmt->fetchAll();
-          foreach ($products as $product): ?>
-            <div class="relative overflow-hidden bg-white rounded-lg shadow-lg group">
-              <div class="relative aspect-w-1 aspect-h-1">
-                <img
-                  src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
-                  alt="<?php echo htmlspecialchars($product['title']); ?>"
-                  class="object-cover w-full h-full"
-                  loading="lazy"
-                />
-                <!-- Hover Content -->
-                <div
-                  class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-                >
-                  <a
-                    href="single-product.php?id=<?php echo $product['id']; ?>"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="p-4">
-                <h4 class="mb-2 text-lg font-semibold"><?php echo htmlspecialchars($product['title']); ?></h4>
-                <span class="text-lg font-medium text-accent"><?php echo number_format($product['price'], 2, ',', ' '); ?> €</span>
-                <p class="text-sm text-gray-500 mt-2 line-clamp-2"><?php echo htmlspecialchars($product['description']); ?></p>
-              </div>
+        <div
+        class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
+        id="products"
+      >
+        <?php foreach ($products as $product): ?>
+        <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
+          <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
+            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
+                 alt="<?php echo htmlspecialchars($product['name']); ?>"
+                 class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
+          </div>
+          <div class="flex-1 flex flex-col justify-between p-5">
+            <div>
+              <h4 class="text-xl font-bold text-gray-900"><?php echo htmlspecialchars($product['name']); ?></h4>
+              <span class="block text-lg font-semibold text-primary mb-4"><?php echo number_format($product['price'], 2); ?> €</span>
             </div>
-          <?php endforeach; ?>
+           
+              <a href="single-product.php?id=<?php echo $product['id']; ?>"
+                 class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
+                Voir plus
+              </a>
+              <form method="post" action="add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
+              </form>
+          
+          </div>
         </div>
+        <?php endforeach; ?>
+      </div>
       </div>
     </section>
     <!-- ***** Women Area Ends ***** -->
 
-    <!-- ***** Kids Area Starts ***** -->
-    <section class="py-16" id="kids">
-      <div class="container px-4 mx-auto">
-        <!-- Section Header -->
-        <div class="max-w-2xl mx-auto mb-12 text-center">
-          <h2 class="mb-4 text-3xl font-semibold text-primary">Kid's Latest</h2>
-          <p class="text-gray-600">
-            Details to details is what makes Astrodia different from the other
-            themes.
-          </p>
-        </div>
-
-        <!-- Products Grid -->
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <!-- Product 1 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/kid-01.jpg"
-                alt="School Collection"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">School Collection</h4>
-              <span class="text-lg font-medium text-accent">$80.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 2 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/kid-02.jpg"
-                alt="Summer Cap"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Summer Cap</h4>
-              <span class="text-lg font-medium text-accent">$12.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 3 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/kid-03.jpg"
-                alt="Classic Kid"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Classic Kid</h4>
-              <span class="text-lg font-medium text-accent">$30.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Product 4 -->
-          <div
-            class="relative overflow-hidden bg-white rounded-lg shadow-lg group"
-          >
-            <div class="relative aspect-w-1 aspect-h-1">
-              <img
-                src="assets/images/kid-01.jpg"
-                alt="Classic Spring"
-                class="object-cover w-full h-full"
-              />
-              <!-- Hover Content -->
-              <div
-                class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-              >
-                <div class="flex space-x-4">
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-eye"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-star"></i>
-                  </a>
-                  <a
-                    href="single-product.html"
-                    class="p-2 transition-colors bg-white rounded-full hover:bg-accent hover:text-white"
-                  >
-                    <i class="fa fa-shopping-cart"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="p-4">
-              <h4 class="mb-2 text-lg font-semibold">Classic Spring</h4>
-              <span class="text-lg font-medium text-accent">$120.00</span>
-              <div class="flex items-center mt-2 text-yellow-400">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ***** Kids Area Ends ***** -->
+ 
 
     <!-- ***** Social Area Starts ***** -->
     <section class="py-16" id="social">

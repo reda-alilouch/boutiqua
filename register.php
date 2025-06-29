@@ -29,66 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $errors[] = $result['message'];
     }
   }
-
-
-      if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-      }
-
-      $targetPath = $uploadDir . $avatarName;
-      if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetPath)) {
-        $avatarPath = 'avatars/' . $avatarName;
-      } else {
-        $errors[] = 'Erreur lors du téléchargement de l\'image';
-      }
-    } else {
-      $errors[] = 'Type de fichier non autorisé. Formats acceptés : JPG, PNG';
-    }
-  }
-
-  // Si pas d'erreurs, enregistrer l'utilisateur
-  if (empty($errors)) {
-    try {
-      $pdo = new PDO(
-        'mysql:host=localhost;dbname=ecole;charset=utf8mb4',
-        'root',
-        '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],
-      );
-
-      // Vérifier si l'email existe déjà
-      $stmt = $pdo->prepare('SELECT id FROM user2 WHERE email = ?');
-      $stmt->execute([$email]);
-
-      if ($stmt->fetch()) {
-        $errors[] = 'Cet email est déjà utilisé';
-      } else {
-        // Insérer le nouvel utilisateur
-        $stmt = $pdo->prepare(
-          'INSERT INTO user2 (nom, prenom, email, password, avatar) VALUES (?, ?, ?, ?, ?)',
-        );
-        $stmt->execute([$nom, $prenom, $email, $password, $avatarPath]);
-
-        // Connecter automatiquement l'utilisateur
-        $userId = $pdo->lastInsertId();
-        $_SESSION['user'] = [
-          'id' => $userId,
-          'nom' => $nom,
-          'prenom' => $prenom,
-          'email' => $email,
-          'avatar' => $avatarPath,
-        ];
-
-        $success = true;
-
-        // Rediriger après inscription réussie
-        header('Refresh: 3; URL=index.php');
-      }
-    } catch (PDOException $e) {
-      error_log('Erreur d\'inscription : ' . $e->getMessage());
-      $errors[] = 'Une erreur est survenue lors de l\'inscription';
-    }
-  }
 }
 ?>
 
@@ -128,32 +68,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="prenom" class="sr-only">Prénom</label>
                                 <input id="prenom" name="prenom" type="text" required 
                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                                       placeholder="Prénom" value="<?php echo isset(
-                                         $_POST['prenom'],
-                                       )
-                                         ? htmlspecialchars($_POST['prenom'])
-                                         : ''; ?>">
+                                       placeholder="Prénom" value="<?php echo isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : ''; ?>">
                             </div>
                             <div>
                                 <label for="nom" class="sr-only">Nom</label>
                                 <input id="nom" name="nom" type="text" required 
                                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                                       placeholder="Nom" value="<?php echo isset(
-                                         $_POST['nom'],
-                                       )
-                                         ? htmlspecialchars($_POST['nom'])
-                                         : ''; ?>">
+                                       placeholder="Nom" value="<?php echo isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : ''; ?>">
                             </div>
                         </div>
                         <div>
                             <label for="email" class="sr-only">Adresse email</label>
                             <input id="email" name="email" type="email" required 
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
-                                   placeholder="Adresse email" value="<?php echo isset(
-                                     $_POST['email'],
-                                   )
-                                     ? htmlspecialchars($_POST['email'])
-                                     : ''; ?>">
+                                   placeholder="Adresse email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                         </div>
                         <div>
                             <label for="password" class="sr-only">Mot de passe</label>
