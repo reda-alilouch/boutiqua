@@ -88,11 +88,15 @@
         id="products"
       >
         <?php foreach ($products as $product): ?>
-        <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
-          <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
-            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
-                 alt="<?php echo htmlspecialchars($product['name']); ?>"
-                 class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
+        <div class="overflow-hidden relative rounded-lg shadow-lg group flex flex-col justify-between">
+          <form method="post" action="add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+            <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
+              <i class="fa fa-heart"></i>
+            </button>
+          </form>
+          <div class="relative aspect-w-1 aspect-h-1">
+            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
           </div>
           <div class="flex-1 flex flex-col justify-between p-5">
             <div>

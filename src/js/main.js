@@ -412,5 +412,45 @@ window.addEventListener('resize', function() {
   } else {
     heroSwiper.autoplay.stop();
   }
+});
+
+// Add to cart form authentication check
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.add-to-cart-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      if (form.dataset.auth === '0') {
+        e.preventDefault();
+        // Ouvre le modal de connexion
+        var authModal = document.getElementById('AuthModal');
+        var authModalBox = document.getElementById('authModalBox');
+        if (authModal && authModalBox) {
+          authModal.style.display = 'flex';
+          setTimeout(function() {
+            authModalBox.classList.remove('opacity-0', 'scale-95');
+            authModalBox.classList.add('opacity-100', 'scale-100');
+          }, 10);
+        }
+      }
+    });
+  });
+
+  // Add to wishlist form authentication check
+  document.querySelectorAll('form[action="add_to_wishlist.php"]').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      if (form.dataset.auth === '0') {
+        e.preventDefault();
+        // Ouvre le modal de connexion
+        var authModal = document.getElementById('AuthModal');
+        var authModalBox = document.getElementById('authModalBox');
+        if (authModal && authModalBox) {
+          authModal.style.display = 'flex';
+          setTimeout(function() {
+            authModalBox.classList.remove('opacity-0', 'scale-95');
+            authModalBox.classList.add('opacity-100', 'scale-100');
+          }, 10);
+        }
+      }
+    });
+  });
 }); 
 })

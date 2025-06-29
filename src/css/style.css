@@ -845,6 +845,9 @@ footer {
 .hero-swiper.swiper-initialized {
   animation: fadeIn 0.5s ease-out;
 }
+.form-addresses{
+  padding: 12px;
+}
 
 @keyframes fadeIn {
   from {

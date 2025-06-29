@@ -158,7 +158,7 @@ render_page:
 <body class="bg-gray-100">
     <?php include 'includes/header.php'; ?>
     
-    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <div class="md:flex md:space-x-8">
                 <!-- Menu latéral -->

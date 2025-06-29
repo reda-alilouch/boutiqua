@@ -1,4 +1,16 @@
-<?php include 'includes/head.php'; ?>
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once __DIR__ . '/config/database.php';
+$pdo = getDBConnection();
+
+// Récupérer tous les produits
+$stmt = $pdo->query('SELECT * FROM products');
+$products = $stmt->fetchAll();
+
+include 'includes/head.php'; ?>
 <body class="font-poppins" x-data="{ isSearchOpen: false, isAuthOpen: false }">
   <!-- ***** Preloader Start ***** -->
   <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
@@ -13,7 +25,7 @@
   <?php include 'includes/header.php'; ?>
   
   <!-- ***** Hero Carousel Start ***** -->
-  <section class="relative w-full bg-black">
+  <section class="relative w-full bg-black py-20">
     <div class="swiper hero-swiper">
       <div class="swiper-wrapper">
         <!-- Slide 1 -->
@@ -181,171 +193,6 @@
 
     
 <main id="main" class="py-20">
-
-    <!-- AOS Animation JS est maintenant inclus dans scripts.php -->
-    
-    <!-- Categories Grid Section -->
-    <section class="container px-4 py-12 mx-auto">
-      <!-- Section Header -->
-
-      <div class="grid grid-cols-2 grid-rows-4 gap-4 md:grid-cols-4 md:grid-rows-2 md:gap-6">
-        <!-- Main Category (Women) - Full width on mobile, 2 columns on desktop -->
-        <div 
-          class="relative overflow-hidden shadow-xl rounded-2xl group col-span-2 row-span-2 min-h-[400px] md:min-h-[600px] transform transition-all duration-700 hover:shadow-2xl hover:-translate-y-1"
-          data-aos="fade-right"
-          data-aos-duration="800">
-          <div class="relative w-full h-full">
-            <div class="absolute inset-0 flex flex-col justify-end p-6 transition-transform duration-500 transform bg-gradient-to-t from-black/70 to-transparent z-10">
-              <h4 class="text-2xl font-semibold text-white transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2 md:text-3xl">Women</h4>
-              <span class="text-lg text-white/90 transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2">Best Clothes For Women</span>
-            </div>
-            <div class="absolute inset-0 flex items-center justify-center p-6 transition-all duration-500 opacity-0 bg-black/70 group-hover:opacity-100 z-20">
-              <div class="text-center text-white transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                <h4 class="mb-3 text-3xl font-semibold md:text-4xl">Women</h4>
-                <p class="mb-6 text-lg opacity-90 md:mb-8">Découvrez notre collection féminine tendance pour toutes les occasions.</p>
-                <a href="products.php?category=women" class="inline-flex items-center px-8 py-3 text-lg font-medium text-white transition-all duration-300 transform border-2 border-white rounded-full hover:bg-white hover:text-primary hover:scale-105 group-hover:animate-bounce">
-                  Découvrir
-                  <svg class="w-5 h-5 ml-2 transition-transform duration-300 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <img src="src/images/baner-right-image-01.jpg" 
-                 class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
-                 alt="Women's Collection" 
-                 loading="lazy" />
-          </div>
-        </div>
-
-        <!-- Men Category -->
-        <div 
-          class="relative overflow-hidden shadow-xl rounded-2xl group row-start-3 md:col-start-3 md:row-start-1 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-          data-aos="fade-left"
-          data-aos-duration="800"
-          data-aos-delay="100">
-          <div class="relative w-full h-full min-h-[200px] md:min-h-0">
-            <div class="absolute inset-0 flex flex-col justify-end p-4 transition-transform duration-500 transform bg-gradient-to-t from-black/70 to-transparent z-10 md:p-6">
-              <h4 class="text-xl font-semibold text-white transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2">Men</h4>
-              <span class="text-sm text-white/90 transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2 md:text-base">Best Clothes For Men</span>
-            </div>
-            <div class="absolute inset-0 flex items-center justify-center p-4 transition-all duration-500 opacity-0 bg-black/70 group-hover:opacity-100 z-20 md:p-6">
-              <div class="text-center text-white transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                <h4 class="mb-2 text-xl font-semibold md:text-2xl">Men</h4>
-                <p class="mb-3 text-sm opacity-90 md:mb-4 md:text-base">Style et confort pour votre garde-robe.</p>
-                <a href="products.php?category=men" class="group relative inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-all duration-300 transform border-2 border-white rounded-full hover:bg-white hover:text-primary hover:scale-105 md:px-6 md:py-2 md:text-base">
-                  Voir plus
-                  <svg class="w-4 h-4 ml-1 transition-transform duration-300 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <img src="src/images/baner-right-image-02.jpg" 
-                 class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
-                 alt="Men's Collection" 
-                 loading="lazy" />
-          </div>
-        </div>
-
-        <!-- Kids Category -->
-        <div 
-          class="relative overflow-hidden shadow-xl rounded-2xl group row-start-3 md:col-start-4 md:row-start-1 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-          data-aos="fade-left"
-          data-aos-duration="800"
-          data-aos-delay="200">
-          <div class="relative w-full h-full min-h-[200px] md:min-h-0">
-            <div class="absolute inset-0 flex flex-col justify-end p-4 transition-transform duration-500 transform bg-gradient-to-t from-black/70 to-transparent z-10 md:p-6">
-              <h4 class="text-xl font-semibold text-white transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2">Kids</h4>
-              <span class="text-sm text-white/90 transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2 md:text-base">Best Clothes For Kids</span>
-            </div>
-            <div class="absolute inset-0 flex items-center justify-center p-4 transition-all duration-500 opacity-0 bg-black/70 group-hover:opacity-100 z-20 md:p-6">
-              <div class="text-center text-white transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                <h4 class="mb-2 text-xl font-semibold md:text-2xl">Kids</h4>
-                <p class="mb-3 text-sm opacity-90 md:mb-4 md:text-base">Des vêtements mignons pour les petits.</p>
-                <a href="products.php?category=kids" class="group relative inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-all duration-300 transform border-2 border-white rounded-full hover:bg-white hover:text-primary hover:scale-105 md:px-6 md:py-2 md:text-base">
-                  Découvrir
-                  <svg class="w-4 h-4 ml-1 transition-transform duration-300 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <img src="src/images/baner-right-image-03.jpg" 
-                 class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
-                 alt="Kids Collection" 
-                 loading="lazy" />
-          </div>
-        </div>
-
-        <!-- Accessories Category -->
-        <div 
-          class="relative overflow-hidden shadow-xl rounded-2xl group row-start-4 col-start-1 md:col-start-3 md:row-start-2 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-          data-aos="fade-up"
-          data-aos-duration="800">
-          <div class="relative w-full h-full min-h-[200px] md:min-h-0">
-            <div class="absolute inset-0 flex flex-col justify-end p-4 transition-transform duration-500 transform bg-gradient-to-t from-black/70 to-transparent z-10 md:p-6">
-              <h4 class="text-xl font-semibold text-white transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2">Accessories</h4>
-              <span class="text-sm text-white/90 transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2 md:text-base">Best Trend Accessories</span>
-            </div>
-            <div class="absolute inset-0 flex items-center justify-center p-4 transition-all duration-500 opacity-0 bg-black/70 group-hover:opacity-100 z-20 md:p-6">
-              <div class="text-center text-white transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                <h4 class="mb-2 text-xl font-semibold md:text-2xl">Accessories</h4>
-                <p class="mb-3 text-sm opacity-90 md:mb-4 md:text-base">Des accessoires pour compléter votre style.</p>
-                <a href="products.php?category=accessories" class="group relative inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-all duration-300 transform border-2 border-white rounded-full hover:bg-white hover:text-primary hover:scale-105 md:px-6 md:py-2 md:text-base">
-                  Explorer
-                  <svg class="w-4 h-4 ml-1 transition-transform duration-300 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <img src="src/images/baner-right-image-04.jpg" 
-                 class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
-                 alt="Accessories Collection" 
-                 loading="lazy" />
-          </div>
-        </div>
-
-        <!-- New Arrivals -->
-        <div 
-          class="relative overflow-hidden shadow-xl rounded-2xl group row-start-4 col-start-2 md:col-start-4 md:row-start-2 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="100">
-          <div class="relative w-full h-full min-h-[200px] md:min-h-0">
-            <!-- Badge Nouveautés avec animation -->
-            <div class="absolute top-4 right-4 z-20">
-              <span class="inline-flex items-center px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-gradient-to-r from-pink-500 to-purple-500 rounded-full shadow-lg">
-                Nouveautés
-                <span class="absolute flex w-2 h-2 -top-1 -right-1">
-                  <span class="absolute inline-flex w-full h-full bg-pink-400 rounded-full opacity-75 animate-ping"></span>
-                  <span class="relative inline-flex w-2 h-2 bg-pink-500 rounded-full"></span>
-                </span>
-              </span>
-            </div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center transition-all duration-500 transform bg-black/40 group-hover:bg-black/60 z-10 md:p-6">
-              <h4 class="text-xl font-semibold text-white transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2 md:text-2xl">Nouvelle Collection</h4>
-              <p class="mt-1 text-sm text-white/90 transition-all duration-500 transform translate-y-0 group-hover:-translate-y-2 md:text-base">Découvrez nos dernières tendances</p>
-              <a href="products.php?new=1" class="mt-4 group relative inline-flex items-center px-6 py-2 text-sm font-medium text-white transition-all duration-300 transform border-2 border-white rounded-full opacity-0 group-hover:opacity-100 hover:bg-white hover:text-primary hover:scale-105">
-                Voir la collection
-                <svg class="w-4 h-4 ml-1 transition-transform duration-300 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </a>
-            </div>
-            <img src="src/images/left-banner-image.jpg" 
-                 class="object-cover w-full h-full transition-transform duration-700 transform group-hover:scale-110" 
-                 alt="Nouveautés Collection" 
-                 loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End Categories Grid Section -->
-          
-    <!-- ***** Main Banner Area End ***** -->
-
     <!-- ***** hoddies Area Starts ***** -->
     <section class="py-12 bg-white sm:py-16" id="men">
       <div class="container px-4 mx-auto">
@@ -362,9 +209,16 @@
         class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
         id="products"
       >
-        <?php foreach ($products as $product): ?>
+        <?php foreach ($products ?? [] as $product): ?>
         <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
           <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
+            <!-- Wishlist Button -->
+            <form method="post" action="add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+              <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
+                <i class="fa fa-heart"></i>
+              </button>
+            </form>
             <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
                  alt="<?php echo htmlspecialchars($product['name']); ?>"
                  class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
@@ -412,9 +266,16 @@
         class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
         id="products"
       >
-        <?php foreach ($products as $product): ?>
+        <?php foreach ($products ?? [] as $product): ?>
         <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
           <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
+            <!-- Wishlist Button -->
+            <form method="post" action="add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+              <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
+                <i class="fa fa-heart"></i>
+              </button>
+            </form>
             <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
                  alt="<?php echo htmlspecialchars($product['name']); ?>"
                  class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
@@ -685,46 +546,5 @@
     </section>
     <!-- ***** Subscribe Area Ends ***** -->
 </main>
-  <!-- jQuery -->
-  <script src="assets/js/jquery-2.1.0.min.js"></script>
-
-<!-- Bootstrap -->
-<script src="assets/js/popper.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-
-<!-- Plugins -->
-<script src="assets/js/owl-carousel.js"></script>
-<script src="assets/js/accordions.js"></script>
-<script src="assets/js/datepicker.js"></script>
-<script src="assets/js/scrollreveal.min.js"></script>
-<script src="assets/js/waypoints.min.js"></script>
-<script src="assets/js/jquery.counterup.min.js"></script>
-<script src="assets/js/imgfix.min.js"></script>
-<script src="assets/js/slick.js"></script>
-<script src="assets/js/lightbox.js"></script>
-<script src="assets/js/isotope.js"></script>
-<script src="assets/js/quantity.js"></script>
-
-<!-- Global Init -->
-<script src="assets/js/custom.js"></script>
-
-<script>
-  $(function () {
-    var selectedClass = "";
-    $("p").click(function () {
-      selectedClass = $(this).attr("data-rel");
-      $("#portfolio").fadeTo(50, 0.1);
-      $("#portfolio div")
-        .not("." + selectedClass)
-        .fadeOut();
-      setTimeout(function () {
-        $("." + selectedClass).fadeIn();
-        $("#portfolio").fadeTo(50, 1);
-      }, 500);
-    });
-  });
-</script>
-
-    <?php include 'includes/test-modal.php'; ?>
   </body>
 </html>
