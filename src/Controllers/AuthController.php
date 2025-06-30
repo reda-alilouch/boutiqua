@@ -40,7 +40,7 @@ class AuthController {
                 $_SESSION['user'] = $user->toSessionArray();
                 
                 $result['success'] = true;
-                $result['user'] = $user;
+                $result['user'] = $user->toSessionArray();
             } else {
                 $result['message'] = 'Email ou mot de passe incorrect';
             }
@@ -122,7 +122,7 @@ class AuthController {
                 $_SESSION['user'] = $user->toSessionArray();
                 
                 $result['success'] = true;
-                $result['user'] = $user;
+                $result['user'] = $user->toSessionArray();
             }
         } catch (\Exception $e) {
             error_log('Erreur d\'inscription : ' . $e->getMessage());

@@ -6,7 +6,7 @@ require_once __DIR__ . '/config/database.php';
 if (!isset($_SESSION['user']['id'])) {
     // Rediriger vers la page de connexion avec un message
     $_SESSION['error'] = 'Vous devez être connecté pour ajouter des produits à votre liste de souhaits.';
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 

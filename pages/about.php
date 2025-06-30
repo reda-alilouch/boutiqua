@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <?php include 'includes/head.php'; ?>
+  <?php include '../includes/head.php'; ?>
 
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
@@ -20,7 +20,7 @@
     </div>
     <!-- ***** Preloader End ***** -->
 
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 <main id="main"  class="py-20">
     <!-- ***** Main Banner Area Start ***** -->
     
@@ -32,7 +32,7 @@
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div class="relative overflow-hidden rounded-xl">
             <img
-              src="assets/images/about-left-image.jpg"
+              src="/astrodia/assets/images/about-left-image.jpg"
               alt=""
               class="object-cover w-full h-full"
             />
@@ -106,7 +106,7 @@
           <div class="overflow-hidden bg-white rounded-lg shadow-lg group">
             <div class="relative">
               <img
-                src="assets/images/team-member-01.jpg"
+                src="/astrodia/assets/images/team-member-01.jpg"
                 class="w-full"
                 alt="Team Member"
               />
@@ -147,7 +147,7 @@
           <div class="overflow-hidden bg-white rounded-lg shadow-lg group">
             <div class="relative">
               <img
-                src="assets/images/team-member-02.jpg"
+                src="/astrodia/assets/images/team-member-02.jpg"
                 class="w-full"
                 alt="Team Member"
               />
@@ -188,7 +188,7 @@
           <div class="overflow-hidden bg-white rounded-lg shadow-lg group">
             <div class="relative">
               <img
-                src="assets/images/team-member-03.jpg"
+                src="/astrodia/assets/images/team-member-03.jpg"
                 class="w-full"
                 alt="Team Member"
               />
@@ -287,7 +287,7 @@
     <!-- ***** Services Area Ends ***** -->
 </main>
     <!-- ***** Footer Start ***** -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
@@ -314,5 +314,8 @@
 
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
+    
+    <!-- Scripts -->
+    <?php include '../includes/scripts.php'; ?>
   </body>
 </html>

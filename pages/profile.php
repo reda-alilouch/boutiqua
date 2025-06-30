@@ -5,7 +5,7 @@ session_start();
 // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
 if (!isset($_SESSION['user'])) {
   $_SESSION['redirect_after_login'] = '/astrodia/profile.php';
-  header('Location: /astrodia/login.php');
+  header('Location: /astrodia/pages/login.php');
   exit();
 }
 
@@ -137,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'prenom' => $prenom,
           'email' => $email,
           'avatar' => $avatarPath,
+          'role' => $user['role']
         ];
 
         $user = $_SESSION['user'];
@@ -154,9 +155,9 @@ render_page:
 
 <!DOCTYPE html>
 <html lang="fr">
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body class="bg-gray-100">
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
     
     <div class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
@@ -166,14 +167,8 @@ render_page:
                     <div class="bg-white rounded-lg shadow overflow-hidden">
                         <div class="p-6 text-center">
                             <div class="relative inline-block">
-                                <img src="<?php echo !empty($user['avatar'])
-                                  ? '/astrodia/' .
-                                    htmlspecialchars($user['avatar'])
-                                  : 'https://ui-avatars.com/api/?name=' .
-                                    urlencode(
-                                      $user['prenom'] . '+' . $user['nom'],
-                                    ) .
-                                    '&size=200'; ?>" 
+                                <img src="<?php echo !empty(
+                                  $user['avatar']) ? '/astrodia/' . htmlspecialchars($user['avatar']) : 'https://ui-avatars.com/api/?name=' . urlencode($user['prenom'] . '+' . $user['nom']) . '&size=200'; ?>" 
                                      alt="Photo de profil" 
                                      class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
                                 <label for="avatar-upload" class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer hover:bg-blue-600 transition-colors">
@@ -202,7 +197,7 @@ render_page:
                                     Mon profil
                                 </div>
                             </a>
-                            <a href="/astrodia/orders.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                            <a href="/astrodia/pages/orders.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -210,7 +205,7 @@ render_page:
                                     Mes commandes
                                 </div>
                             </a>
-                            <a href="/astrodia/wishlist.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                            <a href="/astrodia/pages/wishlist.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -218,7 +213,7 @@ render_page:
                                     Ma liste de souhaits
                                 </div>
                             </a>
-                            <a href="/astrodia/addresses.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
+                            <a href="/astrodia/pages/addresses.php" class="block px-6 py-4 text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -272,7 +267,7 @@ render_page:
                                 <div>
                                     <label for="prenom" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
                                     <input type="text" id="prenom" name="prenom" required
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           class="w-full form-addresses border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                            value="<?php echo htmlspecialchars(
                                              $user['prenom'],
                                            ); ?>">
@@ -280,7 +275,7 @@ render_page:
                                 <div>
                                     <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
                                     <input type="text" id="nom" name="nom" required
-                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           class="w-full form-addresses border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                            value="<?php echo htmlspecialchars(
                                              $user['nom'],
                                            ); ?>">
@@ -290,7 +285,7 @@ render_page:
                             <div class="mb-6">
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresse email</label>
                                 <input type="email" id="email" name="email" required
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                       class="w-full form-addresses border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                        value="<?php echo htmlspecialchars(
                                          $user['email'],
                                        ); ?>">
@@ -304,23 +299,23 @@ render_page:
                                     <div>
                                         <label for="current_password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe actuel</label>
                                         <input type="password" id="current_password" name="current_password"
-                                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                               class="w-full form-addresses border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                     </div>
                                     <div>
                                         <label for="new_password" class="block text-sm font-medium text-gray-700 mb-1">Nouveau mot de passe</label>
                                         <input type="password" id="new_password" name="new_password"
-                                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                               class="w-full form-addresses border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                     </div>
                                     <div>
                                         <label for="confirm_password" class="block text-sm font-medium text-gray-700 mb-1">Confirmer le nouveau mot de passe</label>
                                         <input type="password" id="confirm_password" name="confirm_password"
-                                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                               class="w-full form-addresses border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="flex justify-end">
-                                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <div class="flex justify-center">
+                                <button type="submit" class="px-4 py-1 rounded-md shadow-sm text-sm font-medium text-black border hover:bg-black hover:text-white">
                                     Enregistrer les modifications
                                 </button>
                             </div>
@@ -331,7 +326,7 @@ render_page:
         </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
     
     <script>
     // Gestion du téléchargement d'avatar
@@ -350,5 +345,8 @@ render_page:
         }
     });
     </script>
+    
+    <!-- Scripts -->
+    <?php include '../includes/scripts.php'; ?>
 </body>
 </html>

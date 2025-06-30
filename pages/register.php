@@ -2,7 +2,7 @@
 session_start();
 
 // Inclure le contrôleur d'authentification
-require_once __DIR__ . '/src/Controllers/AuthController.php';
+require_once __DIR__ . '/../src/Controllers/AuthController.php';
 use Astrodia\Controllers\AuthController;
 
 // Rediriger si déjà connecté
@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body class="bg-gray-100">
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
     
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Inscription réussie ! Vous allez être redirigé vers la page d'accueil...
                 </div>
             <?php else: ?>
-                <form class="mt-8 space-y-6" action="/astrodia/register.php" method="POST" enctype="multipart/form-data">
+                <form class="mt-8 space-y-6" action="register.php" method="POST" enctype="multipart/form-data">
                     <div class="rounded-md shadow-sm -space-y-px">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="text-sm text-center">
                     <p class="text-gray-600">
                         Déjà inscrit ? 
-                        <a href="/astrodia/login.php" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="/astrodia/pages/login.php" class="font-medium text-blue-600 hover:text-blue-500">
                             Se connecter
                         </a>
                     </p>
@@ -127,6 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
+    
+    <!-- Scripts -->
+    <?php include '../includes/scripts.php'; ?>
 </body>
 </html>

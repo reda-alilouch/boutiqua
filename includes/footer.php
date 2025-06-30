@@ -1,10 +1,10 @@
 <footer class="bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Logo et description -->
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center mb-4">
-                    <img src="src/images/white-logo.png" alt="Astrodia" class="h-8 w-auto">
+                    <img src="../astrodia/src/images/logoo.png" alt="Astrodia" class="h-8 w-auto">
                 </div>
                 <p class="text-gray-400 mb-6 max-w-md">
                     Astrodia est votre destination de confiance pour tous vos besoins de mode. 
@@ -56,9 +56,9 @@
                 <p class="text-gray-400 mb-4">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
                 <form class="flex">
                     <input type="email" placeholder="Votre email" 
-                           class="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                           class="flex-1 form-addresses bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <button type="submit" 
-                            class="px-6 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors">
+                            class="form-addresses bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors">
                         S'inscrire
                     </button>
                 </form>

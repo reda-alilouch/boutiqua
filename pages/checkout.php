@@ -2,11 +2,11 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 // Rediriger si pas connecté
 if (!isset($_SESSION['user']['id'])) {
-    header('Location: login.php');
+    header('Location: pages/login.php');
     exit;
 }
 
@@ -80,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($cart_items)) {
     }
 }
 ?>
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body>
-<?php include 'includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 <main class="container mx-auto py-8 px-10">
     <h1 class="text-2xl font-bold mb-6">Finaliser la commande</h1>
     
@@ -173,5 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($cart_items)) {
         </div>
     <?php endif; ?>
 </main>
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
+
+<!-- Scripts -->
+<?php include '../includes/scripts.php'; ?>
 </body> 

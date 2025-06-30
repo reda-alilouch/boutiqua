@@ -2,7 +2,7 @@
 session_start();
 
 // Inclure le contrôleur d'authentification
-require_once __DIR__ . '/src/Controllers/AuthController.php';
+require_once __DIR__ . '/../src/Controllers/AuthController.php';
 use Astrodia\Controllers\AuthController;
 
 // Rediriger si déjà connecté
@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Rediriger vers la page précédente ou la page d'accueil
     $redirect = $_SESSION['redirect_after_login'] ?? '/astrodia/index.php';
     unset($_SESSION['redirect_after_login']);
+    $_SESSION['user'] = $result['user']; // $result['user'] doit contenir le champ 'role'
     header('Location: ' . $redirect);
     exit();
   } else {
@@ -35,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body class="bg-gray-100">
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
     
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
@@ -100,12 +101,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="text-sm text-center">
                 <div class="mt-2 text-center text-sm text-gray-600">
-                    Pas encore de compte ? <a href="/astrodia/register.php" class="font-medium text-blue-600 hover:text-blue-500">S'inscrire</a>
+                    Pas encore de compte ? <a href="/astrodia/pages/register.php" class="font-medium text-blue-600 hover:text-blue-500">S'inscrire</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
+    
+    <!-- Scripts -->
+    <?php include '../includes/scripts.php'; ?>
 </body>
 </html>

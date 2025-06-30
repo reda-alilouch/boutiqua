@@ -19,6 +19,7 @@ class User {
     private $avatar;
     private $created_at;
     private $updated_at;
+    private $role;
 
     /**
      * Récupère un utilisateur par son ID
@@ -200,7 +201,8 @@ class User {
             'prenom' => $this->prenom,
             'email' => $this->email,
             'avatar' => $this->avatar,
-            'last_login' => time()
+            'last_login' => time(),
+            'role' => $this->role
         ];
     }
 
@@ -228,4 +230,7 @@ class User {
 
     public function getUpdatedAt() { return $this->updated_at; }
     public function setUpdated_at($updated_at) { $this->updated_at = $updated_at; }
+
+    public function getRole() { return $this->role; }
+    public function setRole($role) { $this->role = $role; }
 }

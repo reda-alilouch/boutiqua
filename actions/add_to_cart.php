@@ -5,7 +5,7 @@ $pdo = getDBConnection();
 
 // Vérifie que l'utilisateur est connecté
 if (!isset($_SESSION['user']['id'])) {
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 

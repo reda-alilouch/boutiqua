@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 $pdo = getDBConnection();
 $cart_items = [];
 $total = 0;
@@ -33,7 +33,7 @@ if (isset($_SESSION['user']['id'])) {
       <?php if (empty($cart_items)): ?>
         <div class="text-center py-8">
           <p class="text-gray-600 mb-4"><i class="fa-solid fa-basket-shopping"></i> Votre panier est vide.</p>
-          <a href="products.php" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-200">
+          <a href="/astrodia/pages/products.php" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-200">
             Continuer les achats
           </a>
         </div>

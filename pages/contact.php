@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <?php include 'includes/head.php'; ?>
+  <?php include '../includes/head.php'; ?>
 
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
@@ -20,7 +20,7 @@
     </div>
     <!-- ***** Preloader End ***** -->
 
-<?php include 'includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 <main id="main"  class="py-20">
     <!-- ***** Main Banner Area Start ***** -->
     <div class="py-20 bg-gray-50" id="top">
@@ -111,29 +111,29 @@
     <!-- ***** Contact Area Ends ***** -->
 </main>
     <!-- ***** Footer Start ***** -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
 
     <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="/astrodia/assets/js/jquery-2.1.0.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="/astrodia/assets/js/popper.js"></script>
+    <script src="/astrodia/assets/js/bootstrap.min.js"></script>
 
     <!-- Plugins -->
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/datepicker.js"></script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/isotope.js"></script>
+    <script src="/astrodia/assets/js/owl-carousel.js"></script>
+    <script src="/astrodia/assets/js/accordions.js"></script>
+    <script src="/astrodia/assets/js/datepicker.js"></script>
+    <script src="/astrodia/assets/js/scrollreveal.min.js"></script>
+    <script src="/astrodia/assets/js/waypoints.min.js"></script>
+    <script src="/astrodia/assets/js/jquery.counterup.min.js"></script>
+    <script src="/astrodia/assets/js/imgfix.min.js"></script>
+    <script src="/astrodia/assets/js/slick.js"></script>
+    <script src="/astrodia/assets/js/lightbox.js"></script>
+    <script src="/astrodia/assets/js/isotope.js"></script>
 
     <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
+    <script src="/astrodia/assets/js/custom.js"></script>
 
     <script>
       $(function () {
@@ -156,5 +156,8 @@
       src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
       defer
     ></script>
+    
+    <!-- Scripts -->
+    <?php include '../includes/scripts.php'; ?>
   </body>
 </html>

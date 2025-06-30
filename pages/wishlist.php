@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 if (!isset($_SESSION['user']['id'])) {
-    header('Location: login.php');
+    header('Location: pages/login.php');
     exit;
 }
 $pdo = getDBConnection();
@@ -11,9 +11,9 @@ $stmt = $pdo->prepare('SELECT w.*, p.name, p.image, p.price FROM wishlist w JOIN
 $stmt->execute([$user_id]);
 $wishlist = $stmt->fetchAll();
 ?>
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body class="font-poppins">
-<?php include 'includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <main class="py-20">
   <div class="container mx-auto px-4">
@@ -99,5 +99,8 @@ $wishlist = $stmt->fetchAll();
   </div>
 </main>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
+
+<!-- Scripts -->
+<?php include '../includes/scripts.php'; ?>
 </body> 

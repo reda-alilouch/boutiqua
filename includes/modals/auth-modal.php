@@ -1,6 +1,7 @@
-<!-- Bouton d'ouverture -->
+<?php
+require_once __DIR__ . '/../../config/database.php';
+?>
 
-<!-- Modale -->
 <div id="AuthModal" style="display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; background:rgba(0,0,0,0.3); backdrop-filter: blur(2px);">
   <div id="authModalBox" class="bg-white p-8 rounded-lg min-w-[300px] min-h-[100px] relative shadow-2xl transition-all duration-300 ease-in-out opacity-0 scale-95">
     <button id="closeAuthModalBtn" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500 transition-colors">&times;</button>
@@ -14,7 +15,7 @@
       </button>
     </div>
     <!-- Formulaire Connexion -->
-    <form id="loginForm" class="space-y-4" action="/astrodia/login.php" method="POST">
+    <form id="loginForm" class="space-y-4" action="/astrodia/pages/login.php" method="POST">
       <div>
         <label for="loginEmail" class="block mb-1 text-sm font-medium text-gray-700">
           <i class="fa-solid fa-envelope"></i> Email
@@ -33,7 +34,7 @@
       </button>
     </form>
     <!-- Formulaire Inscription -->
-    <form id="registerForm" class="space-y-4 hidden" action="/astrodia/register.php" method="POST">
+    <form id="registerForm" class="space-y-4 hidden" action="/astrodia/pages/register.php" method="POST">
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label for="registerPrenom" class="block mb-1 text-sm font-medium text-gray-700">

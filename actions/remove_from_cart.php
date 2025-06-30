@@ -4,7 +4,7 @@ require_once __DIR__ . '/config/database.php';
 $pdo = getDBConnection();
 
 if (!isset($_SESSION['user']['id'])) {
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 

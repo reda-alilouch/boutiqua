@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 $pdo = getDBConnection();
 
 if (isset($_SESSION['user']['id'])) {
@@ -37,9 +37,9 @@ if (isset($_SESSION['user']['id'])) {
     $orders = [];
 }
 ?>
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body>
-<?php include 'includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 <main class="mx-auto py-20 px-8">
   <h1 class="text-2xl font-bold mb-6">Mes commandes</h1>
   
@@ -110,5 +110,8 @@ if (isset($_SESSION['user']['id'])) {
     </div>
   <?php endif; ?>
 </main>
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
+
+<!-- Scripts -->
+<?php include '../includes/scripts.php'; ?>
 </body> 

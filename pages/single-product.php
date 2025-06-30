@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 $pdo = getDBConnection();
 
 $product = null;
@@ -11,7 +11,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
- <?php include 'includes/head.php'; ?>
+ <?php include '../includes/head.php'; ?>
 
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
@@ -24,7 +24,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </div>
     <!-- ***** Preloader End ***** -->
 
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 <main id="main" class="py-20">
 <?php if ($product): ?>
     <!-- ***** Product Area Starts ***** -->
@@ -84,7 +84,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <?php endif; ?>
 </main>
     <!-- ***** Footer Start ***** -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
@@ -125,5 +125,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         });
       });
     </script>
+    
+    <!-- Scripts -->
+    <?php include '../includes/scripts.php'; ?>
   </body>
 </html>

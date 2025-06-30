@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 if (!isset($_SESSION['user']['id'])) {
-    header('Location: login.php');
+    header('Location: pages/login.php');
     exit;
 }
 $pdo = getDBConnection();
@@ -11,9 +11,9 @@ $stmt = $pdo->prepare('SELECT * FROM addresses WHERE user_id = ? ORDER BY is_def
 $stmt->execute([$user_id]);
 $addresses = $stmt->fetchAll();
 ?>
-<?php include 'includes/head.php'; ?>
+<?php include '../includes/head.php'; ?>
 <body class="font-poppins">
-<?php include 'includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <main class="py-20">
   <div class="container mx-auto px-4">
@@ -216,5 +216,8 @@ function editAddress(addressId) {
 }
 </script>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
+
+<!-- Scripts -->
+<?php include '../includes/scripts.php'; ?>
 </body> 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <?php include 'includes/head.php'; ?>
+  <?php include '../includes/head.php'; ?>
 
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
@@ -20,10 +20,10 @@
     </div>
     <!-- ***** Preloader End ***** -->
 
-   <?php include 'includes/header.php'; ?>
+   <?php include '../includes/header.php'; ?>
 <main id="main"  class="py-20">
     <?php
-    require_once __DIR__ . '/config/database.php';
+    require_once __DIR__ . '/../config/database.php';
     $pdo = getDBConnection();
 
     $perPage = 8;
@@ -89,14 +89,14 @@
       >
         <?php foreach ($products as $product): ?>
         <div class="overflow-hidden relative rounded-lg shadow-lg group flex flex-col justify-between">
-          <form method="post" action="add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+          <form method="post" action="../actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
             <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
               <i class="fa fa-heart"></i>
             </button>
           </form>
           <div class="relative aspect-w-1 aspect-h-1">
-            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
+            <img src="/astrodia/src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
           </div>
           <div class="flex-1 flex flex-col justify-between p-5">
             <div>
@@ -108,7 +108,7 @@
                  class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
                 Voir plus
               </a>
-              <form method="post" action="add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+              <form method="post" action="../actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <input type="hidden" name="quantity" value="1">
                 <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
@@ -132,10 +132,10 @@
     <!-- ***** Products Area Ends ***** -->
 </main>
     <!-- ***** Footer Start ***** -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
 
     <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="/astrodia/assets/js/jquery-2.1.0.min.js"></script>
 
     <!-- Bootstrap -->
    
@@ -144,56 +144,18 @@
     
 
     <!-- Plugins -->
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/isotope.js"></script>
+    <script src="/astrodia/assets/js/owl-carousel.js"></script>
+    <script src="/astrodia/assets/js/accordions.js"></script>
+    <script src="/astrodia/assets/js/scrollreveal.min.js"></script>
+    <script src="/astrodia/assets/js/waypoints.min.js"></script>
+    <script src="/astrodia/assets/js/jquery.counterup.min.js"></script>
+    <script src="/astrodia/assets/js/imgfix.min.js"></script>
+    <script src="/astrodia/assets/js/slick.js"></script>
+    <script src="/astrodia/assets/js/lightbox.js"></script>
+    <script src="/astrodia/assets/js/isotope.js"></script>
 
     <!-- Custom JavaScript -->
-    <script src="assets/js/custom.js"></script>
-    <script src="src/js/main.js?v=<?php echo time(); ?>"></script>
-
-    <script>
-      $(function () {
-        var selectedClass = "";
-        $("p").click(function () {
-          selectedClass = $(this).attr("data-rel");
-          $("#portfolio").fadeTo(50, 0.1);
-          $("#portfolio div")
-            .not("." + selectedClass)
-            .fadeOut();
-          setTimeout(function () {
-            $("." + selectedClass).fadeIn();
-            $("#portfolio").fadeTo(50, 1);
-          }, 500);
-        });
-      });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.add-to-cart-form').forEach(function(form) {
-        form.addEventListener('submit', function(e) {
-          if (form.dataset.auth === '0') {
-            e.preventDefault();
-            // Ouvre le modal de connexion
-            var authModal = document.getElementById('AuthModal');
-            var authModalBox = document.getElementById('authModalBox');
-            if (authModal && authModalBox) {
-              authModal.style.display = 'flex';
-              setTimeout(function() {
-                authModalBox.classList.remove('opacity-0', 'scale-95');
-                authModalBox.classList.add('opacity-100', 'scale-100');
-              }, 10);
-            }
-          }
-        });
-      });
-    });
-    </script>
+    <script src="/astrodia/assets/js/custom.js"></script>
+    <?php include '../includes/scripts.php'; ?>
   </body>
 </html>

@@ -546,5 +546,9 @@ include 'includes/head.php'; ?>
     </section>
     <!-- ***** Subscribe Area Ends ***** -->
 </main>
+
+<!-- Scripts -->
+<?php include 'includes/scripts.php'; ?>
+
   </body>
 </html>

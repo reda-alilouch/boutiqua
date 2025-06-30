@@ -5,7 +5,7 @@ require_once __DIR__ . '/config/database.php';
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user']['id'])) {
     $_SESSION['error'] = 'Vous devez être connecté pour gérer vos adresses.';
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 

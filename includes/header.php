@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion'])) {
         'email' => $user['email'],
         'avatar' => $user['avatar'],
         'last_login' => time(),
+        'role' => $user['role'],
       ];
 
       header('Location: /astrodia/index.php');
@@ -130,6 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$nom, $prenom, $email, $hashedPassword, $avatarPath]);
 
+        // Après l'insertion, récupère le rôle (par défaut 'user' si non précisé)
+        $role = 'user'; // ou récupère-le depuis la base si tu veux permettre l'inscription admin
+
         // Protection contre la fixation de session
         session_regenerate_id(true);
 
@@ -140,6 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
           'email' => $email,
           'avatar' => $avatarPath,
           'last_login' => time(),
+          'role' => $role,
         ];
 
         header('Location: /astrodia/index.php');
@@ -167,35 +172,31 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
             <nav class="flex items-center justify-between h-16 md:h-20">
                 
                 <!-- Mobile Menu Button -->
-                <div onclick="toggleMenu()" class="menu-button lg:hidden">
+                <div id="mobileMenuButton" class="menu-button lg:hidden">
                         <i class="text-xl fa-solid fa-bars menu-icon" id="menuIcon"></i>
                     </div>
 
                 <!-- Logo -->
                 <a href="/astrodia/index.php" class="flex-shrink-0">
-                    <img src="../astrodia/src/images/logoo.png" 
+                    <img src="/astrodia/src/images/logoo.png" 
                          class="w-auto h-8 md:h-10" alt="Astrodia Logo" />
                 </a>
 
                 <!-- Desktop Menu -->
                 <nav class="hidden space-x-8 lg:flex">
-                    <a href="/astrodia" 
+                    <a href="/astrodia/index.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Accueil
                     </a>
-                    <a href="/astrodia/products.php" 
+                    <a href="/astrodia/pages/products.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Produits
                     </a>
-                    <a href="/astrodia/single-product.php" 
-                       class="font-medium text-gray-700 transition-colors hover:text-blue-600">
-                        Produit Unique
-                    </a>
-                    <a href="/astrodia/contact.php" 
+                    <a href="/astrodia/pages/contact.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Contact
                     </a>
-                    <a href="/astrodia/about.php" 
+                    <a href="/astrodia/pages/about.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         À Propos
                     </a>
@@ -212,9 +213,9 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
   </button>
   
     <?php if ($isLoggedIn && $user): ?>
-      <a href="profile.php" class="flex items-center gap-2 group">
+      <a href="/astrodia/pages/profile.php" class="flex items-center gap-2 group">
         <?php if (!empty($user['avatar'])): ?>
-          <img src="src/images/<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-primary object-cover" />
+          <img src="/astrodia/src/images/<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-primary object-cover" />
         <?php else: ?>
           <span class="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white font-bold text-lg">
             <?php
@@ -226,6 +227,9 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
         <span class="hidden sm:inline text-primary font-medium group-hover:underline">
           <?php echo htmlspecialchars($user['prenom']); ?>
         </span>
+      </a>
+      <a href="/astrodia/actions/logout.php" class="text-gray-500 hover:text-red-500" title="Déconnexion">
+        <i class="fa-solid fa-right-from-bracket"></i>
       </a>
     <?php else: ?>
       <button id="openAuthModalBtn" class="text-primary hover:text-accent transition-colors">
@@ -241,22 +245,17 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                             <i class="mr-3 text-gray-400 fas fa-home"></i>
                             Accueil
                         </a>
-                        <a href="/astrodia/products.php" 
+                        <a href="/astrodia/pages/products.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-shopping-bag"></i>
                             Produits
                         </a>
-                        <a href="/astrodia/single-product.php" 
-                           class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
-                            <i class="mr-3 text-gray-400 fas fa-box"></i>
-                            Produit Unique
-                        </a>
-                        <a href="/astrodia/contact.php" 
+                        <a href="/astrodia/pages/contact.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-envelope"></i>
                             Contact
                         </a>
-                        <a href="/astrodia/about.php" 
+                        <a href="/astrodia/pages/about.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-info-circle"></i>
                             À Propos
@@ -266,8 +265,11 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
         </div>
     </header>
     
-    <?php include 'includes/auth-modal.php'; ?>
-    <?php include 'includes/cart-modal.php'; ?>
-    <?php include 'includes/search-modal.php'; ?>
-   
+    <!-- Modals -->
+    <div class="modals">
+        <?php include __DIR__ . '/modals/auth-modal.php'; ?>
+        <?php include __DIR__ . '/modals/cart-modal.php'; ?>
+        <?php include __DIR__ . '/modals/search-modal.php'; ?>
+    </div>
+</body>
    
