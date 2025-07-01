@@ -1,31 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+<head>
   <?php include '../includes/head.php'; ?>
-
-  <body class="font-poppins">
-    <!-- ***** Preloader Start ***** -->
-    <div
-      id="preloader"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-white"
-    >
-      <div class="flex space-x-2 jumper">
-        <div class="w-3 h-3 rounded-full bg-accent animate-bounce"></div>
-        <div
-          class="w-3 h-3 delay-75 rounded-full bg-accent animate-bounce"
-        ></div>
-        <div
-          class="w-3 h-3 delay-150 rounded-full bg-accent animate-bounce"
-        ></div>
-      </div>
-    </div>
-    <!-- ***** Preloader End ***** -->
-
-    <?php include '../includes/header.php'; ?>
-<main id="main"  class="py-20">
-    <!-- ***** Main Banner Area Start ***** -->
-    
-    <!-- ***** Main Banner Area End ***** -->
-
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
+<body class="font-poppins">
+  <?php include '../includes/header.php'; ?>
+  
+  <main id="main"  class="py-20">
     <!-- ***** About Area Starts ***** -->
     <section class="py-16">
       <div class="container px-4 mx-auto">
@@ -285,37 +271,11 @@
       </div>
     </section>
     <!-- ***** Services Area Ends ***** -->
-</main>
-    <!-- ***** Footer Start ***** -->
-    <?php include '../includes/footer.php'; ?>
-
-    <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugins -->
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/datepicker.js"></script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script
-      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-
-    <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
-    
-    <!-- Scripts -->
-    <?php include '../includes/scripts.php'; ?>
-  </body>
+  </main>
+  <!-- ***** Footer Start ***** -->
+  <?php include '../includes/footer.php'; ?>
+  
+  <!-- Scripts -->
+  <?php include '../includes/scripts.php'; ?>
+</body>
 </html>

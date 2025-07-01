@@ -80,7 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($cart_items)) {
     }
 }
 ?>
-<?php include '../includes/head.php'; ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <?php include '../includes/head.php'; ?>
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
 <body>
 <?php include '../includes/header.php'; ?>
 <main class="container mx-auto py-8 px-10">
@@ -178,3 +187,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($cart_items)) {
 <!-- Scripts -->
 <?php include '../includes/scripts.php'; ?>
 </body> 
+<html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user']['id'])) {
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user']['id'])) {
 
 // Vérifier si la requête est en POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: addresses.php');
+    header('Location: ../pages/addresses.php');
     exit;
 }
 
@@ -38,7 +38,7 @@ if (empty($zip)) $errors[] = 'Le code postal est obligatoire.';
 
 if (!empty($errors)) {
     $_SESSION['error'] = implode(' ', $errors);
-    header('Location: addresses.php');
+    header('Location: ../pages/addresses.php');
     exit;
 }
 
@@ -71,6 +71,6 @@ try {
     error_log('Add address error: ' . $e->getMessage());
 }
 
-header('Location: addresses.php');
+header('Location: ../pages/addresses.php');
 exit;
 ?> 

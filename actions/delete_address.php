@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user']['id'])) {
@@ -11,14 +11,14 @@ if (!isset($_SESSION['user']['id'])) {
 
 // Vérifier si la requête est en POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: addresses.php');
+    header('Location: ../pages/addresses.php');
     exit;
 }
 
 // Vérifier si address_id est fourni
 if (!isset($_POST['address_id']) || !is_numeric($_POST['address_id'])) {
     $_SESSION['error'] = 'Adresse invalide.';
-    header('Location: addresses.php');
+    header('Location: ../pages/addresses.php');
     exit;
 }
 
@@ -34,7 +34,7 @@ try {
     
     if (!$address) {
         $_SESSION['error'] = 'Adresse introuvable ou vous n\'avez pas les droits pour la supprimer.';
-        header('Location: addresses.php');
+        header('Location: ../pages/addresses.php');
         exit;
     }
     
@@ -65,6 +65,6 @@ try {
     error_log('Delete address error: ' . $e->getMessage());
 }
 
-header('Location: addresses.php');
+header('Location: ../pages/addresses.php');
 exit;
 ?> 

@@ -152,10 +152,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 render_page:
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-<?php include '../includes/head.php'; ?>
+<head>
+  <?php include '../includes/head.php'; ?>
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
 <body class="bg-gray-100">
     <?php include '../includes/header.php'; ?>
     

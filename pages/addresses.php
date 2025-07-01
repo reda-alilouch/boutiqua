@@ -11,7 +11,16 @@ $stmt = $pdo->prepare('SELECT * FROM addresses WHERE user_id = ? ORDER BY is_def
 $stmt->execute([$user_id]);
 $addresses = $stmt->fetchAll();
 ?>
-<?php include '../includes/head.php'; ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <?php include '../includes/head.php'; ?>
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
 <body class="font-poppins">
 <?php include '../includes/header.php'; ?>
 
@@ -62,7 +71,7 @@ $addresses = $stmt->fetchAll();
     <div id="addressForm" class="max-w-2xl mx-auto mb-12 hidden">
       <div class="bg-white rounded-2xl shadow-lg p-6">
         <h3 class="text-xl font-semibold mb-6">Nouvelle adresse</h3>
-        <form method="post" action="add_address.php" class="space-y-4">
+        <form method="post" action="../actions/add_address.php" class="space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Prénom *</label>
@@ -121,7 +130,7 @@ $addresses = $stmt->fetchAll();
           </div>
           
           <div class="flex gap-4 pt-4">
-            <button type="submit" class="flex-1 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors">
+            <button type="submit" class="flex-1 px-6 py-3 border bg-white text-black font-semibold rounded-lg hover:bg-black hover:text-white transition-colors">
               Enregistrer l'adresse
             </button>
             <button type="button" onclick="toggleAddressForm()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors">
@@ -186,10 +195,10 @@ $addresses = $stmt->fetchAll();
               </div>
               
               <div class="flex gap-2 pt-4 border-t border-gray-100">
-                <button onclick="editAddress(<?php echo $address['id']; ?>)" class="flex-1 border border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors">
+                <button onclick="editAddress(<?php echo $address['id']; ?>)" class="flex-1 border text-black font-medium rounded-lg hover:bg-black hover:text-white transition-colors">
                   Modifier
                 </button>
-                <form method="post" action="delete_address.php" class="flex-1" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?')">
+                <form method="post" action="../actions/delete_address.php" class="flex-1" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?')">
                   <input type="hidden" name="address_id" value="<?php echo $address['id']; ?>">
                   <button type="submit" class="w-full border border-red-500 text-red-500 font-medium rounded-lg hover:bg-red-500 hover:text-white transition-colors">
                     Supprimer
@@ -221,3 +230,4 @@ function editAddress(addressId) {
 <!-- Scripts -->
 <?php include '../includes/scripts.php'; ?>
 </body> 
+</html>

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+<head>
   <?php include '../includes/head.php'; ?>
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
 
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
@@ -133,29 +140,6 @@
 </main>
     <!-- ***** Footer Start ***** -->
     <?php include '../includes/footer.php'; ?>
-
-    <!-- jQuery -->
-    <script src="/astrodia/assets/js/jquery-2.1.0.min.js"></script>
-
-    <!-- Bootstrap -->
-   
-
-    <!-- Alpine.js -->
-    
-
-    <!-- Plugins -->
-    <script src="/astrodia/assets/js/owl-carousel.js"></script>
-    <script src="/astrodia/assets/js/accordions.js"></script>
-    <script src="/astrodia/assets/js/scrollreveal.min.js"></script>
-    <script src="/astrodia/assets/js/waypoints.min.js"></script>
-    <script src="/astrodia/assets/js/jquery.counterup.min.js"></script>
-    <script src="/astrodia/assets/js/imgfix.min.js"></script>
-    <script src="/astrodia/assets/js/slick.js"></script>
-    <script src="/astrodia/assets/js/lightbox.js"></script>
-    <script src="/astrodia/assets/js/isotope.js"></script>
-
-    <!-- Custom JavaScript -->
-    <script src="/astrodia/assets/js/custom.js"></script>
     <?php include '../includes/scripts.php'; ?>
   </body>
 </html>

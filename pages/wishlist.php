@@ -11,7 +11,16 @@ $stmt = $pdo->prepare('SELECT w.*, p.name, p.image, p.price FROM wishlist w JOIN
 $stmt->execute([$user_id]);
 $wishlist = $stmt->fetchAll();
 ?>
-<?php include '../includes/head.php'; ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <?php include '../includes/head.php'; ?>
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
 <body class="font-poppins">
 <?php include '../includes/header.php'; ?>
 
@@ -52,7 +61,7 @@ $wishlist = $stmt->fetchAll();
                    class="w-full h-48 object-cover">
               
               <!-- Remove from wishlist button -->
-              <form method="post" action="remove_from_wishlist.php" class="absolute top-3 right-3">
+              <form method="post" action="../actions/remove_from_wishlist.php" class="absolute top-3 right-3">
                 <input type="hidden" name="product_id" value="<?php echo $item['product_id']; ?>">
                 <button type="submit" class="bg-white bg-opacity-90 rounded-full p-2 text-red-500 hover:bg-red-500 hover:text-white transition-colors" 
                         title="Retirer de la liste de souhaits">
@@ -104,3 +113,4 @@ $wishlist = $stmt->fetchAll();
 <!-- Scripts -->
 <?php include '../includes/scripts.php'; ?>
 </body> 
+</html>

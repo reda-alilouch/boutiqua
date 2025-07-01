@@ -1,7 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+<head>
   <?php include '../includes/head.php'; ?>
-
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
     <div
@@ -112,29 +118,6 @@
 </main>
     <!-- ***** Footer Start ***** -->
     <?php include '../includes/footer.php'; ?>
-
-    <!-- jQuery -->
-    <script src="/astrodia/assets/js/jquery-2.1.0.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="/astrodia/assets/js/popper.js"></script>
-    <script src="/astrodia/assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugins -->
-    <script src="/astrodia/assets/js/owl-carousel.js"></script>
-    <script src="/astrodia/assets/js/accordions.js"></script>
-    <script src="/astrodia/assets/js/datepicker.js"></script>
-    <script src="/astrodia/assets/js/scrollreveal.min.js"></script>
-    <script src="/astrodia/assets/js/waypoints.min.js"></script>
-    <script src="/astrodia/assets/js/jquery.counterup.min.js"></script>
-    <script src="/astrodia/assets/js/imgfix.min.js"></script>
-    <script src="/astrodia/assets/js/slick.js"></script>
-    <script src="/astrodia/assets/js/lightbox.js"></script>
-    <script src="/astrodia/assets/js/isotope.js"></script>
-
-    <!-- Global Init -->
-    <script src="/astrodia/assets/js/custom.js"></script>
-
     <script>
       $(function () {
         var selectedClass = "";
@@ -151,12 +134,6 @@
         });
       });
     </script>
-
-    <script
-      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    
     <!-- Scripts -->
     <?php include '../includes/scripts.php'; ?>
   </body>

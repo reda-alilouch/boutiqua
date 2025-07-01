@@ -10,8 +10,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
- <?php include '../includes/head.php'; ?>
+<html lang="fr">
+<head>
+  <?php include '../includes/head.php'; ?>
+  <link rel="stylesheet" href="../src/css/tailwind.css">
+  <link rel="stylesheet" href="../src/css/menu.css">
+  <link rel="stylesheet" href="../src/css/responsive.css">   
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../src/css/modals.css">
+</head>
 
   <body class="font-poppins">
     <!-- ***** Preloader Start ***** -->
@@ -85,30 +92,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </main>
     <!-- ***** Footer Start ***** -->
     <?php include '../includes/footer.php'; ?>
-
-    <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugins -->
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/datepicker.js"></script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/quantity.js"></script>
-
-    <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
-
     <script>
       $(function () {
         var selectedClass = "";

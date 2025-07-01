@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 $pdo = getDBConnection();
 
 // Vérifie que l'utilisateur est connecté
@@ -17,7 +17,7 @@ $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 $stmt = $pdo->prepare('SELECT id FROM products WHERE id = ?');
 $stmt->execute([$product_id]);
 if (!$stmt->fetch()) {
-    header('Location: products.php?error=produit');
+    header('Location: ../pages/products.php?error=produit');
     exit;
 }
 
@@ -37,5 +37,5 @@ if ($item) {
 }
 
 // Redirige vers la page produits (ou tu peux afficher le modal via JS)
-header('Location: products.php?added=1');
+header('Location: /astrodia/pages/products.php?added=1');
 exit; 
