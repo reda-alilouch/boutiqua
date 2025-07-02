@@ -13,7 +13,9 @@ $products = $stmt->fetchAll();
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<?php include 'includes/head.php'; ?>
+<?php include 'includes/head.php'; ?>    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 </head>
 <body class="font-poppins" x-data="{ isSearchOpen: false, isAuthOpen: false }">
   <!-- ***** Preloader Start ***** -->
@@ -28,7 +30,6 @@ $products = $stmt->fetchAll();
   <?php include 'includes/header.php'; ?>
   <!-- ***** Hero Carousel Start ***** -->
   <section class="relative w-full py-20">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <div id="hero-carousel" class="splide">
       <div class="splide__track">
         <ul class="splide__list">
@@ -512,5 +513,6 @@ $products = $stmt->fetchAll();
   <?php include 'includes/footer.php'; ?>
 <!-- Scripts -->
   <?php include 'includes/scripts.php'; ?>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+</body>
 </html>

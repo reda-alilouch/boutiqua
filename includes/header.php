@@ -181,7 +181,6 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                     <img src="/astrodia/src/images/logoo.png" 
                          class="w-auto h-8 md:h-10" alt="Astrodia Logo" />
                 </a>
-
                 <!-- Desktop Menu -->
                 <nav class="hidden space-x-8 lg:flex">
                     <a href="/astrodia/index.php" 
@@ -205,9 +204,10 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                 <!-- Actions -->
                 
 <div class="flex items-center gap-4">
-  <button id="openSearchModalBtn">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
+<button id="openSearchModalBtn" style="background:none;border:none;cursor:pointer;">
+  <i class="fa fa-search"></i>
+</button>
+                
   <button id="openCartModalBtn">
     <i class="fa-solid fa-cart-shopping"></i>
   </button>
@@ -270,6 +270,7 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
         <?php include __DIR__ . '/modals/auth-modal.php'; ?>
         <?php include __DIR__ . '/modals/cart-modal.php'; ?>
         <?php include __DIR__ . '/modals/search-modal.php'; ?>
+      
     </div>
 </body>
    

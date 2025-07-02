@@ -49,7 +49,7 @@ if (isset($_SESSION['user']['id'])) {
                 <p class="text-gray-600 text-sm">Quantité: <?php echo $item['quantity']; ?></p>
                 <p class="font-medium text-green-600"><?php echo number_format($item['quantity'] * $item['price'], 2); ?> €</p>
               </div>
-              <form method="post" action="remove_from_cart.php" style="display:inline;">
+              <form method="post" action="../actions/remove_from_cart.php" style="display:inline;">
                 <input type="hidden" name="cart_id" value="<?php echo $item['id']; ?>">
                 <button type="submit" class="text-red-500 hover:text-red-700 p-1" title="Supprimer du panier">
                   <i class="fa fa-trash"></i>

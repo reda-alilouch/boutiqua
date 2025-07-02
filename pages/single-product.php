@@ -59,15 +59,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
            
             <!-- Quantity and Add to Cart -->
             <div class="flex items-center space-x-6">
-              <div class="flex items-center border-2 border-gray-300 rounded-lg">
-                <input type="number" id="quantity" class="w-20 p-2 text-center border-0 focus:outline-none" value="1" min="1" />
-              </div>
-              <form method="post" action="add_to_cart.php">
+              <form method="post" action="../actions/add_to_cart.php" class="flex items-center space-x-6">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                <input type="hidden" name="quantity" value="1">
+                <input type="number" name="quantity" id="quantity" class="w-20 p-2 text-center border-2 border-gray-300 rounded-lg focus:outline-none" value="1" min="1" />
                 <button type="submit"
-                class="w-24 p-2 text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">
-                Acheter
+                  class="w-24 p-2 text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">
+                  Acheter
                 </button>
               </form>
             </div>

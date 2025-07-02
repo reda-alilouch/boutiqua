@@ -11,39 +11,6 @@ $sort = $_GET['sort'] ?? 'name';
 $page = max(1, intval($_GET['page'] ?? 1));
 $perPage = 12;
 
-// Construire la requête de base
-$whereConditions = [];
-$params = [];
-
-if (!empty($search)) {
-    $whereConditions[] = "(name LIKE :search OR description LIKE :search)";
-    $params['search'] = '%' . $search . '%';
-}
-
-if (!empty($category)) {
-    $whereConditions[] = "category = :category";
-    $params['category'] = $category;
-}
-
-$whereClause = !empty($whereConditions) ? 'WHERE ' . implode(' AND ', $whereConditions) : '';
-
-// Requête pour compter le total
-$countQuery = "SELECT COUNT(*) FROM products $whereClause";
-$stmt = $pdo->prepare($countQuery);
-$stmt->execute($params);
-$totalProducts = $stmt->fetchColumn();
-$totalPages = ceil($totalProducts / $perPage);
-
-// Requête pour récupérer les produits
-$offset = (int) (($page - 1) * $perPage);
-$perPage = (int) $perPage;
-$orderBy = match($sort) {
-    'price_asc' => 'price ASC',
-    'price_desc' => 'price DESC',
-    'name' => 'name ASC',
-    default => 'name ASC'
-};
-
 // Construction robuste des paramètres et du WHERE
 $executeParams = [];
 $where = [];
@@ -57,11 +24,29 @@ if (!empty($category)) {
 }
 $whereClause = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
+// Requête pour compter le total
+$countQuery = "SELECT COUNT(*) FROM products $whereClause";
+$stmt = $pdo->prepare($countQuery);
+if (!empty($executeParams)) {
+    $stmt->execute($executeParams);
+} else {
+    $stmt->execute();
+}
+$totalProducts = $stmt->fetchColumn();
+$totalPages = ceil($totalProducts / $perPage);
+
+// Requête pour récupérer les produits
+$offset = (int) (($page - 1) * $perPage);
+$perPage = (int) $perPage;
+$orderBy = match($sort) {
+    'price_asc' => 'price ASC',
+    'price_desc' => 'price DESC',
+    'name' => 'name ASC',
+    default => 'name ASC'
+};
+
 $query = "SELECT * FROM products $whereClause ORDER BY $orderBy LIMIT $perPage OFFSET $offset";
 $stmt = $pdo->prepare($query);
-// Log pour debug
-error_log('QUERY: ' . $query);
-error_log('PARAMS: ' . print_r($executeParams, true));
 if ($executeParams) {
     $stmt->execute($executeParams);
 } else {

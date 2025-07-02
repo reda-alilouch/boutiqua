@@ -15,9 +15,7 @@ $countProducts = $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
 $countUsers = $pdo->query('SELECT COUNT(*) FROM users')->fetchColumn();
 $countOrders = $pdo->query('SELECT COUNT(*) FROM orders')->fetchColumn();
 
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
+
 
 ?>
 <!DOCTYPE html>
