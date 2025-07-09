@@ -30,6 +30,15 @@ if ($item) {
     $stmt = $pdo->prepare('INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)');
     $stmt->execute([$user_id, $product_id, $quantity]);
 }
-// Redirige vers la page produits (ou tu peux afficher le modal via JS)
-header('Location: /astrodia/pages/products.php?added=1');
+if (!empty($_POST['redirect'])) {
+    $redirect_url = $_POST['redirect'];
+    if (strpos($redirect_url, '?') === false) {
+        $redirect_url .= '?added=1';
+    } else {
+        $redirect_url .= '&added=1';
+    }
+    header('Location: ' . $redirect_url);
+} else {
+    header('Location: /astrodia/pages/products.php?added=1');
+}
 exit; 

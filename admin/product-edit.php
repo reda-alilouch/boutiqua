@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require_once __DIR__ . '/../config/database.php';
 
@@ -14,7 +18,7 @@ $pdo = getDBConnection();
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $editMode = $id > 0;
 $errors = [];
-$name = $description = $price = $stock = $category = $image = '';
+$name = $description = $price = $stock = $image = $gender = $product_type = '';
 
 // Récupérer les infos du produit si édition
 if ($editMode) {
@@ -29,8 +33,10 @@ if ($editMode) {
     $description = $product['description'];
     $price = $product['price'];
     $stock = $product['stock'];
-    $category = $product['category'];
+
     $image = $product['image'];
+    $gender = $product['gender'] ?? '';
+    $product_type = $product['product_type'] ?? '';
 }
 
 // Traitement du formulaire
@@ -39,24 +45,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description'] ?? '');
     $price = floatval($_POST['price'] ?? 0);
     $stock = intval($_POST['stock'] ?? 0);
-    $category = trim($_POST['category'] ?? '');
     $image = trim($_POST['image'] ?? '');
+    $gender = $_POST['gender'] ?? '';
+    $product_type = $_POST['product_type'] ?? '';
 
     if ($name === '') $errors[] = 'Le nom est requis.';
     if ($price <= 0) $errors[] = 'Le prix doit être positif.';
     if ($stock < 0) $errors[] = 'Le stock ne peut pas être négatif.';
-    if ($category === '') $errors[] = 'La catégorie est requise.';
     if ($image === '') $errors[] = 'Le nom de l\'image est requis (ex: produit.jpg).';
+    if ($gender === '') $errors[] = 'Le genre est requis.';
+    if ($product_type === '') $errors[] = 'Le type de produit est requis.';
 
     if (empty($errors)) {
         if ($editMode) {
-            $stmt = $pdo->prepare('UPDATE products SET name=?, description=?, price=?, stock=?, category=?, image=? WHERE id=?');
-            $stmt->execute([$name, $description, $price, $stock, $category, $image, $id]);
+            $stmt = $pdo->prepare('UPDATE products SET name=?, description=?, price=?, stock=?, image=?, gender=?, product_type=? WHERE id=?');
+            $stmt->execute([$name, $description, $price, $stock, $image, $gender, $product_type, $id]);
             header('Location: products.php?updated=1');
             exit;
         } else {
-            $stmt = $pdo->prepare('INSERT INTO products (name, description, price, stock, category, image) VALUES (?, ?, ?, ?, ?, ?)');
-            $stmt->execute([$name, $description, $price, $stock, $category, $image]);
+            $stmt = $pdo->prepare('INSERT INTO products (name, description, price, stock, image, gender, product_type) VALUES (?, ?, ?, ?, ?, ?, ?)');
+            $stmt->execute([$name, $description, $price, $stock, $image, $gender, $product_type]);
             header('Location: products.php?added=1');
             exit;
         }
@@ -109,11 +117,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Stock *</label>
             <input type="number" name="stock" min="0" value="<?php echo htmlspecialchars($stock); ?>" required>
 
-            <label>Catégorie *</label>
-            <input type="text" name="category" value="<?php echo htmlspecialchars($category); ?>" required>
-
             <label>Nom de l'image (ex: produit.jpg) *</label>
             <input type="text" name="image" value="<?php echo htmlspecialchars($image); ?>" required>
+
+            <label>Genre *</label>
+            <select name="gender" required>
+                <option value="">-- Choisir --</option>
+                <option value="homme" <?php if($gender==='homme') echo 'selected'; ?>>Homme</option>
+                <option value="femme" <?php if($gender==='femme') echo 'selected'; ?>>Femme</option>
+            </select>
+
+            <label>Type de produit *</label>
+            <select name="product_type" required>
+                <option value="">-- Choisir --</option>
+                <option value="hoodies" <?php if($product_type==='hoodies') echo 'selected'; ?>>Hoodies</option>
+                <option value="t-shirt" <?php if($product_type==='t-shirt') echo 'selected'; ?>>T-shirt</option>
+            </select>
 
             <button class="btn" type="submit"><?php echo $editMode ? 'Enregistrer' : 'Ajouter'; ?></button>
         </form>

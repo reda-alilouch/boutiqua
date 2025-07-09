@@ -7,8 +7,10 @@ require_once __DIR__ . '/config/database.php';
 $pdo = getDBConnection();
 
 // Récupérer tous les produits
-$stmt = $pdo->query('SELECT * FROM products');
+$stmt = $pdo->query("SELECT * FROM products WHERE product_type = 't-shirt' LIMIT 0,4");
 $products = $stmt->fetchAll();
+$stmt = $pdo->query("SELECT * FROM products WHERE product_type = 'hoodies' LIMIT 0,4");
+$products2 = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -35,9 +37,8 @@ $products = $stmt->fetchAll();
         <ul class="splide__list">
           <!-- Slide 1 -->
           <li class="splide__slide">
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img src="src/images/baner-right-image-01.jpg" alt="Nouvelle Collection Femme" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-              <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+            <div class="relative h-[250px] md:h-[350px] lg:h-[400px] overflow-hidden">
+              <img src="src/images/baner-right-image-01.jpg" alt="Nouvelle Collection Femme" class="img-carousel w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
               <div class="absolute inset-0 flex items-center">
                 <div class="container mx-auto px-4">
                   <div class="max-w-2xl text-white">
@@ -59,8 +60,8 @@ $products = $stmt->fetchAll();
           </li>
           <!-- Slide 2 -->
           <li class="splide__slide">
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img src="src/images/baner-right-image-02.jpg" alt="Collection Homme" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="relative h-[250px] md:h-[350px] lg:h-[400px] overflow-hidden">
+              <img src="src/images/baner-right-image-02.jpg" alt="Collection Homme" class="img-carousel w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
               <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
               <div class="absolute inset-0 flex items-center">
                 <div class="container mx-auto px-4">
@@ -83,8 +84,8 @@ $products = $stmt->fetchAll();
           </li>
           <!-- Slide 3 -->
           <li class="splide__slide">
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img src="src/images/baner-right-image-03.jpg" alt="Accessoires & Kids" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="relative h-[250px] md:h-[350px] lg:h-[400px] overflow-hidden">
+              <img src="src/images/baner-right-image-03.jpg" alt="Accessoires & Kids" class="img-carousel w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
               <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
               <div class="absolute inset-0 flex items-center">
                 <div class="container mx-auto px-4">
@@ -107,8 +108,8 @@ $products = $stmt->fetchAll();
           </li>
           <!-- Slide 4 -->
           <li class="splide__slide">
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img src="src/images/left-banner-image.jpg" alt="Nouveautés" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+            <div class="relative h-[250px] md:h-[350px] lg:h-[400px] overflow-hidden">
+              <img src="src/images/left-banner-image.jpg" alt="Nouveautés" class="img-carousel w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
               <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
               <div class="absolute inset-0 flex items-center">
                 <div class="container mx-auto px-4">
@@ -133,24 +134,6 @@ $products = $stmt->fetchAll();
               </div>
             </div>
           </li>
-          <!-- Slide supplémentaire 1 -->
-          <li class="splide__slide">
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img src="src/images/explore-image-01.jpg" alt="Explore 1" class="w-full h-full object-cover" />
-              <div class="absolute inset-0 flex items-center justify-center">
-                <h2 class="text-white text-3xl font-bold bg-black/50 px-6 py-3 rounded-lg">Explorez l'univers Astrodia</h2>
-              </div>
-            </div>
-          </li>
-          <!-- Slide supplémentaire 2 -->
-          <li class="splide__slide">
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img src="src/images/explore-image-02.jpg" alt="Explore 2" class="w-full h-full object-cover" />
-              <div class="absolute inset-0 flex items-center justify-center">
-                <h2 class="text-white text-3xl font-bold bg-black/50 px-6 py-3 rounded-lg">Nouveaux horizons</h2>
-              </div>
-            </div>
-          </li>
         </ul>
       </div>
     </div>
@@ -162,62 +145,8 @@ $products = $stmt->fetchAll();
       <div class="container px-4 mx-auto">
         <!-- Section Header -->
         <div class="max-w-2xl mx-auto mb-8 text-center sm:mb-12">
-          <h2 class="mb-3 text-2xl font-semibold text-primary sm:text-3xl md:mb-4">Men's Latest</h2>
-          <p class="text-gray-600 text-sm sm:text-base">
-            Details to details is what makes Astrodia different from other themes.
-          </p>
-        </div>
-
-        <!-- Products Grid -->
-        <div
-        class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
-        id="products"
-      >
-        <?php foreach ($products ?? [] as $product): ?>
-        <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
-          <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
-            <!-- Wishlist Button -->
-            <form method="post" action="../actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
-              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-              <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
-                <i class="fa fa-heart"></i>
-              </button>
-            </form>
-            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
-                 alt="<?php echo htmlspecialchars($product['name']); ?>"
-                 class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
-          </div>
-          <div class="flex-1 flex flex-col justify-between p-5">
-            <div>
-              <h4 class="text-xl font-bold text-gray-900"><?php echo htmlspecialchars($product['name']); ?></h4>
-              <span class="block text-lg font-semibold text-primary mb-4"><?php echo number_format($product['price'], 2); ?> €</span>
-            </div>
-           
-              <a href="single-product.php?id=<?php echo $product['id']; ?>"
-                 class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
-                Voir plus
-              </a>
-              <form method="post" action="actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
-                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                <input type="hidden" name="quantity" value="1">
-                <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
-              </form>
-          
-          </div>
-        </div>
-        <?php endforeach; ?>
-      </div>
-      </div>
-    </section>
-    <!-- ***** Men Area Ends ***** -->
-
-    <!-- ***** t-shirt Area Starts ***** -->
-    <section class="py-16 bg-gray-50" id="women">
-      <div class="container px-4 mx-auto">
-        <!-- Section Header -->
-        <div class="max-w-2xl mx-auto mb-12 text-center">
-          <h2 class="mb-4 text-3xl font-semibold text-primary">
-            Women's Latest
+        <h2 class="mb-4 text-3xl font-semibold text-primary">
+            T-shirt Latest
           </h2>
           <p class="text-gray-600">
             Details to details is what makes Astrodia different from the other
@@ -234,8 +163,9 @@ $products = $stmt->fetchAll();
         <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
           <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
             <!-- Wishlist Button -->
-            <form method="post" action="../actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+            <form method="post" action="/astrodia/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+              <input type="hidden" name="redirect" value="/astrodia/index.php">
               <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
                 <i class="fa fa-heart"></i>
               </button>
@@ -250,13 +180,14 @@ $products = $stmt->fetchAll();
               <span class="block text-lg font-semibold text-primary mb-4"><?php echo number_format($product['price'], 2); ?> €</span>
             </div>
            
-              <a href="single-product.php?id=<?php echo $product['id']; ?>"
+              <a href="pages/single-product.php?id=<?php echo $product['id']; ?>"
                  class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
                 Voir plus
               </a>
               <form method="post" action="actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="redirect" value="/astrodia/index.php">
                 <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
               </form>
           
@@ -266,253 +197,81 @@ $products = $stmt->fetchAll();
       </div>
       </div>
     </section>
-    <!-- ***** Women Area Ends ***** -->
-
- 
-
-    <!-- ***** Social Area Starts ***** -->
-    <section class="py-16" id="social">
+    <!-- ***** t-shirt Area Starts ***** -->
+    <section class="py-16 bg-gray-50" id="women">
       <div class="container px-4 mx-auto">
         <!-- Section Header -->
         <div class="max-w-2xl mx-auto mb-12 text-center">
-          <h2 class="mb-4 text-3xl font-semibold text-primary">Social Media</h2>
+          <h2 class="mb-4 text-3xl font-semibold text-primary">
+            Hoodies Latest
+          </h2>
           <p class="text-gray-600">
             Details to details is what makes Astrodia different from the other
             themes.
           </p>
         </div>
 
-        <!-- Instagram Grid -->
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-          <!-- Instagram Item 1 -->
-          <div class="relative overflow-hidden rounded-lg group">
-            <img
-              src="assets/images/instagram-01.jpg"
-              alt="Fashion Collection"
-              class="object-cover w-full h-full aspect-square"
-            />
-            <div
-              class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-            >
-              <a href="http://instagram.com" class="text-center text-white">
-                <h6 class="mb-2 text-lg font-semibold">Fashion</h6>
-                <i class="text-2xl fa fa-instagram"></i>
-              </a>
-            </div>
+        <!-- Products Grid -->
+        <div
+        class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
+        id="products"
+      >
+        <?php foreach ($products2 ?? [] as $product): ?>
+        <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
+          <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
+            <!-- Wishlist Button -->
+            <form method="post" action="/astrodia/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+              <input type="hidden" name="redirect" value="/astrodia/index.php">
+              <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
+                <i class="fa fa-heart"></i>
+              </button>
+            </form>
+            <img src="src/images/<?php echo htmlspecialchars($product['image']); ?>"
+                 alt="<?php echo htmlspecialchars($product['name']); ?>"
+                 class="object-cover w-full h-full rounded-t-2xl transition-transform duration-300 hover:scale-105" />
           </div>
-
-          <!-- Instagram Item 2 -->
-          <div class="relative overflow-hidden rounded-lg group">
-            <img
-              src="assets/images/instagram-02.jpg"
-              alt="New Collection"
-              class="object-cover w-full h-full aspect-square"
-            />
-            <div
-              class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-            >
-              <a href="http://instagram.com" class="text-center text-white">
-                <h6 class="mb-2 text-lg font-semibold">New</h6>
-                <i class="text-2xl fa fa-instagram"></i>
-              </a>
+          <div class="flex-1 flex flex-col justify-between p-5">
+            <div>
+              <h4 class="text-xl font-bold text-gray-900"><?php echo htmlspecialchars($product['name']); ?></h4>
+              <span class="block text-lg font-semibold text-primary mb-4"><?php echo number_format($product['price'], 2); ?> €</span>
             </div>
-          </div>
-
-          <!-- Instagram Item 3 -->
-          <div class="relative overflow-hidden rounded-lg group">
-            <img
-              src="assets/images/instagram-03.jpg"
-              alt="Brand Collection"
-              class="object-cover w-full h-full aspect-square"
-            />
-            <div
-              class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-            >
-              <a href="http://instagram.com" class="text-center text-white">
-                <h6 class="mb-2 text-lg font-semibold">Brand</h6>
-                <i class="text-2xl fa fa-instagram"></i>
+           
+              <a href="pages/single-product.php?id=<?php echo $product['id']; ?>"
+                 class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black mb-1">
+                Voir plus
               </a>
-            </div>
-          </div>
-
-          <!-- Instagram Item 4 -->
-          <div class="relative overflow-hidden rounded-lg group">
-            <img
-              src="assets/images/instagram-04.jpg"
-              alt="Makeup Collection"
-              class="object-cover w-full h-full aspect-square"
-            />
-            <div
-              class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-            >
-              <a href="http://instagram.com" class="text-center text-white">
-                <h6 class="mb-2 text-lg font-semibold">Makeup</h6>
-                <i class="text-2xl fa fa-instagram"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Instagram Item 5 -->
-          <div class="relative overflow-hidden rounded-lg group">
-            <img
-              src="assets/images/instagram-05.jpg"
-              alt="Leather Collection"
-              class="object-cover w-full h-full aspect-square"
-            />
-            <div
-              class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-            >
-              <a href="http://instagram.com" class="text-center text-white">
-                <h6 class="mb-2 text-lg font-semibold">Leather</h6>
-                <i class="text-2xl fa fa-instagram"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Instagram Item 6 -->
-          <div class="relative overflow-hidden rounded-lg group">
-            <img
-              src="assets/images/instagram-06.jpg"
-              alt="Bag Collection"
-              class="object-cover w-full h-full aspect-square"
-            />
-            <div
-              class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100"
-            >
-              <a href="http://instagram.com" class="text-center text-white">
-                <h6 class="mb-2 text-lg font-semibold">Bag</h6>
-                <i class="text-2xl fa fa-instagram"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ***** Social Area Ends ***** -->
-
-    <!-- ***** Subscribe Area Starts ***** -->
-    <section class="py-16 bg-gray-50" id="subscribe">
-      <div class="container px-4 mx-auto">
-        <div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
-          <!-- Newsletter Form -->
-          <div class="lg:col-span-8">
-            <div class="max-w-2xl">
-              <h2 class="mb-4 text-3xl font-semibold text-primary">
-                By Subscribing To Our Newsletter You Can Get 30% Off
-              </h2>
-              <p class="mb-8 text-gray-600">
-                Details to details is what makes Astrodia different from the
-                other themes.
-              </p>
-
-              <form
-                id="subscribe"
-                action=""
-                method="get"
-                class="flex flex-col gap-4 md:flex-row"
-              >
-                <div class="flex-1">
-                  <input
-                    name="name"
-                    type="text"
-                    id="name"
-                    placeholder="Your Name"
-                    required=""
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
-                  />
-                </div>
-                <div class="flex-1">
-                  <input
-                    name="email"
-                    type="email"
-                    id="email"
-                    pattern="[^ @]*@[^ @]*"
-                    placeholder="Your Email Address"
-                    required=""
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    id="form-submit"
-                    class="w-full px-6 py-3 text-white transition-colors duration-300 rounded-lg md:w-auto bg-primary hover:bg-primary-dark"
-                  >
-                    <i class="fa fa-paper-plane"></i>
-                  </button>
-                </div>
+              <form method="post" action="actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="redirect" value="/astrodia/index.php">
+                <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
               </form>
-            </div>
-          </div>
-
-          <!-- Contact Information -->
-          <div class="lg:col-span-4">
-            <div class="grid grid-cols-2 gap-8">
-              <div class="space-y-6">
-                <div>
-                  <h6 class="mb-1 text-sm font-semibold text-gray-600">
-                    Store Location:
-                  </h6>
-                  <p class="text-gray-800">
-                    Sunny Isles Beach, FL 33160, United States
-                  </p>
-                </div>
-                <div>
-                  <h6 class="mb-1 text-sm font-semibold text-gray-600">
-                    Phone:
-                  </h6>
-                  <p class="text-gray-800">010-020-0340</p>
-                </div>
-                <div>
-                  <h6 class="mb-1 text-sm font-semibold text-gray-600">
-                    Office Location:
-                  </h6>
-                  <p class="text-gray-800">North Miami Beach</p>
-                </div>
-              </div>
-              <div class="space-y-6">
-                <div>
-                  <h6 class="mb-1 text-sm font-semibold text-gray-600">
-                    Work Hours:
-                  </h6>
-                  <p class="text-gray-800">07:30 AM - 9:30 PM Daily</p>
-                </div>
-                <div>
-                  <h6 class="mb-1 text-sm font-semibold text-gray-600">
-                    Email:
-                  </h6>
-                  <p class="text-gray-800">info@company.com</p>
-                </div>
-                <div>
-                  <h6 class="mb-1 text-sm font-semibold text-gray-600">
-                    Social Media:
-                  </h6>
-                  <p class="text-gray-800">
-                    <a href="#" class="text-accent hover:text-accent-dark"
-                      >Facebook</a
-                    >,
-                    <a href="#" class="text-accent hover:text-accent-dark"
-                      >Instagram</a
-                    >,
-                    <a href="#" class="text-accent hover:text-accent-dark"
-                      >Behance</a
-                    >,
-                    <a href="#" class="text-accent hover:text-accent-dark"
-                      >Linkedin</a
-                    >
-                  </p>
-                </div>
-              </div>
-            </div>
+          
           </div>
         </div>
+        <?php endforeach; ?>
+      </div>
       </div>
     </section>
-    <!-- ***** Subscribe Area Ends ***** -->
   </main>
   <?php include 'includes/footer.php'; ?>
 <!-- Scripts -->
   <?php include 'includes/scripts.php'; ?>
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Splide('#hero-carousel', {
+      type   : 'loop',
+      perPage: 1,
+      autoplay: true,
+      interval: 4000,
+      pauseOnHover: true,
+      arrows: true,
+      pagination: true,
+      speed: 800,
+    }).mount();
+  });
+  </script>
 </body>
 </html>

@@ -77,7 +77,8 @@ $products = $pdo->query('SELECT * FROM products ORDER BY id DESC')->fetchAll();
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Stock</th>
-                    <th>Catégorie</th>
+                    <th>Gendre</th>
+                    <th>Type de produits</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -88,7 +89,8 @@ $products = $pdo->query('SELECT * FROM products ORDER BY id DESC')->fetchAll();
                     <td><?php echo htmlspecialchars($product['name']); ?></td>
                     <td><?php echo number_format($product['price'], 2); ?> €</td>
                     <td><?php echo $product['stock']; ?></td>
-                    <td><?php echo htmlspecialchars($product['category']); ?></td>
+                    <td><?php echo htmlspecialchars($product['gender']); ?></td>
+                    <td><?php echo htmlspecialchars($product['product_type']); ?></td>
                     <td class="actions">
                         <a href="product-edit.php?id=<?php echo $product['id']; ?>" class="btn btn-edit"><i class="fa fa-pen"></i> Éditer</a>
                         <a href="products.php?delete=<?php echo $product['id']; ?>" class="btn btn-delete" onclick="return confirm('Supprimer ce produit ?');"><i class="fa fa-trash"></i> Supprimer</a>

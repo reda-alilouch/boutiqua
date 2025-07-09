@@ -58,7 +58,11 @@ try {
 }
 
 // Rediriger vers la page précédente ou products.php
-$redirect_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'products.php';
+if (!empty($_POST['redirect'])) {
+    $redirect_url = $_POST['redirect'];
+} else {
+    $redirect_url = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'products.php';
+}
 header('Location: ' . $redirect_url);
 exit;
 ?> 

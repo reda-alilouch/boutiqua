@@ -56,7 +56,7 @@ $wishlist = $stmt->fetchAll();
           <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-2xl">
             <!-- Product Image -->
             <div class="relative">
-              <img src="src/images/<?php echo htmlspecialchars($item['image']); ?>" 
+              <img src="/astrodia/src/images/<?php echo htmlspecialchars($item['image']); ?>" 
                    alt="<?php echo htmlspecialchars($item['name']); ?>" 
                    class="w-full h-48 object-cover">
               

@@ -772,7 +772,9 @@ footer {
     height: 10px !important;
   }
 }
-
+.img{
+  object-fit: cover;
+}
 /* Animation for slide content */
 .hero-swiper .swiper-slide-active h1,
 .hero-swiper .swiper-slide-active p,
@@ -825,7 +827,9 @@ footer {
   position: relative;
   overflow: hidden;
 }
-
+.img-carousel {
+  height: 600px;
+}
 .hero-swiper .swiper-slide a::before {
   content: '';
   position: absolute;

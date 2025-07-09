@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($cart_items)) {
                 <div class="space-y-4">
                     <?php foreach ($cart_items as $item): ?>
                         <div class="flex items-center space-x-4">
-                            <img src="<?php echo htmlspecialchars($item['image']); ?>" 
+                            <img src="/astrodia/src/images/<?php echo htmlspecialchars($item['image']); ?>" 
                                  alt="<?php echo htmlspecialchars($item['name']); ?>" 
                                  class="w-16 h-16 object-cover rounded">
                             <div class="flex-1">
