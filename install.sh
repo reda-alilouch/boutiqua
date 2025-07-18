@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Installing Astrodia dependencies..."
+echo "Installing boutiqua dependencies..."
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then

@@ -156,7 +156,7 @@ $categories = $pdo->query("SELECT DISTINCT category FROM products WHERE category
             
             <!-- Product Image -->
             <div class="relative">
-              <img src="/astrodia/src/images/<?php echo htmlspecialchars($product['image']); ?>" 
+              <img src="/boutiqua/src/images/<?php echo htmlspecialchars($product['image']); ?>" 
                    alt="<?php echo htmlspecialchars($product['name']); ?>" 
                    class="w-full h-48 object-cover">
             </div>

@@ -1,6 +1,6 @@
 <!-- Scripts principaux -->
-<script src="/astrodia/src/js/main.js" defer></script>
-<script src="/astrodia/src/js/menu.js" defer></script>
+<script src="/boutiqua/src/js/main.js" defer></script>
+<script src="/boutiqua/src/js/menu.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 
 <script>
@@ -41,7 +41,7 @@ if (searchInput && resultsBox) {
       resultsBox.innerHTML = '';
       return;
     }
-    fetch('/astrodia/actions/search-ajax.php?q=' + encodeURIComponent(q))
+    fetch('/boutiqua/actions/search-ajax.php?q=' + encodeURIComponent(q))
       .then(res => res.text())
       .then(html => {
         resultsBox.innerHTML = html;

@@ -2,11 +2,11 @@
 /**
  * Modèle User pour gérer les opérations liées aux utilisateurs
  *
- * @package Astrodia
+ * @package boutiqua
  * @version 1.0.0
  */
 
-namespace Astrodia\Models;
+namespace boutiqua\Models;
 
 require_once __DIR__ . '/../../config/database.php';
 

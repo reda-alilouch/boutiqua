@@ -42,7 +42,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
           <div class="space-y-6">
             <!-- Main Image -->
             <div class="relative overflow-hidden rounded-lg aspect-w-4 aspect-h-3">
-              <img id="main-image" src="/astrodia/src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
+              <img id="main-image" src="/boutiqua/src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
 </div>
           </div>
 

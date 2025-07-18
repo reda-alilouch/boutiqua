@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrodia - Votre boutique en ligne préférée</title>
+    <title>boutiqua - Votre boutique en ligne préférée</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="src/images/favicon.png">
@@ -41,26 +41,26 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="/astrodia/index.php" class="text-2xl font-bold text-gray-900">
-                        Astrodia
+                    <a href="/boutiqua/index.php" class="text-2xl font-bold text-gray-900">
+                        boutiqua
                     </a>
                 </div>
 
                 <!-- Navigation Desktop -->
                 <div class="hidden lg:flex items-center space-x-8">
-                    <a href="/astrodia/index.php" class="text-gray-700 hover:text-black transition-colors">
+                    <a href="/boutiqua/index.php" class="text-gray-700 hover:text-black transition-colors">
                         Accueil
                     </a>
-                    <a href="/astrodia/products.php" class="text-gray-700 hover:text-black transition-colors">
+                    <a href="/boutiqua/products.php" class="text-gray-700 hover:text-black transition-colors">
                         Produits
                     </a>
-                    <a href="/astrodia/single-product.php" class="text-gray-700 hover:text-black transition-colors">
+                    <a href="/boutiqua/single-product.php" class="text-gray-700 hover:text-black transition-colors">
                         Produit Unique
                     </a>
-                    <a href="/astrodia/contact.php" class="text-gray-700 hover:text-black transition-colors">
+                    <a href="/boutiqua/contact.php" class="text-gray-700 hover:text-black transition-colors">
                         Contact
                     </a>
-                    <a href="/astrodia/about.php" class="text-gray-700 hover:text-black transition-colors">
+                    <a href="/boutiqua/about.php" class="text-gray-700 hover:text-black transition-colors">
                         À Propos
                     </a>
                 </div>
@@ -107,27 +107,27 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden bg-white border-t border-gray-200 lg:hidden">
                 <nav class="flex flex-col py-4">
-                    <a href="/astrodia/index.php" 
+                    <a href="/boutiqua/index.php" 
                        class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                         <i class="mr-3 text-gray-400 fas fa-home"></i>
                         Accueil
                     </a>
-                    <a href="/astrodia/products.php" 
+                    <a href="/boutiqua/products.php" 
                        class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                         <i class="mr-3 text-gray-400 fas fa-shopping-bag"></i>
                         Produits
                     </a>
-                    <a href="/astrodia/single-product.php" 
+                    <a href="/boutiqua/single-product.php" 
                        class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                         <i class="mr-3 text-gray-400 fas fa-box"></i>
                         Produit Unique
                     </a>
-                    <a href="/astrodia/contact.php" 
+                    <a href="/boutiqua/contact.php" 
                        class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                         <i class="mr-3 text-gray-400 fas fa-envelope"></i>
                         Contact
                     </a>
-                    <a href="/astrodia/about.php" 
+                    <a href="/boutiqua/about.php" 
                        class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                         <i class="mr-3 text-gray-400 fas fa-info-circle"></i>
                         À Propos

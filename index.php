@@ -149,7 +149,7 @@ $products2 = $stmt->fetchAll();
             T-shirt Latest
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Astrodia different from the other
+            Details to details is what makes boutiqua different from the other
             themes.
           </p>
         </div>
@@ -163,9 +163,9 @@ $products2 = $stmt->fetchAll();
         <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
           <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
             <!-- Wishlist Button -->
-            <form method="post" action="/astrodia/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+            <form method="post" action="/boutiqua/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-              <input type="hidden" name="redirect" value="/astrodia/index.php">
+              <input type="hidden" name="redirect" value="/boutiqua/index.php">
               <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
                 <i class="fa fa-heart"></i>
               </button>
@@ -187,7 +187,7 @@ $products2 = $stmt->fetchAll();
               <form method="post" action="actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="redirect" value="/astrodia/index.php">
+                <input type="hidden" name="redirect" value="/boutiqua/index.php">
                 <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
               </form>
           
@@ -206,7 +206,7 @@ $products2 = $stmt->fetchAll();
             Hoodies Latest
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Astrodia different from the other
+            Details to details is what makes boutiqua different from the other
             themes.
           </p>
         </div>
@@ -220,9 +220,9 @@ $products2 = $stmt->fetchAll();
         <div class="bg-white rounded-2xl shadow-lg flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl overflow-hidden">
           <div class="relative w-full aspect-w-1 aspect-h-1 bg-gray-100">
             <!-- Wishlist Button -->
-            <form method="post" action="/astrodia/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+            <form method="post" action="/boutiqua/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
               <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-              <input type="hidden" name="redirect" value="/astrodia/index.php">
+              <input type="hidden" name="redirect" value="/boutiqua/index.php">
               <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
                 <i class="fa fa-heart"></i>
               </button>
@@ -244,7 +244,7 @@ $products2 = $stmt->fetchAll();
               <form method="post" action="actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="redirect" value="/astrodia/index.php">
+                <input type="hidden" name="redirect" value="/boutiqua/index.php">
                 <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
               </form>
           

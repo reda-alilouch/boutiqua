@@ -2,15 +2,15 @@
 /**
  * Contrôleur d'authentification
  *
- * @package Astrodia
+ * @package boutiqua
  * @version 1.0.0
  */
 
-namespace Astrodia\Controllers;
+namespace boutiqua\Controllers;
 
 require_once __DIR__ . '/../Models/User.php';
 
-use Astrodia\Models\User;
+use boutiqua\Models\User;
 
 class AuthController {
     /**

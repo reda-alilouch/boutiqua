@@ -39,6 +39,6 @@ if (!empty($_POST['redirect'])) {
     }
     header('Location: ' . $redirect_url);
 } else {
-    header('Location: /astrodia/pages/products.php?added=1');
+    header('Location: /boutiqua/pages/products.php?added=1');
 }
 exit; 

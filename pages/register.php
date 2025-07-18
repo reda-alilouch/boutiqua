@@ -3,11 +3,11 @@ session_start();
 
 // Inclure le contrôleur d'authentification
 require_once __DIR__ . '/../src/Controllers/AuthController.php';
-use Astrodia\Controllers\AuthController;
+use boutiqua\Controllers\AuthController;
 
 // Rediriger si déjà connecté
 if (isset($_SESSION['user'])) {
-  header('Location: /astrodia/index.php');
+  header('Location: /boutiqua/index.php');
   exit();
 }
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   if ($result['success']) {
     // Redirection après inscription réussie
-    header('Location: /astrodia/index.php');
+    header('Location: /boutiqua/index.php');
     exit();
   } else {
     $errors = $result['errors'];
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="text-sm text-center">
                     <p class="text-gray-600">
                         Déjà inscrit ? 
-                        <a href="/astrodia/pages/login.php" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="/boutiqua/pages/login.php" class="font-medium text-blue-600 hover:text-blue-500">
                             Se connecter
                         </a>
                     </p>

@@ -18,7 +18,7 @@
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div class="relative overflow-hidden rounded-xl">
             <img
-              src="/astrodia/assets/images/about-left-image.jpg"
+              src="/boutiqua/assets/images/about-left-image.jpg"
               alt=""
               class="object-cover w-full h-full"
             />
@@ -82,7 +82,7 @@
             Our Amazing Team
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Astrodia different from the other
+            Details to details is what makes boutiqua different from the other
             themes.
           </p>
         </div>
@@ -92,7 +92,7 @@
           <div class="overflow-hidden bg-white rounded-lg shadow-lg group">
             <div class="relative">
               <img
-                src="/astrodia/assets/images/team-member-01.jpg"
+                src="/boutiqua/assets/images/team-member-01.jpg"
                 class="w-full"
                 alt="Team Member"
               />
@@ -133,7 +133,7 @@
           <div class="overflow-hidden bg-white rounded-lg shadow-lg group">
             <div class="relative">
               <img
-                src="/astrodia/assets/images/team-member-02.jpg"
+                src="/boutiqua/assets/images/team-member-02.jpg"
                 class="w-full"
                 alt="Team Member"
               />
@@ -174,7 +174,7 @@
           <div class="overflow-hidden bg-white rounded-lg shadow-lg group">
             <div class="relative">
               <img
-                src="/astrodia/assets/images/team-member-03.jpg"
+                src="/boutiqua/assets/images/team-member-03.jpg"
                 class="w-full"
                 alt="Team Member"
               />
@@ -223,7 +223,7 @@
             Our Services
           </h2>
           <p class="text-gray-600">
-            Details to details is what makes Astrodia different from the other
+            Details to details is what makes boutiqua different from the other
             themes.
           </p>
         </div>

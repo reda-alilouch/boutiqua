@@ -2,7 +2,7 @@
 /**
  * En-tête principal du site avec navigation et modaux d'authentification
  *
- * @package Astrodia
+ * @package boutiqua
  * @version 1.0.0
  */
 
@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // Gestion de la déconnexion
 if (isset($_GET['logout'])) {
   session_destroy();
-  header('Location: /astrodia/index.php');
+  header('Location: /boutiqua/index.php');
   exit();
 }
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion'])) {
         'role' => $user['role'],
       ];
 
-      header('Location: /astrodia/index.php');
+      header('Location: /boutiqua/index.php');
       exit();
     } else {
       $_SESSION['error'] = 'Email ou mot de passe incorrect';
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscription'])) {
           'role' => $role,
         ];
 
-        header('Location: /astrodia/index.php');
+        header('Location: /boutiqua/index.php');
         exit();
       }
     } catch (Exception $e) {
@@ -177,25 +177,25 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                     </div>
 
                 <!-- Logo -->
-                <a href="/astrodia/index.php" class="flex-shrink-0">
-                    <img src="/astrodia/src/images/logoo.png" 
-                         class="w-auto h-8 md:h-10" alt="Astrodia Logo" />
+                <a href="/boutiqua/index.php" class="flex-shrink-0">
+                    <img src="/boutiqua/src/images/logoo.png" 
+                         class="w-auto h-8 md:h-10" alt="boutiqua Logo" />
                 </a>
                 <!-- Desktop Menu -->
                 <nav class="hidden space-x-8 lg:flex">
-                    <a href="/astrodia/index.php" 
+                    <a href="/boutiqua/index.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Accueil
                     </a>
-                    <a href="/astrodia/pages/products.php" 
+                    <a href="/boutiqua/pages/products.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Produits
                     </a>
-                    <a href="/astrodia/pages/contact.php" 
+                    <a href="/boutiqua/pages/contact.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         Contact
                     </a>
-                    <a href="/astrodia/pages/about.php" 
+                    <a href="/boutiqua/pages/about.php" 
                        class="font-medium text-gray-700 transition-colors hover:text-blue-600">
                         À Propos
                     </a>
@@ -213,9 +213,9 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
   </button>
   
     <?php if ($isLoggedIn && $user): ?>
-      <a href="/astrodia/pages/profile.php" class="flex items-center gap-2 group">
+      <a href="/boutiqua/pages/profile.php" class="flex items-center gap-2 group">
         <?php if (!empty($user['avatar'])): ?>
-          <img src="/astrodia/src/images/<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-primary object-cover" />
+          <img src="/boutiqua/src/images/<?php echo htmlspecialchars($user['avatar']); ?>" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-primary object-cover" />
         <?php else: ?>
           <span class="w-8 h-8 flex items-center justify-center rounded-full bg-black text-white font-bold text-lg">
             <?php
@@ -228,7 +228,7 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
           <?php echo htmlspecialchars($user['prenom']); ?>
         </span>
       </a>
-      <a href="/astrodia/actions/logout.php" class="text-gray-500 hover:text-red-500" title="Déconnexion">
+      <a href="/boutiqua/actions/logout.php" class="text-gray-500 hover:text-red-500" title="Déconnexion">
         <i class="fa-solid fa-right-from-bracket"></i>
       </a>
     <?php else: ?>
@@ -240,22 +240,22 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
                 <!-- Mobile Menu -->
                 <div id="mobileMenu" class="hidden bg-white border-t border-gray-200 lg:hidden">
                     <nav class="flex flex-col py-4">
-                        <a href="/astrodia/index.php" 
+                        <a href="/boutiqua/index.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-home"></i>
                             Accueil
                         </a>
-                        <a href="/astrodia/pages/products.php" 
+                        <a href="/boutiqua/pages/products.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-shopping-bag"></i>
                             Produits
                         </a>
-                        <a href="/astrodia/pages/contact.php" 
+                        <a href="/boutiqua/pages/contact.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-envelope"></i>
                             Contact
                         </a>
-                        <a href="/astrodia/pages/about.php" 
+                        <a href="/boutiqua/pages/about.php" 
                            class="px-4 py-3 text-gray-700 transition-colors hover:bg-gray-50 hover:text-blue-600">
                             <i class="mr-3 text-gray-400 fas fa-info-circle"></i>
                             À Propos

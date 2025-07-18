@@ -98,15 +98,15 @@
       >
         <?php foreach ($products as $product): ?>
         <div class="overflow-hidden relative rounded-lg shadow-lg group flex flex-col justify-between product-card <?php echo strtolower(str_replace(' ', '-', $product['category'] ?? 'all')); ?>">
-          <form method="post" action="/astrodia/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
+          <form method="post" action="/boutiqua/actions/add_to_wishlist.php" class="absolute top-3 right-3 z-10" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-            <input type="hidden" name="redirect" value="/astrodia/pages/products.php">
+            <input type="hidden" name="redirect" value="/boutiqua/pages/products.php">
             <button type="submit" class="text-gray-400 hover:text-red-500 text-xl bg-white bg-opacity-80 rounded-full p-2 shadow transition-colors" title="Ajouter à la liste de souhaits">
               <i class="fa fa-heart"></i>
             </button>
           </form>
           <div class="relative aspect-w-1 aspect-h-1">
-            <img src="/astrodia/src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
+            <img src="/boutiqua/src/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="object-cover w-full h-full" />
           </div>
           <div class="flex-1 flex flex-col justify-between p-5">
             <div>
@@ -121,7 +121,7 @@
               <form method="post" action="../actions/add_to_cart.php" class="flex-1 add-to-cart-form" data-auth="<?php echo isset($_SESSION['user']['id']) ? '1' : '0'; ?>">
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="redirect" value="/astrodia/pages/products.php">
+                <input type="hidden" name="redirect" value="/boutiqua/pages/products.php">
                 <button type="submit" class="w-full text-center rounded-lg border border-primary text-primary font-medium transition hover:bg-primary hover:text-white hover:bg-black">Acheter</button>
               </form>
           

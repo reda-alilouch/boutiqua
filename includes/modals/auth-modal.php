@@ -15,7 +15,7 @@ require_once __DIR__ . '/../../config/database.php';
       </button>
     </div>
     <!-- Formulaire Connexion -->
-    <form id="loginForm" class="space-y-4" action="/astrodia/pages/login.php" method="POST">
+    <form id="loginForm" class="space-y-4" action="/boutiqua/pages/login.php" method="POST">
       <div>
         <label for="loginEmail" class="block mb-1 text-sm font-medium text-gray-700">
           <i class="fa-solid fa-envelope"></i> Email
@@ -34,7 +34,7 @@ require_once __DIR__ . '/../../config/database.php';
       </button>
     </form>
     <!-- Formulaire Inscription -->
-    <form id="registerForm" class="space-y-4 hidden" action="/astrodia/pages/register.php" method="POST">
+    <form id="registerForm" class="space-y-4 hidden" action="/boutiqua/pages/register.php" method="POST">
       <div class="grid grid-cols-2 gap-2">
         <div>
           <label for="registerPrenom" class="block mb-1 text-sm font-medium text-gray-700">

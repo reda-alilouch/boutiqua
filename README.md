@@ -1,13 +1,13 @@
 # e-commerce
 
-# Astrodia
+# boutiqua
 
 ## Installation rapide de la base de données
 
 1. Créez la base de données :
 ```sql
-CREATE DATABASE astrodia;
-USE astrodia;
+CREATE DATABASE boutiqua;
+USE boutiqua;
 ```
 2. Créez la table produits :
 ```sql
@@ -29,4 +29,4 @@ INSERT INTO products (title, description, price, image, category) VALUES
 ('Veste Enfant', 'Veste chaude pour enfant, imperméable.', 34.99, 'kid-01.jpg', 'kids');
 ```
 
-4. Vérifiez que le fichier `config/database.php` pointe bien sur la base `astrodia`.
+4. Vérifiez que le fichier `config/database.php` pointe bien sur la base `boutiqua`.

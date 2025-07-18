@@ -11,7 +11,7 @@
     <div class="flex-1 min-w-[200px]">
       <h4 class="font-bold text-base text-[#FF4545] mb-2 uppercase tracking-wide">À propos</h4>
       <p class="text-gray-600 dark:text-gray-300 text-sm">
-      Astrodia est une boutique en ligne moderne dédiée à la mode urbaine et contemporaine. Découvrez nos collections exclusives de t-shirts, hoodies et accessoires pour hommes, femmes et enfants. Profitez d’une expérience d’achat unique, de produits de qualité et d’un service client à l’écoute. Rejoignez la communauté Astrodia et exprimez votre style avec originalité !      </p>
+      boutiqua est une boutique en ligne moderne dédiée à la mode urbaine et contemporaine. Découvrez nos collections exclusives de t-shirts, hoodies et accessoires pour hommes, femmes et enfants. Profitez d’une expérience d’achat unique, de produits de qualité et d’un service client à l’écoute. Rejoignez la communauté boutiqua et exprimez votre style avec originalité !      </p>
     </div>
 
     <!-- Réseaux sociaux -->
@@ -47,7 +47,7 @@
         </li>
         <li class="flex items-center gap-2">
           <i class="bx bxs-message-rounded-dots text-[#FF4545]"></i>
-          <span>astrodia.contact@email.com</span>
+          <span>boutiqua.contact@email.com</span>
         </li>
       </ul>
     </div>
@@ -56,7 +56,7 @@
   <!-- Copyright -->
   <div class="max-w-6xl mx-auto mt-8 text-center text-gray-400 text-xs">
     <span class="block border-t border-gray-200 dark:border-[#232946] pt-4 mt-4">
-      &copy; 2025 Astrodia. Tous droits réservés.
+      &copy; 2025 boutiqua. Tous droits réservés.
     </span>
   </div>
 </footer>

@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
     mobileMenuLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath || 
-            (currentPath.includes(link.getAttribute('href')) && link.getAttribute('href') !== '/astrodia')) {
+            (currentPath.includes(link.getAttribute('href')) && link.getAttribute('href') !== '/boutiqua')) {
             link.classList.add('text-blue-600');
             link.classList.remove('text-gray-700');
         }

@@ -92,7 +92,7 @@ if (isset($_SESSION['user']['id'])) {
             <div class="space-y-3">
               <?php foreach ($order['items'] as $item): ?>
                 <div class="flex items-center space-x-4">
-                  <img src="/astrodia/src/images/<?php echo htmlspecialchars($item['image']); ?>" 
+                  <img src="/boutiqua/src/images/<?php echo htmlspecialchars($item['image']); ?>" 
                        alt="<?php echo htmlspecialchars($item['name']); ?>" 
                        class="w-16 h-16 object-cover rounded">
                   <div class="flex-1">

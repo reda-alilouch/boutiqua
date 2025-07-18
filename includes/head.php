@@ -2,10 +2,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Astrodia - Votre boutique en ligne préférée">
-    <meta name="author" content="Astrodia">
+    <meta name="description" content="boutiqua - Votre boutique en ligne préférée">
+    <meta name="author" content="boutiqua">
     
-    <title>Astrodia - Votre boutique en ligne préférée</title>
+    <title>boutiqua - Votre boutique en ligne préférée</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
