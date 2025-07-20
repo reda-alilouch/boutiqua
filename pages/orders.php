@@ -64,7 +64,7 @@ if (isset($_SESSION['user']['id'])) {
   <?php if (empty($orders)): ?>
     <div class="text-center py-8">
       <p class="text-gray-600 mb-4">Vous n'avez pas encore passé de commande.</p>
-      <a href="products.php" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition duration-200">
+      <a href="products.php" class="border text-black px-2 py-1 rounded-lg hover:text-white hover:bg-black transition duration-200">
         Découvrir nos produits
       </a>
     </div>

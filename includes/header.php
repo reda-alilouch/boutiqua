@@ -178,8 +178,7 @@ $user = $isLoggedIn ? $_SESSION['user'] : null;
 
                 <!-- Logo -->
                 <a href="/boutiqua/index.php" class="flex-shrink-0">
-                    <img src="/boutiqua/src/images/logoo.png" 
-                         class="w-auto h-8 md:h-10" alt="boutiqua Logo" />
+                    <h1 class="font-bold text-2xl">Boutiqua</h1>
                 </a>
                 <!-- Desktop Menu -->
                 <nav class="hidden space-x-8 lg:flex">

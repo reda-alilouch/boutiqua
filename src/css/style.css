@@ -34,7 +34,9 @@ body {
   color: var(--text-color);
   overflow-x: hidden;
 }
-
+img{
+  object-fit: cover;
+}
 /* En-tête */
 header {
   background-color: var(--white);

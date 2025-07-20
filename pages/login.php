@@ -64,11 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             
             <form class="mt-8 space-y-6" action="login.php" method="POST">
-                <div class="rounded-md shadow-sm -space-y-px">
-                    <div>
+                <div class="shadow-sm space-y-4">
+                    <div >
                         <label for="email" class="sr-only">Adresse email</label>
                         <input id="email" name="email" type="email" required 
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                               class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                placeholder="Adresse email" value="<?php echo isset(
                                  $_POST['email'],
                                )
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div>
                         <label for="password" class="sr-only">Mot de passe</label>
                         <input id="password" name="password" type="password" required 
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                               class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                placeholder="Mot de passe">
                     </div>
                 </div>
@@ -86,21 +86,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input id="remember-me" name="remember-me" type="checkbox" 
-                               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                               class="h-4 w-4 text-black focus:ring-black border-gray-300 rounded">
                         <label for="remember-me" class="ml-2 block text-sm text-gray-900">
                             Se souvenir de moi
                         </label>
                     </div>
 
                     <div class="text-sm">
-                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="#" class="font-medium text-black hover:text-gray-900">
                             Mot de passe oublié ?
                         </a>
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="submit" class="group relative w-full flex justify-center px-1 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                         Se connecter
                     </button>
                 </div>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="text-sm text-center">
                 <div class="mt-2 text-center text-sm text-gray-600">
-                    Pas encore de compte ? <a href="/boutiqua/pages/register.php" class="font-medium text-blue-600 hover:text-blue-500">S'inscrire</a>
+                    Pas encore de compte ? <a href="/boutiqua/pages/register.php" class="font-medium text-black hover:text-gray-900">S'inscrire</a>
                 </div>
             </div>
         </div>

@@ -68,37 +68,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php else: ?>
                 <form class="mt-8 space-y-6" action="register.php" method="POST" enctype="multipart/form-data">
-                    <div class="rounded-md shadow-sm -space-y-px">
-                        <div class="grid grid-cols-2 gap-4">
+                    <div class="rounded-md shadow-sm space-y-4">
+                        <div class="grid grid-cols-2 gap-4 ">
                             <div>
                                 <label for="prenom" class="sr-only">Prénom</label>
                                 <input id="prenom" name="prenom" type="text" required 
-                                       class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                       class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tl-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                        placeholder="Prénom" value="<?php echo isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : ''; ?>">
                             </div>
                             <div>
                                 <label for="nom" class="sr-only">Nom</label>
                                 <input id="nom" name="nom" type="text" required 
-                                       class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                       class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-tr-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                        placeholder="Nom" value="<?php echo isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : ''; ?>">
                             </div>
                         </div>
                         <div>
                             <label for="email" class="sr-only">Adresse email</label>
                             <input id="email" name="email" type="email" required 
-                                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                   class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                    placeholder="Adresse email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                         </div>
                         <div>
                             <label for="password" class="sr-only">Mot de passe</label>
                             <input id="password" name="password" type="password" required 
-                                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                   class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                    placeholder="Mot de passe (min. 8 caractères)">
                         </div>
                         <div>
                             <label for="confirm_password" class="sr-only">Confirmer le mot de passe</label>
                             <input id="confirm_password" name="confirm_password" type="password" required 
-                                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" 
+                                   class="appearance-none rounded-md relative block w-full px-1 py-1 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm" 
                                    placeholder="Confirmer le mot de passe">
                         </div>
                         <div class="pt-2">
@@ -108,14 +108,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                           file:mr-4 file:py-2 file:px-4
                                           file:rounded-md file:border-0
                                           file:text-sm file:font-semibold
-                                          file:bg-blue-50 file:text-blue-700
-                                          hover:file:bg-blue-100">
+                                          file:bg-gray-100 file:text-black
+                                          hover:file:bg-gray-200">
                             <p class="mt-1 text-xs text-gray-500">PNG ou JPG (max. 2MB)</p>
                         </div>
                     </div>
 
                     <div>
-                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <button type="submit" class="group relative w-full flex justify-center px-1 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                             S'inscrire
                         </button>
                     </div>
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="text-sm text-center">
                     <p class="text-gray-600">
                         Déjà inscrit ? 
-                        <a href="/boutiqua/pages/login.php" class="font-medium text-blue-600 hover:text-blue-500">
+                        <a href="/boutiqua/pages/login.php" class="font-medium text-black hover:text-gray-900">
                             Se connecter
                         </a>
                     </p>
